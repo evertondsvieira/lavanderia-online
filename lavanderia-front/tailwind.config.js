@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         customRed: '#DA4B30',
         customOrange: '#EE6F57',
+        customGray: '#f9fafc',
       },
     },
   },
