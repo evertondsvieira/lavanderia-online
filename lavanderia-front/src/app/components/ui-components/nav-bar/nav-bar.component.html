@@ -1,9 +1,20 @@
 <div class="bg-customGray flex h-12 pr-8">
   <ul class="flex w-full items-center justify-end gap-3 font-bold text-center">
-    <li><a href="#">A</a></li>
-    <li><a href="#">A</a></li>
-    <li><a href="#">A</a></li>
-    <li><a href="#">A</a></li>
+    <li class="cursor-pointer">
+      <a href="/home">
+        <mat-icon fontIcon="article"></mat-icon>
+      </a>
+    </li>
+    <li class="cursor-pointer">
+      <a href="order">
+        <mat-icon fontIcon="shopping_cart"></mat-icon>
+      </a>
+    </li>
+    <li class="cursor-pointer">
+      <a href="login">
+        <mat-icon fontIcon="exit_to_app"></mat-icon>
+      </a>
+    </li>
   </ul>
   <ng-content></ng-content>
 </div>
