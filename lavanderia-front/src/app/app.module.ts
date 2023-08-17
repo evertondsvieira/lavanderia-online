@@ -17,6 +17,9 @@ import { BoxComponent } from './components/ui-components/box/box.component';
 import { NavBarComponent } from './components/ui-components/nav-bar/nav-bar.component';
 import { SideBarComponent } from './components/ui-components/side-bar/side-bar.component';
 import { MaskComponent } from './components/ui-components/mask/mask.component';
+import { DropdownComponent } from './components/ui-components/dropdown/dropdown.component';
+import { SearchBarComponent } from './components/ui-components/search-bar/search-bar.component';
+import { StatusComponent } from './components/ui-components/status/status.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { MaskComponent } from './components/ui-components/mask/mask.component';
     NavBarComponent,
     SideBarComponent,
     MaskComponent,
+    DropdownComponent,
+    SearchBarComponent,
+    StatusComponent,
   ],
   imports: [
     BrowserModule,
