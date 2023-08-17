@@ -1,0 +1,29 @@
+<div class="flex">
+  <div class="w-full sm:w-6/12 md:w-4/12 px-4">
+    <div class="relative inline-flex align-middle w-full">
+      <button
+        class="text-white font-medium uppercase text-xs px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 bg-customRed"
+        type="button"
+        (click)="toggleDropdown($event)"
+        #btnDropdownRef
+      >
+        Filtro
+      </button>
+    </div>
+  </div>
+</div>
+<div class="z-50 flex flex-col" style="min-width: 12rem" #popoverDropdownRef>
+  <div
+    *ngFor="let item of dropdown"
+    class="bg-white text-base z-50 float-left py-2 list-none text-left shadow-lg border-b-slate-100 border-b2"
+    style="min-width: 12rem; width: 32px;"
+    [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+  >
+    <a
+      href="#"
+      class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
+    >
+      {{ item }}
+    </a>
+  </div>
+</div>
