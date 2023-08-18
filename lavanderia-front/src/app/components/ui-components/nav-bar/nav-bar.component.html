@@ -1,20 +1,83 @@
-<div class="bg-customGray flex h-12 pr-8">
-  <ul class="flex w-full items-center justify-end gap-3 font-bold text-center">
-    <li class="cursor-pointer">
+<ul class="bg-customGray flex h-12 px-8 items-center justify-between">
+  <li
+    class="text-black cursor-pointer"
+    (click)="toggleDrawer()"
+    data-drawer-target="drawer-navigation"
+    data-drawer-show="drawer-navigation"
+    aria-controls="drawer-navigation"
+  >
+    <mat-icon fontIcon="list"></mat-icon>
+  </li>
+  <ul class="flex space-x-3 font-bold text-center">
+    <li class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform">
       <a href="/home">
-        <mat-icon fontIcon="article"></mat-icon>
+        <div class="group-hover:pr-6 flex items-center">
+          <mat-icon fontIcon="article"></mat-icon>
+          <p class="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-0 pl-7 group-hover:delay-0 hover:opacity-0">
+            Home
+          </p>
+        </div>
       </a>
     </li>
-    <li class="cursor-pointer">
+    
+    <li class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform">
       <a href="order">
-        <mat-icon fontIcon="shopping_cart"></mat-icon>
-      </a>
-    </li>
-    <li class="cursor-pointer">
-      <a href="login">
-        <mat-icon fontIcon="exit_to_app"></mat-icon>
+        <div class="group-hover:pr-6 flex items-center">
+          <mat-icon fontIcon="shopping_cart"></mat-icon>
+          <p class="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-0 pl-7">
+            Serviços
+          </p>
+        </div>
       </a>
     </li>
   </ul>
+
   <ng-content></ng-content>
+</ul>
+
+
+<div
+  id="drawer-navigation"
+  #drawerNavigation
+  class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white"
+  aria-labelledby="drawer-navigation-label"
+>
+  <h5
+    id="drawer-navigation-label"
+    class="text-base font-semibold text-gray-900"
+  >
+    Menu
+  </h5>
+  <button
+    type="button"
+    data-drawer-hide="drawer-navigation"
+    aria-controls="drawer-navigation"
+    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+    (click)="closeDrawer()"
+  >
+    <mat-icon>close</mat-icon>
+    <span class="sr-only">Close menu</span>
+  </button>
+  <div class="py-4 overflow-y-auto">
+    <ul class="space-y-6 font-medium">
+      <li class="flex items-center">
+        <mat-icon>person</mat-icon>
+        <span class="ml-3 whitespace-nowrap">Bem vindo Everton</span>
+      </li>
+      <li class="flex items-center">
+        <mat-icon>language</mat-icon>
+        <span class="ml-3 whitespace-nowrap cursor-pointer">Idioma</span>
+      </li>
+      <li class="flex items-center">
+        <mat-icon>brightness_6</mat-icon>
+        <span class="ml-3 whitespace-nowrap cursor-pointer">Tema</span>
+      </li>
+      <li class="flex items-center">
+        <a href="/login" class="flex items-center">
+          <mat-icon>exit_to_app</mat-icon>
+          <span class="ml-3 whitespace-nowrap cursor-pointer">Sair</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
