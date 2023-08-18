@@ -1,1 +1,79 @@
-<p>register works!</p>
+<div class="relative h-screen">
+    <img class="absolute inset-0 w-full h-full object-cover object-center" src="assets/background.jpg" alt="Imagem de Fundo">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <form class="w-480 h-588 bg-white rounded-lg bg-opacity-88 flex flex-col items-center justify-center p-8">
+        <h1 class="mb-4 flex items-center w-40 h-405 flex-shrink-0 text-red-500 justify-center font-inter font-bold font-size-32 text-32">Cadastro</h1>
+        <app-input
+            class="m-1"
+            size="default"
+            icon="search"
+            type="text"
+            placeholder="nome"
+        ></app-input>
+        <app-input
+            class="m-1"
+            size="default"
+            icon="email"
+            type="password"
+            placeholder="email"
+        ></app-input>
+        <div class="flex p-4">
+            <app-input
+                class="m-1"
+                size="sm"
+                icon="search"
+                type="password"
+                placeholder="CPF"
+            ></app-input>
+            <app-input
+                class="m-1"
+                size="sm"
+                icon="phone"
+                type="password"
+                placeholder="telefone"
+            ></app-input>
+        </div>
+        <div class="flex p-4">
+            <app-input
+                class="m-1"
+                size="sm"
+                icon="search"
+                type="adress"
+                placeholder="CEP"
+            ></app-input>
+            <app-input
+                size="sm"
+                icon="email"
+                type="password"
+                placeholder="UF"
+            ></app-input>
+        </div>
+        <div class="flex p-4">
+            <app-input
+                size="sm"
+                icon="email"
+                type="password"
+                placeholder="Cidade"
+            ></app-input>
+            <app-input
+                size="sm"
+                icon="email"
+                type="password"
+                placeholder="Bairro"
+            ></app-input>
+        </div>
+        <app-input
+            size="default"
+            icon="email"
+            type="password"
+            placeholder="Rua"
+        ></app-input>
+        
+        <div class="flex p-8">
+        <app-button class="p-8" [success]="true">Criar conta</app-button>
+        <app-button class="p-8" [success]="false">Voltar</app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
