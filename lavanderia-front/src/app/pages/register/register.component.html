@@ -1,79 +1,88 @@
-<div class="relative h-screen">
-    <img class="absolute inset-0 w-full h-full object-cover object-center" src="assets/background.jpg" alt="Imagem de Fundo">
-    <div class="absolute inset-0 flex items-center justify-center">
-      <form class="w-480 h-588 bg-white rounded-lg bg-opacity-88 flex flex-col items-center justify-center p-8">
-        <h1 class="mb-4 flex items-center w-40 h-405 flex-shrink-0 text-red-500 justify-center font-inter font-bold font-size-32 text-32">Cadastro</h1>
+<div class="relative h-full w-full">
+  <img
+    class="absolute inset-0 w-full h-auto bg-cover object-center"
+    src="assets/background.jpg"
+    alt="Imagem de Fundo"
+  />
+
+  <div class="absolute inset-0 flex items-center justify-center opacity-90">
+    <form
+      class="w-[480px] h-[584px] bg-white rounded-lg flex flex-col items-center justify-center"
+    >
+      <h1 class="w-40 mb-4 flex items-center text-red-500 font-bold text-4xl">
+        Cadastro
+      </h1>
+
+      <div class="flex flex-col gap-2 w-auto">
         <app-input
-            class="m-1"
-            size="default"
+          size="default"
+          icon="search"
+          type="text"
+          placeholder="nome"
+        ></app-input>
+        <app-input
+          size="default"
+          icon="email"
+          type="email"
+          placeholder="email"
+        ></app-input>
+        <div class="flex justify-between gap-8">
+          <app-input
+            size="sm"
             icon="search"
+            type="number"
+            placeholder="CPF"
+          ></app-input>
+          <app-input
+            size="sm"
+            icon="phone"
+            type="tel"
+            placeholder="telefone"
+          ></app-input>
+        </div>
+        <div class="flex justify-between gap-8">
+          <app-input
+            size="sm"
+            icon="search"
+            type="number"
+            placeholder="CEP"
+          ></app-input>
+          <app-input
+            size="sm"
+            icon="email"
             type="text"
-            placeholder="nome"
-        ></app-input>
-        <app-input
-            class="m-1"
-            size="default"
+            placeholder="UF"
+          ></app-input>
+        </div>
+        <div class="flex justify-between gap-8">
+          <app-input
+            size="sm"
+            icon="email"
+            type="text"
+            placeholder="Cidade"
+          ></app-input>
+          <app-input
+            size="sm"
             icon="email"
             type="password"
-            placeholder="email"
-        ></app-input>
-        <div class="flex p-4">
-            <app-input
-                class="m-1"
-                size="sm"
-                icon="search"
-                type="password"
-                placeholder="CPF"
-            ></app-input>
-            <app-input
-                class="m-1"
-                size="sm"
-                icon="phone"
-                type="password"
-                placeholder="telefone"
-            ></app-input>
-        </div>
-        <div class="flex p-4">
-            <app-input
-                class="m-1"
-                size="sm"
-                icon="search"
-                type="adress"
-                placeholder="CEP"
-            ></app-input>
-            <app-input
-                size="sm"
-                icon="email"
-                type="password"
-                placeholder="UF"
-            ></app-input>
-        </div>
-        <div class="flex p-4">
-            <app-input
-                size="sm"
-                icon="email"
-                type="password"
-                placeholder="Cidade"
-            ></app-input>
-            <app-input
-                size="sm"
-                icon="email"
-                type="password"
-                placeholder="Bairro"
-            ></app-input>
+            placeholder="Bairro"
+          ></app-input>
         </div>
         <app-input
-            size="default"
-            icon="email"
-            type="password"
-            placeholder="Rua"
+          size="default"
+          icon="email"
+          type="password"
+          placeholder="Rua"
         ></app-input>
-        
-        <div class="flex p-8">
-        <app-button class="p-8" [success]="true">Criar conta</app-button>
-        <app-button class="p-8" [success]="false">Voltar</app-button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="flex items-center justify-between w-auto mt-8">
+        <a href="/login">
+            <app-button class="p-8" [success]="true">Criar conta</app-button>
+        </a>
+        <a href="/home">
+            <app-button class="p-8" [success]="false">Voltar</app-button>
+        </a>
+      </div>
+    </form>
   </div>
-  
+</div>
