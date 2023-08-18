@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-interface IItem {
+export interface IItem {
   id: number;
   imageSrc: string;
   title: string;
@@ -38,4 +39,10 @@ export class ItemsComponent {
       description: 'Descrição do Item 4',
     },
   ];
+
+  constructor(private router: Router) {}
+
+  verDetalhes(id: number) {
+    this.router.navigate(['/order', id]);
+  }
 }

@@ -15,11 +15,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemsComponent } from './components/ui-components/items/items.component';
 import { BoxComponent } from './components/ui-components/box/box.component';
 import { NavBarComponent } from './components/ui-components/nav-bar/nav-bar.component';
-import { SideBarComponent } from './components/ui-components/side-bar/side-bar.component';
 import { MaskComponent } from './components/ui-components/mask/mask.component';
 import { DropdownComponent } from './components/ui-components/dropdown/dropdown.component';
 import { SearchBarComponent } from './components/ui-components/search-bar/search-bar.component';
 import { StatusComponent } from './components/ui-components/status/status.component';
+import { DetalhesPedidoComponent } from './pages/detalhes-pedido/detalhes-pedido.component';
+import { CartComponent } from './components/ui-components/cart/cart.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,17 +35,19 @@ import { StatusComponent } from './components/ui-components/status/status.compon
     ItemsComponent,
     BoxComponent,
     NavBarComponent,
-    SideBarComponent,
     MaskComponent,
     DropdownComponent,
     SearchBarComponent,
     StatusComponent,
+    DetalhesPedidoComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
     BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
