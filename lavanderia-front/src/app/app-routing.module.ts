@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { OrderComponent } from './pages/order/order.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MaskComponent } from './components/ui-components/mask/mask.component';
+import { DetalhesPedidoComponent } from './pages/detalhes-pedido/detalhes-pedido.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
     component: MaskComponent,
     children: [
       { path: 'order', component: OrderComponent },
+      { path: 'order/:id', component: DetalhesPedidoComponent },
       { path: 'home', component: HomeComponent },
     ],
   },
