@@ -1,1 +1,26 @@
-<p>login works!</p>
+<app-box class="flex-col rounded">
+    <div
+    class="flex flex-col items-center justify-center gap-2 w-full h-full"
+  >
+    <h1 class="text-xl text-customRed font-bold">Login</h1>
+    <app-input size = "sm" icon="email" type="text" placeholder="Email"></app-input>
+    <app-input size = "sm" icon="key" type="password" placeholder="Senha"></app-input>
+    </div>
+
+    <div class="flex items-center justify-center gap-5 mt-8 w-full">
+    <app-button [success]="true">Entrar</app-button>
+    <app-button [success]="true">Cadastre-se</app-button>
+</div>
+
+<p class="flex items-center justify-center mt-2 w-full h-full">
+    Esqueceu sua senha? <a class="ml-2"  href="localhost:4200/home"> Clique aqui!</a>
+</p>
+
+</app-box>
+
+  <div
+  class="flex flex-col items-center justify-center w-full h-auto"
+>
+  <img src="assets/background.jpg" class="rounded-md w-full" />
+  </div>
+  
