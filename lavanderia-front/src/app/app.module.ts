@@ -22,6 +22,8 @@ import { StatusComponent } from './components/ui-components/status/status.compon
 import { DetalhesPedidoComponent } from './pages/detalhes-pedido/detalhes-pedido.component';
 import { CartComponent } from './components/ui-components/cart/cart.component';
 import { FormsModule } from '@angular/forms';
+import { LanguagePopoverComponent } from './components/ui-components/language-popover/language-popover.component';
+import { ThemePopoverComponent } from './components/ui-components/theme-popover/theme-popover.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { FormsModule } from '@angular/forms';
     StatusComponent,
     DetalhesPedidoComponent,
     CartComponent,
+    LanguagePopoverComponent,
+    ThemePopoverComponent,
   ],
   imports: [
     BrowserModule,
