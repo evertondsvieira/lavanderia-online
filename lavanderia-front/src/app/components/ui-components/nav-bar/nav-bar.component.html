@@ -35,7 +35,6 @@
   <ng-content></ng-content>
 </ul>
 
-
 <div
   id="drawer-navigation"
   #drawerNavigation
@@ -64,13 +63,21 @@
         <mat-icon>person</mat-icon>
         <span class="ml-3 whitespace-nowrap">Bem vindo Everton</span>
       </li>
-      <li class="flex items-center">
+      <li 
+        class="flex items-center cursor-pointer"
+        #btnDropdownRef
+        (click)="togglePopoverTheme()"
+        >
         <mat-icon>language</mat-icon>
-        <span class="ml-3 whitespace-nowrap cursor-pointer">Idioma</span>
+        <span class="ml-3 whitespace-nowrap">Idioma</span>
       </li>
-      <li class="flex items-center">
+      <li 
+        class="flex items-center cursor-pointer"
+        #btnDropdownRef
+        (click)="togglePopoverLanguage()"
+      >
         <mat-icon>brightness_6</mat-icon>
-        <span class="ml-3 whitespace-nowrap cursor-pointer">Tema</span>
+        <span class="ml-3 whitespace-nowrap">Tema</span>
       </li>
       <li class="flex items-center">
         <a href="/login" class="flex items-center">
