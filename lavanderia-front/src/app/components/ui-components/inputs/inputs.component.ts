@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
 })
 export class InputsComponent {
   @Input() icon: string | null = null;
-  @Input() size: 'sm' | 'default' = 'default';
+  @Input() size: 'xs' | 'sm' | 'lg' | 'default' = 'default';
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
 }
