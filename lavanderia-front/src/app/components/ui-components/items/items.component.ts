@@ -22,19 +22,19 @@ export class ItemsComponent {
     },
     {
       id: 2,
-      imageSrc: 'assets/lavagem.png',
+      imageSrc: 'assets/lavagem-a-seco.png',
       title: 'Lavagem a seco',
       description: 'Descrição do Item 2',
     },
     {
       id: 3,
-      imageSrc: 'assets/lavagem.png',
+      imageSrc: 'assets/passar-roupa.png',
       title: 'Passar roupa',
       description: 'Descrição do Item 3',
     },
     {
       id: 4,
-      imageSrc: 'assets/lavagem.png',
+      imageSrc: 'assets/lavagem-tenis.png',
       title: 'Lavagem tênis e calçados',
       description: 'Descrição do Item 4',
     },
