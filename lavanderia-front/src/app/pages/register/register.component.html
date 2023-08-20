@@ -1,30 +1,25 @@
-<div class="relative h-full w-full">
+<div class="relative h-full w-full flex flex-col items-center justify-center">
   <img
-    class="absolute inset-0 w-full h-auto bg-cover object-center"
+    class="bg-cover w-full h-auto"
     src="assets/background.jpg"
     alt="Imagem de Fundo"
   />
 
-  <div class="absolute inset-0 flex items-center justify-center opacity-90">
-    <form
-      class="w-[480px] h-[584px] bg-white rounded-lg flex flex-col items-center justify-center"
-    >
-      <h1 class="w-40 mb-4 flex items-center text-red-500 font-bold text-4xl">
-        Cadastro
-      </h1>
+  <div class="absolute opacity-90 bg-customGray w-[480px] h-[588px] rounded-lg p-8 flex flex-col">
+    <h1 class="text-4xl mt-16 text-mainBlue font-bold mb-4 text-center">Cadastro</h1>
 
-      <div class="flex flex-col gap-2 w-auto">
+      <div class="flex flex-col gap-4">
         <app-input
           size="default"
-          icon="search"
+          icon="person"
           type="text"
-          placeholder="nome"
+          placeholder="Nome"
         ></app-input>
         <app-input
           size="default"
           icon="email"
           type="email"
-          placeholder="email"
+          placeholder="E-mail"
         ></app-input>
         <div class="flex justify-between gap-8">
           <app-input
@@ -37,19 +32,19 @@
             size="sm"
             icon="phone"
             type="tel"
-            placeholder="telefone"
+            placeholder="Telefone"
           ></app-input>
         </div>
         <div class="flex justify-between gap-8">
           <app-input
-            size="sm"
-            icon="search"
+            size="lg"
+            icon="location_on"
             type="number"
             placeholder="CEP"
           ></app-input>
           <app-input
-            size="sm"
-            icon="email"
+            size="xs"
+            icon="location_on"
             type="text"
             placeholder="UF"
           ></app-input>
@@ -57,32 +52,28 @@
         <div class="flex justify-between gap-8">
           <app-input
             size="sm"
-            icon="email"
+            icon="location_on"
             type="text"
             placeholder="Cidade"
           ></app-input>
           <app-input
             size="sm"
-            icon="email"
-            type="password"
+            type="text"
+            icon="location_on"
             placeholder="Bairro"
           ></app-input>
         </div>
         <app-input
           size="default"
-          icon="email"
-          type="password"
+          icon="location_on"
+          type="text"
           placeholder="Rua"
         ></app-input>
+        <div class="flex items-center justify-between gap-5 w-full">
+          <a href="/login"><app-button [success]="true">Criar conta</app-button></a>
+          <a href="/login"><app-button [success]="false">Voltar</app-button></a>
+        </div>
       </div>
-      <div class="flex items-center justify-between w-auto mt-8">
-        <a href="/login">
-            <app-button class="p-8" [success]="true">Criar conta</app-button>
-        </a>
-        <a href="/home">
-            <app-button class="p-8" [success]="false">Voltar</app-button>
-        </a>
-      </div>
-    </form>
+
   </div>
 </div>
