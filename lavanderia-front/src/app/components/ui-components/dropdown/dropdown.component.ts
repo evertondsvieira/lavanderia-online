@@ -33,6 +33,6 @@ export class DropdownComponent implements AfterViewInit {
 
   applyFilter(filter: string) {
     this.selectedFilter = filter;
-    this.dropdownPopoverShow = false; // Fechar o dropdown após selecionar um filtro
+    this.dropdownPopoverShow = false;
   }
 }
