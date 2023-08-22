@@ -20,14 +20,14 @@ export class NavBarComponent {
     drawer.classList.add('-translate-x-full');
   }
 
-  dropdownPopoverThemeShow = false; 
-  dropdownPopoverLanguageShow = false; 
+  isLanguagePopoverVisible = false;
+  isThemePopoverVisible = false;
 
-  togglePopoverTheme() {
-    this.dropdownPopoverThemeShow = !this.dropdownPopoverThemeShow;
+  toggleLanguagePopover() {
+    this.isLanguagePopoverVisible = !this.isLanguagePopoverVisible;
   }
 
-  togglePopoverLanguage() {
-    this.dropdownPopoverLanguageShow = !this.dropdownPopoverLanguageShow;
+  toggleThemePopover() {
+    this.isThemePopoverVisible = !this.isThemePopoverVisible;
   }
 }
