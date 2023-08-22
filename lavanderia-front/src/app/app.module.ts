@@ -24,6 +24,8 @@ import { CartComponent } from './components/ui-components/cart/cart.component';
 import { FormsModule } from '@angular/forms';
 import { LanguagePopoverComponent } from './components/ui-components/language-popover/language-popover.component';
 import { ThemePopoverComponent } from './components/ui-components/theme-popover/theme-popover.component';
+import { PopoverComponent } from './components/ui-components/popover/popover.component';
+import { CartItemsComponent } from './pages/cart-items/cart-items.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { ThemePopoverComponent } from './components/ui-components/theme-popover/
     CartComponent,
     LanguagePopoverComponent,
     ThemePopoverComponent,
+    PopoverComponent,
+    CartItemsComponent,
   ],
   imports: [
     BrowserModule,
