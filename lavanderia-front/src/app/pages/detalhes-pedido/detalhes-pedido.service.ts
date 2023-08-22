@@ -1,4 +1,3 @@
-// detalhes-pedido.service.ts
 import { Injectable } from '@angular/core';
 
 interface IDetalhesPedido {
