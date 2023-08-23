@@ -11,7 +11,9 @@ export class CartComponent {
 
   products: { name: string; price: number; quantity: number }[] = [
     { name: 'Camiseta', price: 1.0, quantity: 0 },
-    
+    { name: 'Camiseta', price: 1.0, quantity: 0 },
+    { name: 'Camiseta', price: 1.0, quantity: 0 },
+    { name: 'Camiseta', price: 1.0, quantity: 0 },
   ];
 
   calculateTotalValue(): number {
@@ -33,19 +35,19 @@ export class CartComponent {
     }
   }
 
-  constructor(private dialog: MatDialog) {}
+  isConfirmationModalOpen: boolean = false;
 
   openConfirmationModal(): void {
-    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      width: '300px'
-    });
+    this.isConfirmationModalOpen = true;
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        console.log('Compra finalizada');
-      } else {
-        console.log('Compra cancelada');
-      }
-    });
+  onCancelClick(): void {
+    this.isConfirmationModalOpen = false;
+    console.log('Compra cancelada');
+  }
+
+  onConfirmClick(): void {
+    this.isConfirmationModalOpen = false;
+    console.log('Compra finalizada');
   }
 }
