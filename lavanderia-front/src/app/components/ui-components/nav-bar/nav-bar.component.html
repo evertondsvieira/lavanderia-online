@@ -12,23 +12,8 @@
     <li
       class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform"
     >
-      <a href="/home">
-        <div class="group-hover:pr-6 flex items-center">
-          <mat-icon fontIcon="article"></mat-icon>
-          <p
-            class="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-0 pl-7 group-hover:delay-0 hover:opacity-0"
-          >
-            Home
-          </p>
-        </div>
-      </a>
-    </li>
-
-    <li
-      class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform"
-    >
       <a href="order">
-        <div class="group-hover:pr-6 flex items-center">
+        <div class="group-hover:pr-12 flex items-center">
           <mat-icon fontIcon="local_laundry_service"></mat-icon>
           <p
             class="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-0 pl-7"
@@ -40,19 +25,34 @@
     </li>
 
     <li
-    class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform"
-  >
-    <a href="cart">
-      <div class="group-hover:pr-6 flex items-center">
-        <mat-icon fontIcon="shopping_cart"></mat-icon>
-        <p
-          class="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-0 pl-7"
-        >
-          Carrinho
-        </p>
-      </div>
-    </a>
-  </li>
+      class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform"
+    >
+      <a href="/home">
+        <div class="group-hover:pr-10 flex items-center">
+          <mat-icon fontIcon="article"></mat-icon>
+          <p
+            class="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-0 pl-7 group-hover:delay-0 hover:opacity-0"
+          >
+            Pedidos
+          </p>
+        </div>
+      </a>
+    </li>
+
+    <li
+      class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform"
+    >
+      <a href="cart">
+        <div class="group-hover:pr-6 flex items-center">
+          <mat-icon fontIcon="shopping_cart"></mat-icon>
+          <p
+            class="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-0 pl-7"
+          >
+            Carrinho
+          </p>
+        </div>
+      </a>
+    </li>
   </ul>
 
   <ng-content></ng-content>
@@ -99,7 +99,7 @@
           <app-language-popover></app-language-popover>
         </div>
       </li>
-      <li 
+      <li
         class="flex items-center cursor-pointer"
         (click)="toggleThemePopover()"
       >
@@ -110,7 +110,7 @@
           class="absolute z-50 top-36 left-20 bg-white border border-gray-300 rounded p-4 shadow-lg"
         >
           <app-theme-popover></app-theme-popover>
-      </div>
+        </div>
       </li>
       <li class="flex items-center">
         <a href="/login" class="flex items-center">

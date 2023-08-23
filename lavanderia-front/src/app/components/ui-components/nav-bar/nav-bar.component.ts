@@ -30,4 +30,6 @@ export class NavBarComponent {
   toggleThemePopover() {
     this.isThemePopoverVisible = !this.isThemePopoverVisible;
   }
+
+  quantidadeItensNoCarrinho: number = 0;
 }
