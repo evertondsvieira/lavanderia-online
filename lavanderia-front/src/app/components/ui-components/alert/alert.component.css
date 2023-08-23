@@ -1,0 +1,12 @@
+.alert-box {
+  transition-property: transform;
+  transition-duration: 0.5s;
+}
+
+.alert-box.translate-x-0 {
+  transform: translateX(0);
+}
+
+.alert-box.translate-x-full {
+  transform: translateX(100%);
+}
