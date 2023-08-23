@@ -26,6 +26,10 @@ import { LanguagePopoverComponent } from './components/ui-components/language-po
 import { ThemePopoverComponent } from './components/ui-components/theme-popover/theme-popover.component';
 import { PopoverComponent } from './components/ui-components/popover/popover.component';
 import { CartItemsComponent } from './pages/cart-items/cart-items.component';
+import { ProductComponent } from './components/ui-components/product/product.component';
+import { AlertComponent } from './components/ui-components/alert/alert.component';
+import { ConfirmationModalComponent } from './components/ui-components/confirmation-modal/confirmation-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -49,13 +53,17 @@ import { CartItemsComponent } from './pages/cart-items/cart-items.component';
     ThemePopoverComponent,
     PopoverComponent,
     CartItemsComponent,
+    ProductComponent,
+    AlertComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],
