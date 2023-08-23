@@ -1,4 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cart',
@@ -29,5 +31,21 @@ export class CartComponent {
       this.products[index].quantity--;
       this.calculateTotalValue();
     }
-  }  
+  }
+
+  constructor(private dialog: MatDialog) {}
+
+  openConfirmationModal(): void {
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '300px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        console.log('Compra finalizada');
+      } else {
+        console.log('Compra cancelada');
+      }
+    });
+  }
 }

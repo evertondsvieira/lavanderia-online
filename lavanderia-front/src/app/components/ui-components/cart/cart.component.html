@@ -103,5 +103,5 @@
     </p>
     <p class="font-medium text-white">Prazo de entrega: 17/08/2023 8:00</p>
   </div>
-  <app-button [success]="false">Finalizar compra</app-button>
-</div>
+  <app-button [success]="false" (click)="openConfirmationModal()">Finalizar compra</app-button>
+</div>  
