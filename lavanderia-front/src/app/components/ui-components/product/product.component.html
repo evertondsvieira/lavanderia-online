@@ -1,0 +1,27 @@
+<div class="flex gap-4 flex-wrap">
+  <div
+    *ngFor="let product of products"
+    class="border-light-blue-500 gap-2 flex flex-col w-56 h-auto p-4 justify-center rounded-md border-2 border-solid"
+  >
+    <p class="text-center font-medium">{{ product.title }}</p>
+    <img [src]="product.imagemSrc" alt="" />
+    <p class="text-justify">{{ product.description }}</p>
+
+    <span class="font-medium flex gap-2">
+      Valor unitário:
+      <p class="font-normal">{{ product.value }}</p>
+    </span>
+
+    <div class="flex items-center justify-center">
+      <app-button
+        class="app-button"
+        [success]="true"
+        (buttonClick)="adicionarAoCarrinho(product)"
+      >
+        Adicionar ao carrinho
+      </app-button>
+    </div>
+  </div>
+</div>
+
+<app-alert *ngIf="showAlert"></app-alert>
