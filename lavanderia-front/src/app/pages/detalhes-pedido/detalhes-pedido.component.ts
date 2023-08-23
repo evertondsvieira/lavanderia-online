@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DetalhesPedidoService } from './detalhes-pedido.service'; // Importe o serviço
+import { DetalhesPedidoService } from './detalhes-pedido.service'; 
 
 @Component({
   selector: 'app-detalhes-pedido',

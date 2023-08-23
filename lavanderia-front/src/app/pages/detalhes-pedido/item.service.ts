@@ -1,4 +1,3 @@
-// item.service.ts
 import { Injectable } from '@angular/core';
 
 interface IItem {
