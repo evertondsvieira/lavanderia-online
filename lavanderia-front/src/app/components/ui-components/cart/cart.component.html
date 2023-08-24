@@ -11,7 +11,7 @@
         <th scope="col" class="px-6 py-3">Quantidade</th>
         <th scope="col" class="px-6 py-3">Preço</th>
         <th scope="col" class="px-6 py-3">Descrição</th>
-        <th scope="col" class="px-2 py-3">Ações</th>
+        <th scope="col" class="px-2 py-3">Remover</th>
       </tr>
     </thead>
     <tbody>
@@ -91,7 +91,7 @@
         <td class="dark:text-gray px-6 py-4 font-semibold text-gray-900 w-96">
           Lorem ipsum dolor sit amet consectetur, adipisicin
         </td>
-        <td class="dark:text-gray px-6 py-4 font-semibold text-gray-900 w-10">
+        <td class="dark:text-gray px-6 py-4 font-semibold text-gray-900 w-10" (click)="openConfirmationModal()">
           <button class="flex items-center justify-center rounded-full bg-red-600 p-3 text-slate-50">
             <mat-icon fontIcon="delete_outline"></mat-icon>
           </button>
