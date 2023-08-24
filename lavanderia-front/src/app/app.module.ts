@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { HomeComponent } from './pages/home/home.component';
 import { OrderComponent } from './pages/order/order.component';
 import { ButtonsComponent } from './components/ui-components/buttons/buttons.component';
 import { InputsComponent } from './components/ui-components/inputs/inputs.component';
@@ -19,7 +18,6 @@ import { MaskComponent } from './components/ui-components/mask/mask.component';
 import { DropdownComponent } from './components/ui-components/dropdown/dropdown.component';
 import { SearchBarComponent } from './components/ui-components/search-bar/search-bar.component';
 import { StatusComponent } from './components/ui-components/status/status.component';
-import { DetalhesPedidoComponent } from './pages/detalhes-pedido/detalhes-pedido.component';
 import { CartComponent } from './components/ui-components/cart/cart.component';
 import { FormsModule } from '@angular/forms';
 import { LanguagePopoverComponent } from './components/ui-components/language-popover/language-popover.component';
@@ -30,13 +28,15 @@ import { ProductComponent } from './components/ui-components/product/product.com
 import { AlertComponent } from './components/ui-components/alert/alert.component';
 import { ConfirmationModalComponent } from './components/ui-components/confirmation-modal/confirmation-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { OrderDetailsComponent } from './pages/order-details/order-details.component';
+import { LaundryServicesComponent } from './pages/laundry-services/laundry-services.component';
+import { LaundryServicesDetailsComponent } from './pages/laundry-services-details/laundry-services-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
     OrderComponent,
     ButtonsComponent,
     InputsComponent,
@@ -47,7 +47,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     DropdownComponent,
     SearchBarComponent,
     StatusComponent,
-    DetalhesPedidoComponent,
     CartComponent,
     LanguagePopoverComponent,
     ThemePopoverComponent,
@@ -56,6 +55,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ProductComponent,
     AlertComponent,
     ConfirmationModalComponent,
+    OrderDetailsComponent,
+    LaundryServicesComponent,
+    LaundryServicesDetailsComponent,
   ],
   imports: [
     BrowserModule,

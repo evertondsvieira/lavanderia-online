@@ -43,6 +43,6 @@ export class ItemsComponent {
   constructor(private router: Router) {}
 
   verDetalhes(id: number) {
-    this.router.navigate(['/order', id]);
+    this.router.navigate(['/services', id]);
   }
 }

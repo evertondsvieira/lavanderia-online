@@ -13,7 +13,6 @@ export class CartComponent {
     { name: 'Camiseta', price: 1.0, quantity: 0 },
     { name: 'Camiseta', price: 1.0, quantity: 0 },
     { name: 'Camiseta', price: 1.0, quantity: 0 },
-    { name: 'Camiseta', price: 1.0, quantity: 0 },
   ];
 
   calculateTotalValue(): number {
