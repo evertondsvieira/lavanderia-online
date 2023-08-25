@@ -15,7 +15,6 @@ import { ItemsComponent } from './components/ui-components/items/items.component
 import { BoxComponent } from './components/ui-components/box/box.component';
 import { NavBarComponent } from './components/ui-components/nav-bar/nav-bar.component';
 import { MaskComponent } from './components/ui-components/mask/mask.component';
-import { DropdownComponent } from './components/ui-components/dropdown/dropdown.component';
 import { SearchBarComponent } from './components/ui-components/search-bar/search-bar.component';
 import { StatusComponent } from './components/ui-components/status/status.component';
 import { CartComponent } from './components/ui-components/cart/cart.component';
@@ -45,7 +44,6 @@ import { StoreModule } from '@ngrx/store';
     BoxComponent,
     NavBarComponent,
     MaskComponent,
-    DropdownComponent,
     SearchBarComponent,
     StatusComponent,
     CartComponent,
