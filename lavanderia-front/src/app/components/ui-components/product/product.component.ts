@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
+import { CartService } from '../cart/cart.service';
 
 export interface IProduct {
   title: string;
-  description: string;
-  value: string;
+  description?: string;
+  value: number;
   imagemSrc: string;
+  quantity: number
 }
 
 @Component({
@@ -15,25 +17,32 @@ export interface IProduct {
 export class ProductComponent implements OnInit {
   products: IProduct[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+  ) {}
 
   ngOnInit(): void {
     this.products = this.productService.getProducts();
   }
 
   showAlert: boolean = false;
-  alertProduct: IProduct | null = null;
 
   adicionarAoCarrinho(product: IProduct) {
-    this.showAlert = true
+    const cartItem = {
+      title: product.title,
+      value: product.value,
+      imagemSrc: product.imagemSrc,
+      description: product.description,
+      quantity: 1,
+    };
+
+    this.cartService.addToCart(cartItem);
+    this.showAlert = true;
 
     setTimeout(() => {
       this.showAlert = false;
     }, 3000);
-    console.log('Produto adicionado ao carrinho:', product)
-  }
-
-  fecharAlerta() {
-    this.showAlert = false;
+    console.log('Produto adicionado ao carrinho:', product);
   }
 }

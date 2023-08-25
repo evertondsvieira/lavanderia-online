@@ -9,14 +9,16 @@ export class ProductService {
     {
       title: 'Camiseta Masculina',
       description: "Generate Lorem Ipsum placeholder text",
-      value: 'R$ 1.00',
+      value: 1,
+      quantity: 1,
       imagemSrc: 'https://static.netshoes.com.br/produtos/camiseta-ssb-brand-masculina-lisa-basica-100-algodao/16/70P-0003-016/70P-0003-016_zoom1.jpg?ts=1636498346&ims=544x',
     },
     {
-      title: 'Camiseta Masculina',
+      title: 'Calça Jeans',
       description: 'Generate Lorem Ipsum placeholder text',
-      value: 'R$ 0.49',
-      imagemSrc: 'https://static.netshoes.com.br/produtos/camiseta-ssb-brand-masculina-lisa-basica-100-algodao/16/70P-0003-016/70P-0003-016_zoom1.jpg?ts=1636498346&ims=544x',
+      value: 1.3,
+      quantity: 1,
+      imagemSrc: 'https://cdnv2.moovin.com.br/bizzstore/imagens/produtos/det/img_0676.jpg',
     },
   ];
 
