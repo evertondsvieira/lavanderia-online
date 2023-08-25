@@ -1,1 +1,63 @@
-<p>order-details works!</p>
+<app-box>
+    <div class="pb-3">
+      <h1 class="flex font-medium text-mainBlue text-3xl ml-2">Detalhes do pedido</h1>
+    </div>
+    <div class="flex flex-col gap-4 items-center justify-start w-full h-auto">
+      <img src="assets/lavanderia-header.png" class="rounded-md w-full" />
+      <div class="w-full mt-4">       
+      </div>
+    </div>
+    <div class="pb-3">
+        <h1 class="font-medium text-mainBlue text-2xl ml-2">Detalhes</h1>  
+        <div class ="flex font-medium text-mainBlue text-2xm flex-row" >
+            <p class="ml-2">Número do pedido:1</p>
+            <p class = "ml-56">Valor total: 3 reais</p>
+            <p class = "ml-56">Prazo do serviço: 1 hora - 1,5 hora</p>
+            </div>     
+        <p class="text-mainBlue font-medium ml-2">Roupas no pedido:</p>
+        
+        <div class="flex gap-4 flex-wrap">
+            <div
+              
+              class="border-light-blue-500 gap-2 flex flex-col w-40 h-auto p-4 justify-center rounded-md border-2 border-solid ml-2"
+            >
+              <p class="text-center font-medium">Camiseta Masculina</p>
+              <td class="w-32 p-4">
+                <img
+                  src="https://static.netshoes.com.br/produtos/camiseta-ssb-brand-masculina-lisa-basica-100-algodao/16/70P-0003-016/70P-0003-016_zoom1.jpg?ts=1636498346&ims=544x"
+                  alt=""
+                />
+             
+          
+              <span class="font-medium">
+                Valor unitário:
+                <p class="font-normal">1 real</p>
+              </span>
+            </div>
+            <div
+              
+              class="border-light-blue-500 gap-2 flex flex-col w-40 h-auto p-4 justify-center rounded-md border-2 border-solid ml-8"
+            >
+              <p class="text-center font-medium">Calça Masculina</p>
+              <td class="w-32 p-4">
+                <img
+                  src="https://img.directindustry.com/images_di/photo-m2/52975-15927196.jpg"
+                  alt=""
+                />
+             
+              <span class="font-medium">
+                Valor unitário:
+                <p class="font-normal">2 reais</p>
+              </span>
+            </div>
+            <div class ="font-2xl text-mainBlue font-bold flex flex-col">
+                <p>Estado atual: AGUARDANDO PAGAMENTO</p>
+                
+                <a href="/order"><app-button class="flex flex-row" [success] = "true">Realizar Pagamento</app-button></a>         
+            </div>  
+          </div>
+          
+          
+    </div>
+  </app-box>
+  
