@@ -5,5 +5,19 @@ import { Component } from '@angular/core';
   templateUrl: './order-details.component.html',
 })
 export class OrderDetailsComponent {
+  isConfirmationModalOpen: boolean = false;
 
+  openConfirmationModal(): void {
+    this.isConfirmationModalOpen = true;
+  }
+
+  onCancelClick(): void {
+    this.isConfirmationModalOpen = false;
+    console.log('Compra cancelada');
+  }
+
+  onConfirmClick(): void {
+    this.isConfirmationModalOpen = false;
+    console.log('Compra finalizada');
+  }
 }
