@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { LaundryServicesComponent } from './pages/laundry-services/laundry-services.component';
 import { LaundryServicesDetailsComponent } from './pages/laundry-services-details/laundry-services-details.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { LaundryServicesDetailsComponent } from './pages/laundry-services-detail
     MatIconModule,
     BrowserAnimationsModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent],

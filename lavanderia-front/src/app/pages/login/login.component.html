@@ -14,12 +14,12 @@
     </div>
   
     <p class="flex items-center justify-start mt-2 w-full py-4 font-medium">
-      Esqueceu sua senha? <a class="ml-2 font-medium text-mainBlue" href="/login"> Clique aqui!</a>
+      Esqueceu sua senha? <a class="ml-2 font-medium text-mainBlue" routerLink="/login"> Clique aqui!</a>
     </p>
   
     <div class="flex items-center justify-between gap-5 w-full">
-      <a href="/order"><app-button [success]="true">Entrar</app-button></a>
-      <a href="/register"><app-button [success]="false">Cadastre-se</app-button></a>
+      <a routerLink="/order"><app-button [success]="true">Entrar</app-button></a>
+      <a routerLink="/register"><app-button [success]="false">Cadastre-se</app-button></a>
     </div>
   </div>
 </div>

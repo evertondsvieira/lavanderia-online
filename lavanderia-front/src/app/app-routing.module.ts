@@ -17,8 +17,8 @@ const routes: Routes = [
     path: '',
     component: MaskComponent,
     children: [
-      { path: 'services', component: LaundryServicesComponent},
-      { path: 'services/:id', component: LaundryServicesDetailsComponent},
+      { path: 'services', component: LaundryServicesComponent },
+      { path: 'services/:id', component: LaundryServicesDetailsComponent },
       { path: 'order', component: OrderComponent },
       { path: 'order/:id', component: OrderDetailsComponent },
       { path: 'cart', component: CartItemsComponent },
@@ -27,7 +27,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollOffset: [0, 0],
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

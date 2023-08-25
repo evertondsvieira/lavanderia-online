@@ -10,5 +10,6 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #0074B2;
+  overflow-y: scroll;
   overflow-x: hidden;
 }
