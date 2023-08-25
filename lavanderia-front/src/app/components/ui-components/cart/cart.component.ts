@@ -11,8 +11,6 @@ export class CartComponent {
 
   products: { name: string; price: number; quantity: number }[] = [
     { name: 'Camiseta', price: 1.0, quantity: 0 },
-    { name: 'Camiseta', price: 1.0, quantity: 0 },
-    { name: 'Camiseta', price: 1.0, quantity: 0 },
   ];
 
   calculateTotalValue(): number {
