@@ -1,6 +1,6 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Input } from '@angular/core';
+import { CartService } from './cart.service';
+import { IProduct } from '../product/product.component';
 
 @Component({
   selector: 'app-cart',
@@ -9,26 +9,26 @@ import { MatDialog } from '@angular/material/dialog';
 export class CartComponent {
   @Input() detalhesPedido: string | undefined;
 
-  products: { name: string; price: number; quantity: number }[] = [
-    { name: 'Camiseta', price: 1.0, quantity: 0 },
-  ];
+  products: IProduct[] = [];
+
+  constructor(private cartService: CartService) {
+    this.products = this.cartService.getCartItems();
+  }
 
   calculateTotalValue(): number {
     return this.products.reduce(
-      (total, product) => total + product.price * product.quantity,
+      (total, product) => total + product.value * product.quantity,
       0,
     );
   }
 
   increaseQuantity(index: number): void {
     this.products[index].quantity++;
-    this.calculateTotalValue();
   }
-  
+
   decreaseQuantity(index: number): void {
-    if (this.products[index].quantity >= 0) {
+    if (this.products[index].quantity > 0) {
       this.products[index].quantity--;
-      this.calculateTotalValue();
     }
   }
 
@@ -46,5 +46,13 @@ export class CartComponent {
   onConfirmClick(): void {
     this.isConfirmationModalOpen = false;
     console.log('Compra finalizada');
+  }
+
+  removeCartItem(index: number): void {
+    this.cartService.removeCartItem(index);
+  }
+
+  clearCart(): void {
+    this.cartService.clearCart();
   }
 }
