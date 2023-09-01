@@ -8,6 +8,7 @@ import { CartItemsComponent } from './pages/cart-items/cart-items.component';
 import { LaundryServicesComponent } from './pages/laundry-services/laundry-services.component';
 import { LaundryServicesDetailsComponent } from './pages/laundry-services-details/laundry-services-details.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
+import { OrderViewComponent } from './pages/order-view/order-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'services', component: LaundryServicesComponent },
       { path: 'services/:id', component: LaundryServicesDetailsComponent },
       { path: 'order', component: OrderComponent },
+      { path: 'order/view', component: OrderViewComponent},
       { path: 'order/:id', component: OrderDetailsComponent },
       { path: 'cart', component: CartItemsComponent },
     ],
