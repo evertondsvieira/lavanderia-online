@@ -19,14 +19,14 @@
           >
             {{ status.statusBtn }}
           </button>
-          <app-confirmation-modal
-            *ngIf="selectedStatusToChange"
-            (confirm)="confirmStatusChange()"
-            (cancel)="cancelStatusChange()"
-          ></app-confirmation-modal>
         </div>
         <p>{{ status.description }}</p>
       </div>
     </div>
   </app-box>
   
+  <app-confirmation-modal
+    *ngIf="selectedStatusToChange"
+    (confirm)="confirmStatusChange()"
+    (cancel)="cancelStatusChange()"
+  ></app-confirmation-modal>
