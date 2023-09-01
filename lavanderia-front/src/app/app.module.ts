@@ -33,6 +33,7 @@ import { LaundryServicesDetailsComponent } from './pages/laundry-services-detail
 import { OrderViewComponent } from './pages/order-view/order-view.component';
 import { StoreModule } from '@ngrx/store';
 import { DateFilterComponent } from './components/ui-components/date-filter/date-filter.component';
+import { HomeEmployeeComponent} from './pages/home-employee/home-employee.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { DateFilterComponent } from './components/ui-components/date-filter/date
     LaundryServicesDetailsComponent,
     OrderViewComponent,
     DateFilterComponent,
+    HomeEmployeeComponent,
   ],
   imports: [
     BrowserModule,

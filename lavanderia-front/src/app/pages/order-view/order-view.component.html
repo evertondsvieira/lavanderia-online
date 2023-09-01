@@ -18,8 +18,8 @@
       <p>Status - {{ order.status }}</p>
       <button
         *ngIf="order.status === 'EM ABERTO'"
-        (click)="onRecolhimentoConfirmed(order)"
-        class="w-28"
+        (click)="openConfirmationModal(order)"
+        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
       >
         Confirmar Recolhimento
       </button>
@@ -37,6 +37,12 @@
       >
         Finalizar Pedido
       </button>
+
+      <app-confirmation-modal
+        *ngIf="selectedOrderToChangeStatus"
+        (confirm)="confirmStatusChange(selectedOrderToChangeStatus)"
+        (cancel)="cancelStatusChange()"
+      ></app-confirmation-modal>
     </div>
   </div>
 </app-box>

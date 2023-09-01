@@ -52,4 +52,22 @@ export class OrderViewComponent {
   onFinalizacaoConfirmed(order: Order): void {
     // Lógica para finalizar pedido
   }
+
+
+//Lógica do confirmation-modal
+  selectedOrderToChangeStatus: Order | null = null;
+
+  openConfirmationModal(order: Order) {
+    this.selectedOrderToChangeStatus = order;
+  }
+
+  confirmStatusChange(order: Order) {
+    if (order) {
+      this.selectedOrderToChangeStatus = null;
+    }
+  }
+
+  cancelStatusChange() {
+    this.selectedOrderToChangeStatus = null;
+  }
 }
