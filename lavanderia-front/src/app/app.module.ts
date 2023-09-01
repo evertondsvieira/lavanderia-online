@@ -31,6 +31,7 @@ import { OrderDetailsComponent } from './pages/order-details/order-details.compo
 import { LaundryServicesComponent } from './pages/laundry-services/laundry-services.component';
 import { LaundryServicesDetailsComponent } from './pages/laundry-services-details/laundry-services-details.component';
 import { StoreModule } from '@ngrx/store';
+import { HomeEmployeeComponent} from './pages/home-employee/home-employee.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { StoreModule } from '@ngrx/store';
     OrderDetailsComponent,
     LaundryServicesComponent,
     LaundryServicesDetailsComponent,
+    HomeEmployeeComponent,
   ],
   imports: [
     BrowserModule,
