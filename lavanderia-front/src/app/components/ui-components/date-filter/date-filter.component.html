@@ -1,0 +1,51 @@
+<div class="flex items-center justify-center">
+  <button
+    (click)="openModal()"
+    class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+  >
+    Filtro
+  </button>
+</div>
+
+<div id="modal" class="fixed inset-0 flex items-center justify-center z-50">
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <div class="bg-white p-6 rounded shadow-lg relative">
+    <h2 class="text-lg font-semibold mb-4 flex justify-between items-center">
+      Filtrar por data
+      <button *ngIf="showCustomDateRange" (click)="toggleCustom()" class="text-red-600 focus:outline-none">
+        Voltar
+      </button>
+      <button (click)="closeModal()" class="text-red-600 focus:outline-none">
+        Fechar
+      </button>
+    </h2>
+
+    <ng-container *ngIf="showCustomDateRange; else defaultOptions">
+      <div class="mt-4 w-full gap-2 space-y-2">
+        <div class="mt-4 space-y-2 flex flex-col w-80">
+          <label for="startDate">Data de início:</label>
+          <input
+            type="date"
+            id="startDate"
+            class="border rounded py-2 px-3 focus:outline-none focus:ring"
+          />
+          <label for="endDate">Data de fim:</label>
+          <input
+            type="date"
+            id="endDate"
+            class="border rounded py-2 px-3 focus:outline-none focus:ring"
+          />
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #defaultOptions>
+      <div class="flex flex-col w-80 space-y-2">
+        <button class="border rounded py-2 px-4">Todos</button>
+        <button class="border rounded py-2 px-4">Hoje</button>
+        <button (click)="toggleCustom()" class="border rounded py-2 px-4">
+          Customizado
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>
