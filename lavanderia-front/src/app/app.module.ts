@@ -30,7 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { LaundryServicesComponent } from './pages/laundry-services/laundry-services.component';
 import { LaundryServicesDetailsComponent } from './pages/laundry-services-details/laundry-services-details.component';
+import { OrderViewComponent } from './pages/order-view/order-view.component';
 import { StoreModule } from '@ngrx/store';
+import { DateFilterComponent } from './components/ui-components/date-filter/date-filter.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { StoreModule } from '@ngrx/store';
     OrderDetailsComponent,
     LaundryServicesComponent,
     LaundryServicesDetailsComponent,
+    OrderViewComponent,
+    DateFilterComponent,
   ],
   imports: [
     BrowserModule,
