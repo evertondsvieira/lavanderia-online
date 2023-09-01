@@ -12,12 +12,14 @@
   <div class="bg-white p-6 rounded shadow-lg relative">
     <h2 class="text-lg font-semibold mb-4 flex justify-between items-center">
       Filtrar por data
-      <button *ngIf="showCustomDateRange" (click)="toggleCustom()" class="text-red-600 focus:outline-none">
-        Voltar
-      </button>
-      <button (click)="closeModal()" class="text-red-600 focus:outline-none">
-        Fechar
-      </button>
+      <div class="flex items-end gap-2">
+        <button *ngIf="showCustomDateRange" (click)="toggleCustom()" class="text-black focus:outline-none">
+          Voltar
+        </button>
+        <button (click)="closeModal()" class="text-red-600 focus:outline-none">
+          Fechar
+        </button>
+      </div>
     </h2>
 
     <ng-container *ngIf="showCustomDateRange; else defaultOptions">
