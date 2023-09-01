@@ -1,12 +1,17 @@
 <app-box>
-  <app-date-filter></app-date-filter>
+  <div class="flex items-center justify-between w-full pb-3">
+    <h1 class="text-xl text-mainBlue font-bold">Visualização de pedidos</h1>
+    <app-date-filter></app-date-filter>
+  </div>
+  <img src="assets/order-view.jpg" class="rounded-md w-full pb-4" />
+
   <div
     *ngFor="let order of orders"
     [ngClass]="getColor(order.status)"
     [style.background-color]="getColor(order.status)"
-    class="flex w-full h-18 border-light-blue-500 border-2 border-solid rounded-lg mb-4"
+    class="flex w-full h-18 rounded-lg mb-4"
   >
-    <div class="flex flex-col w-full m-2 gap-2">
+    <div class="flex flex-col w-full m-2 p-2 gap-2">
       <div class="flex gap-1">
         <p>Pedido #{{ order.id }} -</p>
         <span>Data: {{ order.date | date }}</span>
@@ -14,35 +19,34 @@
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
     </div>
 
-    <div class="flex flex-col items-center w-auto">
-      <p>Status - {{ order.status }}</p>
+    <div class="flex flex-col items-center mr-2 pt-2 w-[120px]">
+      <p class="text-center font-medium">{{ order.status }}</p>
       <button
         *ngIf="order.status === 'EM ABERTO'"
         (click)="openConfirmationModal(order)"
-        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
+        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
       >
         Confirmar Recolhimento
       </button>
       <button
         *ngIf="order.status === 'RECOLHIDO'"
-        (click)="onLavagemConfirmed(order)"
-        class="w-28"
+        (click)="openConfirmationModal(order)"
+        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
       >
         Confirmar Lavagem
       </button>
       <button
         *ngIf="order.status === 'PAGO'"
-        (click)="onFinalizacaoConfirmed(order)"
-        class="w-auto"
+        (click)="openConfirmationModal(order)"
+        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
       >
         Finalizar Pedido
       </button>
-
-      <app-confirmation-modal
-        *ngIf="selectedOrderToChangeStatus"
-        (confirm)="confirmStatusChange(selectedOrderToChangeStatus)"
-        (cancel)="cancelStatusChange()"
-      ></app-confirmation-modal>
     </div>
   </div>
 </app-box>
+<app-confirmation-modal
+  *ngIf="selectedOrderToChangeStatus"
+  (confirm)="confirmStatusChange(selectedOrderToChangeStatus)"
+  (cancel)="cancelStatusChange()"
+></app-confirmation-modal>

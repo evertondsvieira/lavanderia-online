@@ -18,7 +18,7 @@ export class OrderViewComponent {
     { id: 4, status: 'AGUARDANDO PAGAMENTO', date: new Date('2023-08-05') },
     { id: 5, status: 'PAGO', date: new Date('2023-08-10') },
     { id: 6, status: 'FINALIZADO', date: new Date('2023-08-15') },
-    // ... adicione mais pedidos aqui
+    // ... 
   ];
 
   getColor(status: string): string {
@@ -42,19 +42,14 @@ export class OrderViewComponent {
   }
 
   onRecolhimentoConfirmed(order: Order): void {
-    // Lógica para confirmar recolhimento
   }
 
   onLavagemConfirmed(order: Order): void {
-    // Lógica para confirmar lavagem
   }
 
   onFinalizacaoConfirmed(order: Order): void {
-    // Lógica para finalizar pedido
   }
 
-
-//Lógica do confirmation-modal
   selectedOrderToChangeStatus: Order | null = null;
 
   openConfirmationModal(order: Order) {
