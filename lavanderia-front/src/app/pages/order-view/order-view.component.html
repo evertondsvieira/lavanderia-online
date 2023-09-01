@@ -1,0 +1,42 @@
+<app-box>
+  <app-date-filter></app-date-filter>
+  <div
+    *ngFor="let order of orders"
+    [ngClass]="getColor(order.status)"
+    [style.background-color]="getColor(order.status)"
+    class="flex w-full h-18 border-light-blue-500 border-2 border-solid rounded-lg mb-4"
+  >
+    <div class="flex flex-col w-full m-2 gap-2">
+      <div class="flex gap-1">
+        <p>Pedido #{{ order.id }} -</p>
+        <span>Data: {{ order.date | date }}</span>
+      </div>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+
+    <div class="flex flex-col items-center w-auto">
+      <p>Status - {{ order.status }}</p>
+      <button
+        *ngIf="order.status === 'EM ABERTO'"
+        (click)="onRecolhimentoConfirmed(order)"
+        class="w-28"
+      >
+        Confirmar Recolhimento
+      </button>
+      <button
+        *ngIf="order.status === 'RECOLHIDO'"
+        (click)="onLavagemConfirmed(order)"
+        class="w-28"
+      >
+        Confirmar Lavagem
+      </button>
+      <button
+        *ngIf="order.status === 'PAGO'"
+        (click)="onFinalizacaoConfirmed(order)"
+        class="w-auto"
+      >
+        Finalizar Pedido
+      </button>
+    </div>
+  </div>
+</app-box>
