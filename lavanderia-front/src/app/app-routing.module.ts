@@ -10,6 +10,7 @@ import { LaundryServicesDetailsComponent } from './pages/laundry-services-detail
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { OrderViewComponent } from './pages/order-view/order-view.component';
 import { HomeEmployeeComponent } from './pages/home-employee/home-employee.component';
+import { EmployeeCrudComponent } from './pages/employee-crud/employee-crud.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,7 +26,8 @@ const routes: Routes = [
       { path: 'order/view', component: OrderViewComponent},
       { path: 'order/:id', component: OrderDetailsComponent },
       { path: 'cart', component: CartItemsComponent },
-      { path: 'home/employee', component: HomeEmployeeComponent}
+      { path: 'home/employee', component: HomeEmployeeComponent},
+      { path: 'employee/crud', component: EmployeeCrudComponent},
     ],
   },
 ];
