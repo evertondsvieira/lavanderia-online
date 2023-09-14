@@ -58,6 +58,12 @@ export class OrderViewComponent {
 
   confirmStatusChange(order: Order) {
     if (order) {
+      if (order.status === 'EM ABERTO'){
+        order.status = 'RECOLHIDO';
+      }
+      else if (order.status === 'RECOLHIDO'){
+        order.status = 'AGUARDANDO PAGAMENTO';
+      }
       this.selectedOrderToChangeStatus = null;
     }
   }
