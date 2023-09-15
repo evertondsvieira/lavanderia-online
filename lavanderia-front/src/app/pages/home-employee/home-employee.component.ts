@@ -71,13 +71,22 @@ export class HomeEmployeeComponent {
 
   confirmStatusChange() {
     if (this.selectedStatusToChange) {
-    this.selectedStatusToChange = null;
+      // Encontre o índice do objeto na lista de pedidos
+      const index = this.pedidos.indexOf(this.selectedStatusToChange);
+  
+      if (index !== -1) {
+        // Remova o objeto da lista
+        this.pedidos.splice(index, 1);
+      }
+  
+      // Redefina a variável selectedStatusToChange
+      this.selectedStatusToChange = null;
+    }
   }
-}
+  
 
   cancelStatusChange() {
 
     this.selectedStatusToChange = null;
   }
 }
-
