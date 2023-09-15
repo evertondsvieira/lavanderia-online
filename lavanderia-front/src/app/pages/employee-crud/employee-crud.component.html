@@ -21,10 +21,16 @@
                 <p>Preço: {{ item.price }}</p>
                 <p>Prazo: {{ item.deliveryTime }}</p>
                 <div class="flex flex-col gap-2">
-                  <button class="bg-blue-600 text-white rounded p-2">
+                  <button
+                    class="bg-blue-600 text-white rounded p-2"
+                    (click)="editItem(item)"
+                    >
                     Editar
                   </button>
-                  <button class="bg-red-600 text-white rounded p-2">
+                  <button
+                    class="bg-red-600 text-white rounded p-2"
+                    (click)="removeItem(item)"
+                  >
                     Remover
                   </button>
                 </div>
@@ -32,6 +38,13 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div
+        *ngIf="listaVazia"
+        class="flex items-center justify-center w-full pt-40 font-medium text-xl"
+      >
+        A lista está vazia
       </div>
     </div>
 
@@ -42,11 +55,23 @@
 
       <div class="flex flex-col gap-2 p-4 bg-white rounded">
         <p class="font-medium">Nome da peça de roupa:</p>
-        <app-input size="default" type="text"></app-input>
+        <input
+          class="border rounded h-10 w-80 pl-2 focus:outline-none"
+          type="text"
+          [(ngModel)]="novoItem.name"
+        />
         <p class="font-medium">Preço individual:</p>
-        <app-input size="default" type="text"></app-input>
+        <input
+          class="border rounded h-10 w-80 pl-2 focus:outline-none"
+          type="text"
+          [(ngModel)]="novoItem.price"
+        />
         <p class="font-medium">Prazo de lavagem:</p>
-        <app-input size="default" type="text"></app-input>
+        <input
+          class="border rounded h-10 w-80 pl-2 focus:outline-none"
+          type="text"
+          [(ngModel)]="novoItem.deliveryTime"
+        />
 
         <div class="flex items-center justify-center p-4 rounded bg-slate-200">
           <p class="font-medium text-center">Adicione ou arreste uma imagem</p>
@@ -54,10 +79,13 @@
         </div>
 
         <div class="flex justify-between gap-2">
-          <button class="bg-red-600 w-full text-white rounded p-2">
+          <button class="bg-red-600 w-full text-white rounded p-2" (click)="cleanForm()">
             Cancelar
           </button>
-          <button class="bg-green-600 w-full text-white rounded p-2">
+          <button
+            class="bg-green-600 w-full text-white rounded p-2"
+            (click)="updateItem()"
+            >
             Salvar
           </button>
         </div>
