@@ -25,25 +25,6 @@ export class EmployeeCrudComponent {
 
   itemEmEdicao: ClothingItem | null = null;
 
-  adicionarNovoItem() {
-    if (
-      this.novoItem.name &&
-      this.novoItem.price &&
-      this.novoItem.deliveryTime
-    ) {
-      console.log('Novo item enviado:', this.novoItem);
-      this.clothingItems.push(this.novoItem);
-
-      this.novoItem = {
-        name: '',
-        price: '',
-        deliveryTime: '',
-      };
-      console.log(this.novoItem);
-      this.listaVazia = this.clothingItems.length === 0;
-    }
-  }
-
   editItem(item: ClothingItem) {
     this.itemEmEdicao = { ...item };
     this.novoItem = { ...item };
@@ -68,14 +49,13 @@ export class EmployeeCrudComponent {
       this.novoItem.price &&
       this.novoItem.deliveryTime
     ) {
-
       this.clothingItems.push({ ...this.novoItem });
       this.novoItem = {
         name: '',
         imageUrl: '',
         price: '',
         deliveryTime: '',
-      }; 
+      };
     }
   }
 
@@ -84,12 +64,11 @@ export class EmployeeCrudComponent {
     if (index !== -1) {
       this.clothingItems.splice(index, 1);
     }
-
     this.listaVazia = this.clothingItems.length === 0;
   }
 
   cleanForm() {
-    this.itemEmEdicao = null; 
+    this.itemEmEdicao = null;
     this.novoItem = {
       name: '',
       imageUrl: '',
