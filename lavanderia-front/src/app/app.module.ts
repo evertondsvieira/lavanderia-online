@@ -35,6 +35,7 @@ import { StoreModule } from '@ngrx/store';
 import { DateFilterComponent } from './components/ui-components/date-filter/date-filter.component';
 import { HomeEmployeeComponent} from './pages/home-employee/home-employee.component';
 import { EmployeeCrudComponent } from './pages/employee-crud/employee-crud.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { EmployeeCrudComponent } from './pages/employee-crud/employee-crud.compo
     DateFilterComponent,
     HomeEmployeeComponent,
     EmployeeCrudComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
