@@ -16,12 +16,13 @@ interface IStatusOrder {
 export class HomeEmployeeComponent {
   selectedStatus: string = 'all';
   statusOptions: string[] = ['Aberto', 'Cancelado', 'Rejeitado'];
+  listaVazia: boolean = false
 
   pedidos: IStatusOrder[] = [
     {
       id: 1,
       title: 'Pedido 1 - Joaquina',
-      date:new Date(),
+      date: new Date(),
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
       statusBtn: 'Confirmar recolhimento',
@@ -29,7 +30,7 @@ export class HomeEmployeeComponent {
     {
       id: 2,
       title: 'Pedido 2 - Joana',
-      date:new Date('2023-09-12'),
+      date: new Date(),
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
       statusBtn: 'Confirmar recolhimento',
@@ -37,7 +38,7 @@ export class HomeEmployeeComponent {
     {
       id: 3,
       title: 'Pedido 3 - José',
-      date:new Date('2023-09-7'),
+      date: new Date(),
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
       statusBtn: 'Confirmar recolhimento',
@@ -60,9 +61,6 @@ export class HomeEmployeeComponent {
     this.router.navigate(['/order', id]);
   }
 
-
-  //Lógica para inserir o confirmation-modal ao botão
-
   selectedStatusToChange: IStatusOrder | null = null;
 
   openConfirmationModal(status: IStatusOrder) {
@@ -74,14 +72,13 @@ export class HomeEmployeeComponent {
       const index = this.pedidos.indexOf(this.selectedStatusToChange);
       if (index !== -1) {       
         this.pedidos.splice(index, 1);
+        this.listaVazia = this.pedidos.length === 0
       }
       this.selectedStatusToChange = null;
     }
   }
   
-
   cancelStatusChange() {
-
     this.selectedStatusToChange = null;
   }
 }
