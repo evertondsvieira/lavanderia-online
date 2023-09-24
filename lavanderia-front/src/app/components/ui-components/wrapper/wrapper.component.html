@@ -1,0 +1,9 @@
+<div
+  class="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer mb-2"
+  (click)="toggleContent()"
+>
+  {{ isHidden ? name : "Ocultar informações do " + name }}
+</div>
+<div class="content mt-4" [class.hidden]="isHidden">
+  <ng-content></ng-content>
+</div>
