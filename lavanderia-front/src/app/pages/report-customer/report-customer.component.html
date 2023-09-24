@@ -1,1 +1,66 @@
-<p>report-customer works!</p>
+<app-box>
+  <div class="w-full">
+    <h2>Lista de clientes</h2>
+
+    <ng-container *ngFor="let report of reports">
+      <app-wrapper [name]="report.name">
+        <div #pdfContent class="p-2">
+          <div class="table-container overflow-x-auto">
+          <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">Nome</th>
+              <th scope="col" class="px-6 py-3">E-mail</th>
+              <th scope="col" class="px-6 py-3">CPF</th>
+              <th scope="col" class="px-6 py-3">Telefone</th>
+              <th scope="col" class="px-2 py-3">Cep</th>
+              <th scope="col" class="px-2 py-3">UF</th>
+              <th scope="col" class="px-2 py-3">Cidade</th>
+              <th scope="col" class="px-2 py-3">Bairro</th>
+              <th scope="col" class="px-2 py-3">Rua</th>
+            </tr>
+            <tbody>
+              <tr class="border-b bg-white">
+                <td class="w-32 p-4">{{ report.name }}</td>
+                <td class="w-32 p-4">{{ report.email }}</td>
+                <td class="w-32 p-4">{{ report.cpf }}</td>
+                <td class="w-32 p-4">{{ report.phone }}</td>
+                <td class="w-32 p-4">{{ report.cep }}</td>
+                <td class="w-4 p-4">{{ report.uf }}</td>
+                <td class="w-32 p-4">{{ report.city }}</td>
+                <td class="w-32 p-4">{{ report.neighborhood }}</td>
+                <td class="w-32 p-4">{{ report.street }}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">Número do pedido</th>
+              <th scope="col" class="px-6 py-3">Data do pedido</th>
+              <th scope="col" class="px-6 py-3">Data de entrega</th>
+              <th scope="col" class="px-6 py-3">Status do pedido</th>
+              <th scope="col" class="px-6 py-3">Valor</th>
+            </tr>
+            <tbody>
+              <tr class="border-b bg-white" *ngFor="let order of report.order">
+                <td class="w-32 p-4">{{ order.id }}</td>
+                <td class="w-32 p-4">{{ order.date }}</td>
+                <td class="w-32 p-4">{{ order.deliveryDate }}</td>
+                <td class="w-32 p-4">{{ order.status }}</td>
+                <td class="w-32 p-4">R$ {{ order.value }},00</td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+      <div class="flex flex-col w-full items-end mb-2">
+        <app-button *ngIf="!pdfConvertido" [success]="false" (click)="convertToPDF(report)">Converter para PDF</app-button>
+        <a *ngIf="pdfConvertido && selectedReport" [href]="pdfDataUri" download="{{ selectedReport.name }}.pdf">
+          <app-button [success]="true">Baixar PDF</app-button>
+        </a>        
+      </div>           
+      </app-wrapper>
+    </ng-container>
+  </div>
+</app-box>
