@@ -40,6 +40,7 @@ import { ReportCustomerComponent } from './pages/report-customer/report-customer
 import { ReportLoyalCustomerComponent } from './pages/report-loyal-customer/report-loyal-customer.component';
 import { ReportIncomeComponent } from './pages/report-income/report-income.component';
 import { WrapperComponent } from './components/ui-components/wrapper/wrapper.component';
+import { ReportCustomerDetailsComponent } from './pages/report-customer-details/report-customer-details.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { WrapperComponent } from './components/ui-components/wrapper/wrapper.com
     ReportLoyalCustomerComponent,
     ReportIncomeComponent,
     WrapperComponent,
+    ReportCustomerDetailsComponent,
   ],
   imports: [
     BrowserModule,

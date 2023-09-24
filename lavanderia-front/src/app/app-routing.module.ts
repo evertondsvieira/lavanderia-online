@@ -14,6 +14,7 @@ import { EmployeeCrudComponent } from './pages/employee-crud/employee-crud.compo
 import { ReportCustomerComponent } from './pages/report-customer/report-customer.component';
 import { ReportLoyalCustomerComponent } from './pages/report-loyal-customer/report-loyal-customer.component';
 import { ReportIncomeComponent } from './pages/report-income/report-income.component';
+import { ReportCustomerDetailsComponent } from './pages/report-customer-details/report-customer-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -32,7 +33,8 @@ const routes: Routes = [
       { path: 'home/employee', component: HomeEmployeeComponent},
       { path: 'employee/crud', component: EmployeeCrudComponent},
       { path: 'report/income', component: ReportIncomeComponent },
-      { path: 'report/costumer', component: ReportCustomerComponent },
+      { path: 'report/customer', component: ReportCustomerComponent },
+      { path: 'report/customer/:id', component: ReportCustomerDetailsComponent },
       { path: 'report/loyalcostumer', component: ReportLoyalCustomerComponent },
     ],
   },
