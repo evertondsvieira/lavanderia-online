@@ -1,1 +1,52 @@
-<p>report-income works!</p>
+<app-box>
+    
+    <div class="flex items-center justify-between w-full pb-3">
+    <h1 class="text-xl text-mainBlue font-bold">Relatório de Receita</h1>
+    <app-date-filter></app-date-filter>
+  </div>
+    <div class="w-full">
+  
+      <div class="p-2">
+        <div class="table-container overflow-x-auto">
+          <table
+            class="w-full text-center text-sm text-gray-500 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Data Início</th>
+              <th scope="col" class="px-6 py-3">Data Fim</th>
+              <th scope="col" class="px-6 py-3">Ganho Total</th>
+              <th scope="col" class="px-6 py-3">Valor Total</th>
+            </tr>
+            <tbody>
+              <ng-container *ngFor="let report of report">
+                <tr class="border-b bg-white">
+                  <td class="w-32 p-4">{{ report.dateS | date }}</td>
+                  <td class="w-32 p-4">{{ report.dateE | date }}</td>
+                  <td class="w-32 p-4">{{ report.income }}</td>
+                  <td class="w-32 p-4">{{ report.total}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="flex flex-col w-full items-end mb-2">
+        <ng-container *ngIf="!pdfConvertido; else pdfLink">
+          <app-button [success]="false" (click)="convertToPDF()">
+            Converter para PDF</app-button>
+        </ng-container>
+        <ng-template #pdfLink>
+          <a
+            *ngIf="pdfConvertido"
+            [href]="pdfDataUri"
+            download="Relatorio.pdf"
+          >
+       
+            <app-button [success]="true">Baixar PDF</app-button>
+          </a>
+          
+        </ng-template>
+      </div>
+    </div>
+  </app-box>
+  
