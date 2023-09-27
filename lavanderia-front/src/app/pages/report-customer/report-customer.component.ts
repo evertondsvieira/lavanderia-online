@@ -1,5 +1,5 @@
-import * as html2pdf from 'html2pdf.js';
-import { Component, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 export interface IReport {
   id: number,
@@ -19,13 +19,7 @@ export interface IReport {
   selector: 'app-report-customer',
   templateUrl: './report-customer.component.html',
 })
-export class ReportCustomerComponent {
-  @ViewChild('pdfContent')
-  pdfContent!: ElementRef;
-  pdfDataUri: string | null = null;
-  pdfConvertido = false;
-  selectedReport: IReport | null = null;
-
+export class ReportCustomerComponent { 
   reports: IReport[] = [
     {
       id: 1,
@@ -75,25 +69,10 @@ export class ReportCustomerComponent {
     },
   ];
 
-  convertToPDF(report: IReport) {
-    this.selectedReport = report;
-    this.pdfConvertido = true;
-    const content = this.pdfContent.nativeElement;
-    const options = {
-      margin: 10,
-      filename: `${report.name}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { orientation: 'landscape' },
-    };
+  constructor(private router: Router) {}
   
-    html2pdf()
-      .from(content)
-      .set(options)
-      .outputPdf()
-      .then((pdf: string) => {
-        this.pdfDataUri = 'data:application/pdf;base64,' + btoa(pdf);
-      })
-      .catch((error: unknown) => console.error(error));
-  }  
+  showDetails(report: any) {
+    const customerId = report.id;
+    this.router.navigate(['/report/customer/', customerId]);
+  }
 }
