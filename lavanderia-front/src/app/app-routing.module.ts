@@ -37,7 +37,7 @@ const routes: Routes = [
       { path: 'report/income', component: ReportIncomeComponent },
       { path: 'report/customer', component: ReportCustomerComponent },
       { path: 'report/customer/:id', component: ReportCustomerDetailsComponent },
-      { path: 'report/loyalcostumer', component: ReportLoyalCustomerComponent },
+      { path: 'report/loyalcustomer', component: ReportLoyalCustomerComponent },
     ],
   },
 ];
