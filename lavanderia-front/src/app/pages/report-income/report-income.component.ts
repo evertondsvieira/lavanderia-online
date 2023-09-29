@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as html2pdf from 'html2pdf.js';
 
@@ -14,22 +14,15 @@ export interface IReport {
   selector: 'app-report-income',
   templateUrl: './report-income.component.html',
 })
-export class ReportIncomeComponent { 
+export class ReportIncomeComponent implements OnInit { 
   
   @ViewChild('pdfContent') pdfContent!: ElementRef;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
 
   selectedReport: IReport | null = null;
-  report: IReport[] = [
-    {
-      dateS: new Date('2023-08-27'),
-      dateE: new Date(),
-      income: '3000 R$',
-      total: '5000 R$'
-    },
-    
-  ];
+  
+   
 
   constructor(private router: Router) {}
   formatDate(date: Date): string {
@@ -41,7 +34,22 @@ export class ReportIncomeComponent {
     return date.toLocaleDateString('en-US', options);
   }
 
-  convertToPDF() {
+  ngOnInit(): void  {
+    this.convertSelectedReportToPDF() ;
+     
+}
+
+  report: IReport[] = [
+    {
+      dateS: new Date('2023-08-27'),
+      dateE: new Date(),
+      income: '3000 R$',
+      total: '5000 R$'
+    }
+    ];
+
+  convertToPDF(report:IReport) {
+    this.selectedReport = report;
     this.pdfConvertido = true;
     const content = this.pdfContent.nativeElement;
     const options = {
@@ -53,7 +61,6 @@ export class ReportIncomeComponent {
     };
     
     
-    const reportToGenerate = this.report[0];
 console.log('Before PDF conversion:', content);
          
     html2pdf()
@@ -67,5 +74,14 @@ console.log('Before PDF conversion:', content);
         console.error('Error during PDF generation:', error);
       });
   }
+
+  convertSelectedReportToPDF() {
+    if (this.selectedReport) {
+      this.convertToPDF(this.selectedReport);
+    } else {
+      console.error('Selected report is null.');
+    }
+  }
+  
 }  
 

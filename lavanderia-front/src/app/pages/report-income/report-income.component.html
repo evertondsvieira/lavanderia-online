@@ -18,10 +18,10 @@
               <th scope="col" class="px-6 py-3">Valor Total</th>
             </tr>
             <tbody>
-              <ng-container *ngFor="let report of report">
+              <ng-container *ngFor="let report of reports">
                 <tr class="border-b bg-white">
-                  <td class="w-32 p-4">{{ report.dateS | date }}</td>
-                  <td class="w-32 p-4">{{ report.dateE | date }}</td>
+                  <td class="w-32 p-4">{{ report.dateS }}</td>
+                  <td class="w-32 p-4">{{ report.dateE }}</td>
                   <td class="w-32 p-4">{{ report.income }}</td>
                   <td class="w-32 p-4">{{ report.total}}</td>
                 </tr>
@@ -32,7 +32,7 @@
       </div>
       <div class="flex flex-col w-full items-end mb-2">
         <ng-container *ngIf="!pdfConvertido; else pdfLink">
-          <app-button [success]="false" (click)="convertToPDF()">
+          <app-button [success]="false" (click)="convertToPDF(selectedReport)">
             Converter para PDF</app-button>
         </ng-container>
         <ng-template #pdfLink>
@@ -43,8 +43,7 @@
           >
        
             <app-button [success]="true">Baixar PDF</app-button>
-          </a>
-          
+          </a>         
         </ng-template>
       </div>
     </div>
