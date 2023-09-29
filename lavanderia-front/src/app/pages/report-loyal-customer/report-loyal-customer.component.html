@@ -1,1 +1,46 @@
-<p>report-loyal-customer works!</p>
+<app-box>
+  <div class="w-full">
+    <h2 class="font-medium">Lista de clientes fiéis</h2>
+
+    <div class="p-2">
+      <div class="table-container overflow-x-auto">
+        <table
+          class="w-full text-center text-sm text-gray-500 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Id</th>
+            <th scope="col" class="px-6 py-3">Nome</th>
+            <th scope="col" class="px-6 py-3">CPF</th>
+          </tr>
+          <tbody>
+            <ng-container *ngFor="let report of reports">
+              <tr class="border-b bg-white">
+                <td class="w-32 p-4">{{ report.id }}</td>
+                <td class="w-32 p-4">{{ report.name }}</td>
+                <td class="w-32 p-4">{{ report.cpf }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+    <div class="flex flex-col w-full items-end mb-2">
+      <ng-container *ngIf="!pdfConvertido; else pdfLink">
+        <app-button [success]="false" (click)="convertToPDF(selectedReport)"
+          >Converter para PDF</app-button
+        >
+      </ng-container>
+      <ng-template #pdfLink>
+        <a
+          *ngIf="pdfConvertido && selectedReport"
+          [href]="pdfDataUri"
+          download="{{ selectedReport.name }}.pdf"
+        >
+          <app-button [success]="true">Baixar PDF</app-button>
+        </a>
+      </ng-template>
+    </div>
+  </div>
+</app-box>

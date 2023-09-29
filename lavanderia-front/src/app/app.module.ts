@@ -41,6 +41,7 @@ import { ReportLoyalCustomerComponent } from './pages/report-loyal-customer/repo
 import { ReportIncomeComponent } from './pages/report-income/report-income.component';
 import { WrapperComponent } from './components/ui-components/wrapper/wrapper.component';
 import { ReportCustomerDetailsComponent } from './pages/report-customer-details/report-customer-details.component';
+import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/employee-maintenance.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ReportCustomerDetailsComponent } from './pages/report-customer-details/
     ReportIncomeComponent,
     WrapperComponent,
     ReportCustomerDetailsComponent,
+    EmployeeMaintenanceComponent,
   ],
   imports: [
     BrowserModule,

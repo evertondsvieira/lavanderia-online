@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 export interface IReport {
-  id: number,
+  id: number;
   name: string;
   email: string;
   cpf: string;
@@ -12,14 +12,20 @@ export interface IReport {
   city: string;
   neighborhood: string;
   street: string;
-  order: { id: number, date: string, deliveryDate: string, value: number, status: string }[]
+  order: {
+    id: number;
+    date: string;
+    deliveryDate: string;
+    value: number;
+    status: string;
+  }[];
 }
 
 @Component({
   selector: 'app-report-customer',
   templateUrl: './report-customer.component.html',
 })
-export class ReportCustomerComponent { 
+export class ReportCustomerComponent {
   reports: IReport[] = [
     {
       id: 1,
@@ -33,10 +39,35 @@ export class ReportCustomerComponent {
       neighborhood: 'Centro',
       street: 'Avenida Paulista',
       order: [
-        { id: 1, date: "24/09/2023", deliveryDate: "24/09/2023", value: 30, status: "Finalizado" },
-        { id: 2, date: "24/09/2023", deliveryDate: "24/09/2023", value: 30, status: "Finalizado" },
-        { id: 3, date: "24/09/2023", deliveryDate: "24/09/2023", value: 30, status: "Finalizado" },
-      ]
+        {
+          id: 1,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 30,
+          status: 'Finalizado',
+        },
+        {
+          id: 2,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 30,
+          status: 'Finalizado',
+        },
+        {
+          id: 3,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 30,
+          status: 'Finalizado',
+        },
+        {
+          id: 4,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 30,
+          status: 'Finalizado',
+        },
+      ],
     },
     {
       id: 2,
@@ -50,9 +81,28 @@ export class ReportCustomerComponent {
       neighborhood: 'Copacabana',
       street: 'Rua Nossa Senhora de Copacabana',
       order: [
-        { id: 1, date: "24/09/2023", deliveryDate: "24/09/2023", value: 30, status: "Finalizado" },
-        { id: 2, date: "24/09/2023", deliveryDate: "24/09/2023", value: 30, status: "Finalizado" },
-      ]
+        {
+          id: 1,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 30,
+          status: 'Finalizado',
+        },
+        {
+          id: 2,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 30,
+          status: 'Finalizado',
+        },
+        {
+          id: 3,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 30,
+          status: 'Finalizado',
+        },
+      ],
     },
     {
       id: 3,
@@ -65,12 +115,69 @@ export class ReportCustomerComponent {
       city: 'Belo Horizonte',
       neighborhood: 'Savassi',
       street: 'Avenida Getúlio Vargas',
-      order: [{ id: 3, date: "24/09/2023", deliveryDate: "24/09/2023", value: 100, status: "Finalizado" }]
+      order: [
+        {
+          id: 1,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 100,
+          status: 'Finalizado',
+        },
+        {
+          id: 2,
+          date: '24/09/2023',
+          deliveryDate: '24/09/2023',
+          value: 100,
+          status: 'Finalizado',
+        },
+      ],
+    },
+    {
+      id: 4,
+      name: 'Pedro Silva',
+      email: 'pedro@example.com',
+      cpf: '555.666.777-88',
+      phone: 987654321,
+      cep: 12345678,
+      uf: 'SP',
+      city: 'São Paulo',
+      neighborhood: 'Vila Madalena',
+      street: 'Rua Augusta',
+      order: [
+        {
+          id: 1,
+          date: '25/09/2023',
+          deliveryDate: '25/09/2023',
+          value: 75,
+          status: 'Pendente',
+        },
+      ],
+    },
+    {
+      id: 5,
+      name: 'Ana Santos',
+      email: 'ana@example.com',
+      cpf: '777.888.999-11',
+      phone: 999999999,
+      cep: 54321098,
+      uf: 'PE',
+      city: 'Recife',
+      neighborhood: 'Boa Viagem',
+      street: 'Rua da Aurora',
+      order: [
+        {
+          id: 1,
+          date: '27/09/2023',
+          deliveryDate: '27/09/2023',
+          value: 120,
+          status: 'Entregue',
+        },
+      ],
     },
   ];
 
   constructor(private router: Router) {}
-  
+
   showDetails(report: any) {
     const customerId = report.id;
     this.router.navigate(['/report/customer/', customerId]);

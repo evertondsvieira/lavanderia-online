@@ -1,0 +1,103 @@
+<app-box>
+  <div class="p-2 flex flex-col md:flex-row justify-between w-full gap-4">
+    <div class="w-full md:w-1/2 lg:w-3/4">
+      <h2 class="text-xl font-medium text-center mb-2">
+        Lista de Funcionários
+      </h2>
+      <div class="table-container overflow-x-auto w-full">
+        <table
+          class="w-full text-center text-sm text-gray-500 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">E-mail</th>
+            <th scope="col" class="px-6 py-3">Nome</th>
+            <th scope="col" class="px-6 py-3">Data de nascimento</th>
+            <th scope="col" class="px-6 py-3">Ação</th>
+          </tr>
+          <tbody>
+            <ng-container *ngFor="let employee of employees">
+              <tr class="border-b bg-white">
+                <td class="w-80 p-4">{{ employee.name }}</td>
+                <td class="w-80 p-4">{{ employee.email }}</td>
+                <td class="w-80 p-4">{{ employee.birthDate }}</td>
+                <td class="w-96 p-4">
+                  <div class="flex gap-2 items-center justify-center">
+                    <button
+                      class="bg-blue-600 text-white rounded p-2"
+                      (click)="editItem(employee)"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      class="bg-red-600 text-white rounded p-2"
+                      (click)="removeItem(employee)"
+                    >
+                      Remover
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <div
+          *ngIf="listaVazia"
+          class="flex items-center justify-center w-full pt-40 font-medium text-xl"
+        >
+          A lista está vazia
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full md:w-1/2 lg:w-1/4">
+      <h2 class="text-xl font-medium text-center mb-2">
+        Painel de Adição/Edição
+      </h2>
+
+      <div class="flex flex-col gap-2 p-4 bg-white rounded">
+        <p class="font-medium">Nome:</p>
+        <input
+          class="border rounded h-10 w-80 pl-2 focus:outline-none"
+          type="text"
+          [(ngModel)]="employee.email"
+        />
+
+        <p class="font-medium">E-mail:</p>
+        <input
+          class="border rounded h-10 w-80 pl-2 focus:outline-none"
+          type="text"
+          [(ngModel)]="employee.name"
+        />
+
+        <p class="font-medium">Data de nascimento:</p>
+        <input
+          class="border rounded h-10 w-80 pl-2 focus:outline-none"
+          type="date"
+          [(ngModel)]="employee.birthDate"
+        />
+
+        <p class="font-medium">Senha:</p>
+        <input
+          class="border rounded h-10 w-80 pl-2 focus:outline-none"
+          type="password"
+          [(ngModel)]="employee.password"
+        />
+
+        <div class="flex justify-between gap-2">
+          <button
+            class="bg-red-600 w-full text-white rounded p-2"
+            (click)="cleanForm()"
+          >
+            Cancelar
+          </button>
+          <button
+            class="bg-green-600 w-full text-white rounded p-2"
+            (click)="updateItem()"
+          >
+            Salvar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-box>
