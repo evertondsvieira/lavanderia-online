@@ -1,7 +1,5 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import * as html2pdf from 'html2pdf.js';
-
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 export interface IReport {
   dateS: Date,
@@ -15,12 +13,10 @@ export interface IReport {
   templateUrl: './report-income.component.html',
 })
 export class ReportIncomeComponent { 
-  
   @ViewChild('pdfContent') pdfContent!: ElementRef;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
 
-  selectedReport: IReport | null = null;
   report: IReport[] = [
     {
       dateS: new Date('2023-08-27'),
@@ -28,18 +24,17 @@ export class ReportIncomeComponent {
       income: '3000 R$',
       total: '5000 R$'
     },
-    
   ];
 
-  constructor(private router: Router) {}
-  formatDate(date: Date): string {
-    const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    };
-    return date.toLocaleDateString('en-US', options);
-  }
+  // constructor(private router: Router) {}
+  // formatDate(date: Date): string {
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     year: 'numeric',
+  //     month: '2-digit',
+  //     day: '2-digit',
+  //   };
+  //   return date.toLocaleDateString('en-US', options);
+  // }
 
   convertToPDF() {
     this.pdfConvertido = true;
@@ -51,10 +46,6 @@ export class ReportIncomeComponent {
       html2canvas: { scale: 2 },
       jsPDF: { orientation: 'landscape' },
     };
-    
-    
-    const reportToGenerate = this.report[0];
-console.log('Before PDF conversion:', content);
          
     html2pdf()
       .from(content)
