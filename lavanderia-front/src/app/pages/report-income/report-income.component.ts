@@ -2,7 +2,7 @@ import * as html2pdf from 'html2pdf.js';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
 export interface IReport {
-  dateS: Date,
+  dateS: Date;
   dateE: Date;
   income: string;
   total: string;
@@ -12,17 +12,17 @@ export interface IReport {
   selector: 'app-report-income',
   templateUrl: './report-income.component.html',
 })
-export class ReportIncomeComponent { 
+export class ReportIncomeComponent {
   @ViewChild('pdfContent') pdfContent!: ElementRef;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
 
-  report: IReport[] = [
+  reports: IReport[] = [
     {
       dateS: new Date('2023-08-27'),
       dateE: new Date(),
       income: '3000 R$',
-      total: '5000 R$'
+      total: '5000 R$',
     },
   ];
 
@@ -46,17 +46,18 @@ export class ReportIncomeComponent {
       html2canvas: { scale: 2 },
       jsPDF: { orientation: 'landscape' },
     };
-         
+
     html2pdf()
       .from(content)
       .set(options)
-      .outputPdf()
+      .output()
       .then((pdf: string) => {
         this.pdfDataUri = 'data:application/pdf;base64,' + btoa(pdf);
+        console.log('PDF generated successfully');
       })
       .catch((error: unknown) => {
-        console.error('Error during PDF generation:', error);
+        console.error(error);
+        console.log('PDF generation failed');
       });
   }
-}  
-
+}

@@ -10,7 +10,6 @@ export class ReportLoyalCustomerComponent {
   @ViewChild('pdfContent') pdfContent!: ElementRef;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
-  selectedReport!: IReport;
 
   reports: IReport[] = [
     {
@@ -120,13 +119,12 @@ export class ReportLoyalCustomerComponent {
     },
   ];
 
-  convertToPDF(report: IReport) {
-    this.selectedReport = report;
+  convertToPDF() {
     this.pdfConvertido = true;
     const content = this.pdfContent.nativeElement;
     const options = {
       margin: 10,
-      filename: `${report.name}.pdf`,
+      filename: `Relatorio.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { orientation: 'landscape' },
@@ -135,13 +133,14 @@ export class ReportLoyalCustomerComponent {
     html2pdf()
       .from(content)
       .set(options)
+      .output()
       .then((pdf: string) => {
         this.pdfDataUri = 'data:application/pdf;base64,' + btoa(pdf);
-        console.log('PDF generated successfully'); // Add this line for debugging
+        console.log('PDF generated successfully');
       })
       .catch((error: unknown) => {
         console.error(error);
-        console.log('PDF generation failed'); // Add this line for debugging
+        console.log('PDF generation failed');
       });
   }
 }
