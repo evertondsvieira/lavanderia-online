@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'order/view', component: OrderViewComponent},
       { path: 'order/:id', component: OrderDetailsComponent },
       { path: 'cart', component: CartItemsComponent },
-      { path: 'home/employee', component: HomeEmployeeComponent},
+      { path: 'employee/home', component: HomeEmployeeComponent},
       { path: 'employee/crud', component: EmployeeCrudComponent},
       { path: 'employee/maintenance', component: EmployeeMaintenanceComponent},
       { path: 'report/income', component: ReportIncomeComponent },
