@@ -17,10 +17,10 @@
           <tbody>
             <ng-container *ngFor="let employee of employees">
               <tr class="border-b bg-white">
-                <td class="w-80 p-4">{{ employee.name }}</td>
-                <td class="w-80 p-4">{{ employee.email }}</td>
-                <td class="w-80 p-4">{{ employee.birthDate }}</td>
-                <td class="w-96 p-4">
+                <td class="w-72 p-4">{{ employee.email }}</td>
+                <td class="w-72 p-4">{{ employee.name }}</td>
+                <td class="w-72 p-4">{{ employee.birthDate }}</td>
+                <td class="w-80 p-4">
                   <div class="flex gap-2 items-center justify-center">
                     <button
                       class="bg-blue-600 text-white rounded p-2"
@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="w-full md:w-1/2 lg:w-1/4">
+    <div class="w-full md:w-1/2 lg:w-96">
       <h2 class="text-xl font-medium text-center mb-2">
         Painel de Adição/Edição
       </h2>
