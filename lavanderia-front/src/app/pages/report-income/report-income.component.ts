@@ -21,8 +21,8 @@ export class ReportIncomeComponent {
     {
       dateS: new Date('2023-08-27'),
       dateE: new Date(),
-      income: '3000 R$',
-      total: '5000 R$',
+      income: 'R$ 3000',
+      total: 'R$ 5000',
     },
   ];
 
