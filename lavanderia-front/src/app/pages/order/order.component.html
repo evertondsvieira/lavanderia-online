@@ -33,7 +33,7 @@
           {{ status.statusBtn }}
         </button>
       </div>
-      <span>Data: {{ status.date | date }}</span>
+      <span>Data e Hora: {{ status.date | date:'HH:mm dd/MM/yyyy '  }}</span>
       <p>{{ status.description }}</p>
   </div>
 </div>

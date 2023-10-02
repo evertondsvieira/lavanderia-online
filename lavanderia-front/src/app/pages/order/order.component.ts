@@ -23,7 +23,7 @@ export class OrderComponent {
       title: 'Pedido 3',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-       date: new Date(),
+       date: new Date('2023-10-01 15:43'),
         statusBtn: 'Rejeitado',        
     },
     {
@@ -31,7 +31,7 @@ export class OrderComponent {
       title: 'Pedido 2',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-        date: new Date(),
+        date: new Date('2023-09-30 09:56'),
         statusBtn: 'Aberto',    
     },
     {
@@ -39,7 +39,7 @@ export class OrderComponent {
       title: 'Pedido 1',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-        date: new Date(),
+        date: new Date('2023-09-29 11:27'),
         statusBtn: 'Cancelado',       
     },
   ];
