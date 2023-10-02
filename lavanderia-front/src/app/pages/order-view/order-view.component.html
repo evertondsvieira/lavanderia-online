@@ -19,7 +19,7 @@
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
     </div>
 
-    <div class="flex flex-col items-center mr-2 pt-2 w-[120px]">
+    <div class="flex flex-col items-center mr-2 pt-2 w-[100px]">
       <p class="text-center font-medium">{{ order.status }}</p>
       <button
         *ngIf="order.status === 'EM ABERTO'"
@@ -34,6 +34,13 @@
         class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
       >
         Confirmar Lavagem
+      </button>
+      <button
+        *ngIf="order.status === 'AGUARDANDO PAGAMENTO'"
+        (click)="openConfirmationModal(order)"
+        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
+      >
+        Confirmar Pagamento
       </button>
       <button
         *ngIf="order.status === 'PAGO'"

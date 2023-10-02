@@ -64,6 +64,9 @@ export class OrderViewComponent {
       else if (order.status === 'RECOLHIDO'){
         order.status = 'AGUARDANDO PAGAMENTO';
       }
+      else if (order.status === 'AGUARDANDO PAGAMENTO'){
+        order.status = 'PAGO';
+      }
       else if (order.status === 'PAGO'){
         order.status = 'FINALIZADO';
       }
