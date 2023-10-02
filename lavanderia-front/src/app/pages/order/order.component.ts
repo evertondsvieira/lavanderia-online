@@ -6,6 +6,7 @@ interface IStatusOrder {
   title: string;
   description: string;
   statusBtn: string;
+  date: Date;
 }
 
 @Component({
@@ -22,21 +23,24 @@ export class OrderComponent {
       title: 'Pedido 3',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-      statusBtn: 'Rejeitado',
+       date: new Date(),
+        statusBtn: 'Rejeitado',        
     },
     {
       id: 2,
       title: 'Pedido 2',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-      statusBtn: 'Aberto',
+        date: new Date(),
+        statusBtn: 'Aberto',    
     },
     {
       id: 1,
       title: 'Pedido 1',
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-      statusBtn: 'Cancelado',
+        date: new Date(),
+        statusBtn: 'Cancelado',       
     },
   ];
 
@@ -49,7 +53,6 @@ export class OrderComponent {
       );
     }
   }
-
   constructor(private router: Router) {}
 
   showDetailsOrder(id: number) {
