@@ -33,8 +33,13 @@
           {{ status.statusBtn }}
         </button>
       </div>
-      <span>Data e Hora: {{ status.date | date:'HH:mm dd/MM/yyyy '  }}</span>
+      <span>Data e Hora: {{ status.date | date:'dd/MM/yyyy - HH:mm'}}</span>
       <p>{{ status.description }}</p>
   </div>
 </div>
 </app-box>
+<app-confirmation-modal
+  *ngIf="selectedOrderToChangeStatus"
+  (confirm)="confirmStatusChange(selectedOrderToChangeStatus)"
+  (cancel)="cancelStatusChange()"
+></app-confirmation-modal>
