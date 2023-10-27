@@ -16,6 +16,7 @@ import { ReportLoyalCustomerComponent } from './pages/report-loyal-customer/repo
 import { ReportIncomeComponent } from './pages/report-income/report-income.component';
 import { ReportCustomerDetailsComponent } from './pages/report-customer-details/report-customer-details.component';
 import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/employee-maintenance.component';
+import { UserHomeComponent } from './pages/user-home/user-home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: 'report/customer', component: ReportCustomerComponent },
       { path: 'report/customer/:id', component: ReportCustomerDetailsComponent },
       { path: 'report/loyalcustomer', component: ReportLoyalCustomerComponent },
+      { path: 'user/home', component: UserHomeComponent },
     ],
   },
 ];
