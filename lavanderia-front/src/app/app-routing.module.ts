@@ -11,6 +11,7 @@ import { OrderDetailsComponent } from './pages/order-details/order-details.compo
 import { OrderViewComponent } from './pages/order-view/order-view.component';
 import { HomeEmployeeComponent } from './pages/home-employee/home-employee.component';
 import { EmployeeCrudComponent } from './pages/employee-crud/employee-crud.component';
+import { UserHomeComponent } from './pages/user-home/user-home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'cart', component: CartItemsComponent },
       { path: 'home/employee', component: HomeEmployeeComponent},
       { path: 'employee/crud', component: EmployeeCrudComponent},
+      { path: 'user/home', component: UserHomeComponent },
     ],
   },
 ];
