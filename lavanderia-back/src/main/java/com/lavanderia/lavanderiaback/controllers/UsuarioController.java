@@ -3,6 +3,8 @@ package com.lavanderia.lavanderiaback.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lavanderia.lavanderiaback.database.UsuarioRepository;
 import com.lavanderia.lavanderiaback.entities.Usuario;
+import com.lavanderia.lavanderiaback.services.UsuarioService;
 import com.lavanderia.lavanderiaback.utils.EmailService;
 import com.lavanderia.lavanderiaback.utils.PasswordService;
 
@@ -26,9 +29,12 @@ public class UsuarioController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping
-    public List<Usuario> get(){
-        return repository.findAll();   
+    public List<Usuario> get() {
+        return repository.findAll();
     }
 
     @GetMapping("/{id}")
@@ -37,23 +43,35 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public void post(@RequestBody Usuario user){
+    public void post(@RequestBody Usuario user) {
         String randomPassword = PasswordService.generateRandomPassword();
 
         String salt = PasswordService.gerarSalt();
-        
+
         String encryptedPassword = PasswordService.criptografarSenha(randomPassword, salt);
-    
+
         user.setSenha(encryptedPassword);
-        user.setSalt(salt);    
+        user.setSalt(salt);
 
         repository.save(user);
 
         emailService.sendRandomPasswordEmail(user.getEmail(), randomPassword);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String senha = loginRequest.getSenha();
+
+        if (usuarioService.autenticarUsuario(email, senha)) {
+            return ResponseEntity.ok("Autenticação bem-sucedida.");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação.");
+        }
+    }
+
     @PutMapping("/{id}")
-    public void put(@PathVariable Long id, Usuario user){
+    public void put(@PathVariable Long id, @RequestBody Usuario user) {
         Usuario existingUser = repository.findById(id).orElse(null);
         if (existingUser != null) {
             existingUser.setNome(user.getNome());
@@ -65,11 +83,11 @@ public class UsuarioController {
             existingUser.setCidade(user.getCidade());
             existingUser.setBairro(user.getBairro());
             existingUser.setRua(user.getRua());
-
+    
             repository.save(existingUser);
         }
     }
-
+   
     @DeleteMapping("/{id}")
     public void deleteItem(@PathVariable Long id) {
         repository.deleteById(id);
