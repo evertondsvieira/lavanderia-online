@@ -78,8 +78,8 @@ public class Usuario {
     public String getUF() {
         return UF;
     }
-    public void setUF(String uF) {
-        UF = uF;
+    public void setUF(String UF) {
+        this.UF = UF;
     }
     public String getCidade() {
         return cidade;
