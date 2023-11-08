@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LaundryDetailsService } from '../laundry-services-details/laundry-service-details.service';
 
 @Component({
   selector: 'app-cart-items',
@@ -12,14 +11,12 @@ export class CartItemsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private LaundryDetailsService: LaundryDetailsService,
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const id = Number(params.get('id'));
       this.itemId = id;
-      this.detalhes = this.LaundryDetailsService.getDetailsById(id);
     });
   }
 }
