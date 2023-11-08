@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +30,6 @@ import { ConfirmationModalComponent } from './components/ui-components/confirmat
 import { MatDialogModule } from '@angular/material/dialog';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { LaundryServicesComponent } from './pages/laundry-services/laundry-services.component';
-import { LaundryServicesDetailsComponent } from './pages/laundry-services-details/laundry-services-details.component';
 import { OrderViewComponent } from './pages/order-view/order-view.component';
 import { StoreModule } from '@ngrx/store';
 import { DateFilterComponent } from './components/ui-components/date-filter/date-filter.component';
@@ -68,7 +68,6 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
     ConfirmationModalComponent,
     OrderDetailsComponent,
     LaundryServicesComponent,
-    LaundryServicesDetailsComponent,
     OrderViewComponent,
     DateFilterComponent,
     HomeEmployeeComponent,
@@ -89,6 +88,7 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
     BrowserAnimationsModule,
     FormsModule,
     MatDialogModule,
+    HttpClientModule,
     StoreModule.forRoot({}, {})
   ],
   providers: [],
