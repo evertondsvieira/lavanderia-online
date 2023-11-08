@@ -17,18 +17,18 @@ export class CartComponent {
 
   calculateTotalValue(): number {
     return this.products.reduce(
-      (total, product) => total + product.value * product.quantity,
+      (total, product) => total + product.valor * product.quantidade,
       0,
     );
   }
 
   increaseQuantity(index: number): void {
-    this.products[index].quantity++;
+    this.products[index].quantidade++;
   }
 
   decreaseQuantity(index: number): void {
-    if (this.products[index].quantity > 0) {
-      this.products[index].quantity--;
+    if (this.products[index].quantidade > 0) {
+      this.products[index].quantidade--;
     }
   }
 
