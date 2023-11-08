@@ -1,8 +1,12 @@
 package com.lavanderia.lavanderiaback.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lavanderia.lavanderiaback.database.PedidoRepository;
+import com.lavanderia.lavanderiaback.database.UsuarioRepository;
 import com.lavanderia.lavanderiaback.entities.Pedido;
 
 @RestController
@@ -20,7 +25,7 @@ import com.lavanderia.lavanderiaback.entities.Pedido;
 public class PedidoController {
     @Autowired
     private PedidoRepository repository;
-
+    
     @GetMapping
     public List<Pedido> get() {
         return repository.findAll();
@@ -32,10 +37,11 @@ public class PedidoController {
     }
 
     @PostMapping
-    public void post(@RequestBody Pedido order) {
-        repository.save(order);
+    public ResponseEntity<Pedido> post(@RequestBody Pedido order) {
+        Pedido savedOrder = repository.save(order);
+        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
-
+  
     @PutMapping("/{id}")
     public void put(@PathVariable Long id, @RequestBody Pedido updatedOrder) {
         Pedido existingOrder = repository.findById(id).orElse(null);
