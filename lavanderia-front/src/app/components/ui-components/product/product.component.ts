@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from './product.service';
 import { CartService } from '../cart/cart.service';
+import { environment } from 'src/app/environment';
+import { HttpClient } from '@angular/common/http';
 
 export interface IProduct {
-  title: string;
-  description?: string;
-  value: number;
-  imagemSrc: string;
-  quantity: number
+  nome: string;
+  descricao?: string;
+  valor: number;
+  imgUrl: string;
+  quantidade: number
 }
 
 @Component({
@@ -15,26 +16,32 @@ export interface IProduct {
   templateUrl: './product.component.html',
 })
 export class ProductComponent implements OnInit {
-  products: IProduct[] = [];
+  apiUrl = environment.apiUrl
+  products: IProduct[] = []
 
-  constructor(
-    private productService: ProductService,
-    private cartService: CartService,
-  ) {}
-
+  constructor(private http: HttpClient, private cartService: CartService) {}
+  
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
+    this.http.get<IProduct[]>(this.apiUrl + 'item').subscribe({
+      next: (data: IProduct[]) => {
+        this.products = data;
+        console.log(this.products);
+      },
+      error: (error: any) => {
+        console.error('Erro ao buscar os dados:', error);
+      },
+    });
   }
 
   showAlert: boolean = false;
 
   adicionarAoCarrinho(product: IProduct) {
     const cartItem = {
-      title: product.title,
-      value: product.value,
-      imagemSrc: product.imagemSrc,
-      description: product.description,
-      quantity: 1,
+      nome: product.nome,
+      valor: product.valor,
+      imgUrl: product.imgUrl,
+      descricao: product.descricao,
+      quantidade: 1,
     };
 
     this.cartService.addToCart(cartItem);
