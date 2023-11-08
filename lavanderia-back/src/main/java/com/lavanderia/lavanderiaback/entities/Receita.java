@@ -12,7 +12,7 @@ public class Receita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private Number valor;
+    private String valor;
     @Column(nullable = false)
     private String inicio;
     @Column(nullable = false)
@@ -23,10 +23,10 @@ public class Receita {
     public void setId(Long id) {
         this.id = id;
     }
-    public Number getValor() {
+    public String getValor() {
         return valor;
     }
-    public void setValor(Number valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
     public String getInicio() {

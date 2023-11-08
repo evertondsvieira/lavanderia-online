@@ -14,13 +14,15 @@ public class Item {
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
-    private Number valor;
+    private Integer valor;
     @Column(nullable = false)
-    private Number descricao;
+    private String descricao;
     @Column(nullable = false)
-    private Number imgUrl;
+    private String imgUrl;
     @Column(nullable = false)
     private String prazo;
+    @Column(nullable = true)
+    private Integer quantidade;
     public Long getId() {
         return id;
     }
@@ -33,22 +35,22 @@ public class Item {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public Number getValor() {
+    public Integer getValor() {
         return valor;
     }
-    public void setValor(Number valor) {
+    public void setValor(Integer valor) {
         this.valor = valor;
     }
-    public Number getDescricao() {
+    public String getDescricao() {
         return descricao;
     }
-    public void setDescricao(Number descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public Number getImgUrl() {
+    public String getImgUrl() {
         return imgUrl;
     }
-    public void setImgUrl(Number imgUrl) {
+    public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
     public String getPrazo() {
@@ -56,5 +58,11 @@ public class Item {
     }
     public void setPrazo(String prazo) {
         this.prazo = prazo;
+    }
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 }

@@ -1,6 +1,7 @@
 package com.lavanderia.lavanderiaback.entities;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +21,12 @@ public class Pedido {
     private String descricao;
     @Column(nullable = false)
     private String status;
+    @Column(nullable = false)
+    private String valor;
+    @Column(nullable = false)
+    private String prazo;
     @ManyToOne
+    @JoinColumn(name = "usuario_id") 
     private Usuario usuario;
     public Long getId() {
         return id;
@@ -51,5 +57,17 @@ public class Pedido {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+    public String getValor() {
+        return valor;
+    }
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+    public String getPrazo() {
+        return prazo;
+    }
+    public void setPrazo(String prazo) {
+        this.prazo = prazo;
     }
 }

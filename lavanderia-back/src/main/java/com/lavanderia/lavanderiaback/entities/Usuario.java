@@ -4,6 +4,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import java.util.List;
@@ -17,8 +18,8 @@ public class Usuario {
     private Long id;
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
-    private String email;
+    @Column(nullable = false, unique = true)
+    private String email;    
     @Column(nullable = false)
     private String cpf;
     @Column(nullable = false)
@@ -35,10 +36,10 @@ public class Usuario {
     private String rua;
     @Column(nullable = false)
     private String senha;
-   @Column(nullable = false)
+    @Column(nullable = false)
     private String salt;
-    @OneToMany(mappedBy = "usuario")
-    private List<Pedido> pedidos;
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Pedido> pedidos;  
     public Long getId() {
         return id;
     }
