@@ -4,6 +4,8 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,8 +13,11 @@ public class EmailService {
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
     private static final String SMTP_AUTH = "true";
-    private static final String SMTP_USERNAME = "lavanderia@gmail.com";
-    private static final String SMTP_PASSWORD = "supersenhasecreta";
+    @Value("${email.username}")
+    private String SMTP_USERNAME;
+
+    @Value("${email.password}")
+    private String SMTP_PASSWORD;
 
     public void sendRandomPasswordEmail(String to, String randomPassword) {
         Properties properties = new Properties();
@@ -41,4 +46,3 @@ public class EmailService {
         }
     }
 }
-
