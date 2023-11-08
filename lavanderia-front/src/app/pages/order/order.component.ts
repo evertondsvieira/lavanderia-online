@@ -1,51 +1,50 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/app/environment';
 
 export interface IStatusOrder {
   id: number;
-  title: string;
-  description: string;
-  statusBtn: string;
-  status:string;
-  date: Date;
+  nome: string;
+  descricao: string;
+  status: string;
+  data: string;
 }
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
 })
-export class OrderComponent {
+export class OrderComponent implements OnInit {
+  apiUrl = environment.apiUrl;
+  pedidos: IStatusOrder[] = [];
   selectedStatus: string = 'all';
-  statusOptions: string[] = ['Aberto', 'Cancelado', 'Rejeitado'];
+  selectedOrderToChangeStatus: IStatusOrder | null = null;
+  statusOptions: string[] = ['Em andamento', 'Cancelado', 'Rejeitado'];
 
-  pedidos: IStatusOrder[] = [
-    {
-      id: 3,
-      title: 'Pedido 3', date: new Date('2023-10-01 15:43'), statusBtn: 'Rejeitado', status: 'Rejeitado',           
-       description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-    },
-    {
-      id: 2, title: 'Pedido 2', date: new Date('2023-09-30 09:56'), statusBtn: 'Aberto', status: 'Aberto',
-       description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',     
-    },
-    {
-      id: 1, title: 'Pedido 1', date: new Date('2023-09-29 11:27'), statusBtn: 'Cancelado', status: 'Cancelado',    
-       description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-    },
-  ];
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    this.http.get<IStatusOrder[]>(this.apiUrl + 'order').subscribe({
+      next: (data: IStatusOrder[]) => {
+        this.pedidos = data;
+        console.log(this.pedidos)
+      },
+      error: (error: any) => {
+        console.error('Erro ao buscar os dados:', error);
+      },
+    });
+  }
 
   get filteredPedidos() {
     if (this.selectedStatus === 'all') {
       return this.pedidos;
     } else {
       return this.pedidos.filter(
-        (pedido) => pedido.statusBtn === this.selectedStatus,
+        (pedido) => pedido.status === this.selectedStatus
       );
     }
   }
-
-  selectedOrderToChangeStatus: IStatusOrder | null = null;
 
   openConfirmationModal(pedido: IStatusOrder) {
     this.selectedOrderToChangeStatus = pedido;
@@ -53,18 +52,16 @@ export class OrderComponent {
 
   confirmStatusChange(pedido: IStatusOrder) {
     if (pedido) {
-      if (pedido.status === 'Aberto'){
+      if (pedido.status === 'Em andamento') {
         pedido.status = 'Pago';
-      this.selectedOrderToChangeStatus = null;
+        this.selectedOrderToChangeStatus = null;
+      }
     }
   }
-}
 
   cancelStatusChange() {
     this.selectedOrderToChangeStatus = null;
   }
-
-  constructor(private router: Router) {}
 
   showDetailsOrder(id: number) {
     this.router.navigate(['/order', id]);
