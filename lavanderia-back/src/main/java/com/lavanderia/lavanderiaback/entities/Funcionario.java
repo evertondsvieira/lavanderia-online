@@ -18,9 +18,13 @@ public class Funcionario {
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
-    private String dataNascimento;
+    private String datanascimento;
     @Column(nullable = false)
+    @JsonIgnore
     private String senha;
+    @Column(nullable = false) 
+    @JsonIgnore
+    private String salt;
     public Long getId() {
         return id;
     }
@@ -39,17 +43,22 @@ public class Funcionario {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getDataNascimento() {
-        return dataNascimento;
+    public String getDatanascimento() {
+        return datanascimento;
     }
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setDatanascimento(String datanascimento) {
+        this.datanascimento = datanascimento;
     }
-    @JsonIgnore
     public String getSenha() {
         return senha;
     }
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    public String getSalt() {
+        return salt;
+    }
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
