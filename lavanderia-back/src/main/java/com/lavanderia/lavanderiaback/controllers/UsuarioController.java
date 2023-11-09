@@ -50,7 +50,7 @@ public class UsuarioController {
     }
     
     @PostMapping
-    public void post(@RequestBody Usuario user) {
+    public ResponseEntity<Usuario> post(@RequestBody Usuario user) {
         String randomPassword = PasswordService.generateRandomPassword();
 
         String salt = PasswordService.gerarSalt();
@@ -63,6 +63,8 @@ public class UsuarioController {
         repository.save(user);
 
         emailService.sendRandomPasswordEmail(user.getEmail(), randomPassword);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping("/login")
