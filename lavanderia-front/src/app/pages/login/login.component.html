@@ -1,26 +1,48 @@
 <div class="relative w-full h-full flex flex-col items-center justify-center">
-  <img 
-    class="bg-cover w-full h-auto" 
+  <img
+    class="bg-cover w-full h-auto"
     src="assets/background.jpg"
     alt="Imagem de Fundo"
   />
 
-  <div class="absolute opacity-90 bg-customGray w-[480px] h-[410px] rounded-lg p-8 flex flex-col">
-    <h1 class="text-4xl mt-16 text-mainBlue font-bold mb-4 text-center">Login</h1>
-  
+  <div
+    class="absolute opacity-90 bg-customGray w-[480px] h-[410px] rounded-lg p-8 flex flex-col"
+  >
+    <h1 class="text-4xl mt-16 text-mainBlue font-bold mb-4 text-center">
+      Login
+    </h1>
+
     <div class="flex flex-col gap-6">
-      <app-input size="default" icon="email" type="text" placeholder="Email"></app-input>
-      <app-input size="default" icon="key" type="password" placeholder="Senha"></app-input>
+      <input
+        class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
+        size="default"
+        icon="email"
+        type="text"
+        placeholder="Email"
+        [(ngModel)]="newUser.email"
+      />
+      <input
+        class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
+        size="default"
+        icon="key"
+        type="password"
+        placeholder="Senha"
+        [(ngModel)]="newUser.senha"
+      />
     </div>
-  
+
     <p class="flex items-center justify-start mt-2 w-full py-4 font-medium">
-      Esqueceu sua senha? <a class="ml-2 font-medium text-mainBlue" routerLink="/login"> Clique aqui!</a>
+      Esqueceu sua senha?
+      <a class="ml-2 font-medium text-mainBlue" routerLink="/login">
+        Clique aqui!</a
+      >
     </p>
-  
+
     <div class="flex items-center justify-between gap-5 w-full">
-      <a routerLink="/order"><app-button [success]="true">Entrar</app-button></a>
-      <a routerLink="/register"><app-button [success]="false">Cadastre-se</app-button></a>
+      <app-button [success]="true" (click)="onSubmit()">Entrar</app-button>
+      <a routerLink="/register"
+        ><app-button [success]="false">Cadastre-se</app-button></a
+      >
     </div>
   </div>
 </div>
-
