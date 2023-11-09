@@ -16,11 +16,10 @@ export interface ClothingItem {
   templateUrl: './employee-crud.component.html',
 })
 export class EmployeeCrudComponent implements OnInit {
-  apiUrl = environment.apiUrl;
-  listaVazia: boolean = false;
-  selectedItem: ClothingItem | null = null;
-  selectedIndex: number | null = null;
-  clothingItems: ClothingItem[] = [];
+  apiUrl = environment.apiUrl
+  listaVazia: boolean = false
+  clothingItems: ClothingItem[] = []
+  itemEmEdicao: ClothingItem | null = null
 
   constructor(private http: HttpClient) {}
 
@@ -32,8 +31,6 @@ export class EmployeeCrudComponent implements OnInit {
     prazo: '',
     descricao: '',
   };
-
-  itemEmEdicao: ClothingItem | null = null;
 
   editItem(item: ClothingItem) {
     this.itemEmEdicao = { ...item };

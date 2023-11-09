@@ -18,8 +18,8 @@
             <ng-container *ngFor="let employee of employees">
               <tr class="border-b bg-white">
                 <td class="w-72 p-4">{{ employee.email }}</td>
-                <td class="w-72 p-4">{{ employee.name }}</td>
-                <td class="w-72 p-4">{{ employee.birthDate }}</td>
+                <td class="w-72 p-4">{{ employee.nome }}</td>
+                <td class="w-72 p-4">{{ employee.datanascimento }}</td>
                 <td class="w-80 p-4">
                   <div class="flex gap-2 items-center justify-center">
                     <button
@@ -59,28 +59,28 @@
         <input
           class="border rounded h-10 w-80 pl-2 focus:outline-none"
           type="text"
-          [(ngModel)]="employee.email"
+          [(ngModel)]="newEmployee.email"
         />
 
         <p class="font-medium">E-mail:</p>
         <input
           class="border rounded h-10 w-80 pl-2 focus:outline-none"
           type="text"
-          [(ngModel)]="employee.name"
+          [(ngModel)]="newEmployee.nome"
         />
 
         <p class="font-medium">Data de nascimento:</p>
         <input
           class="border rounded h-10 w-80 pl-2 focus:outline-none"
           type="date"
-          [(ngModel)]="employee.birthDate"
+          [(ngModel)]="newEmployee.datanascimento"
         />
 
         <p class="font-medium">Senha:</p>
         <input
           class="border rounded h-10 w-80 pl-2 focus:outline-none"
-          type="password"
-          [(ngModel)]="employee.password"
+          type="text"
+          [(ngModel)]="newEmployee.senha"
         />
 
         <div class="flex justify-between gap-2">

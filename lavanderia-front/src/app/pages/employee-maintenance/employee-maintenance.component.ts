@@ -1,10 +1,13 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { environment } from 'src/app/environment';
 
 interface EmployeeMaintenance {
-  name: string;
-  email: string;
-  birthDate: string | Date;
-  password: string;
+  id: number
+  nome: string
+  email: string
+  datanascimento: string
+  senha: string
 }
 
 @Component({
@@ -12,128 +15,133 @@ interface EmployeeMaintenance {
   templateUrl: './employee-maintenance.component.html',
 })
 export class EmployeeMaintenanceComponent {
+  apiUrl = environment.apiUrl;
   listaVazia: boolean = false;
-  selectedItem: EmployeeMaintenance | null = null;
-  selectedIndex: number | null = null;
+  employees: EmployeeMaintenance[] = []
+  itemEmEdicao: EmployeeMaintenance | null = null
 
-  employee: EmployeeMaintenance = {
-    name: '',
+  constructor(private http: HttpClient) {}
+
+  newEmployee: EmployeeMaintenance = {
+    id: 0,
+    nome: '',
     email: '',
-    birthDate: '',
-    password: '',
+    datanascimento: '',
+    senha: '',
   };
-
-  itemEmEdicao: EmployeeMaintenance | null = null;
 
   editItem(item: EmployeeMaintenance) {
     this.itemEmEdicao = { ...item };
-    this.employee = {
-      name: item.name,
-      email: item.email,
-      birthDate: new Date(item.birthDate),
-      password: '', 
-    };
-    console.log(this.employee)
-  }
-  
+    this.newEmployee = { ...item };
 
-  updateItem() {
-    if (
-      this.itemEmEdicao &&
-      this.itemEmEdicao.email &&
-      this.itemEmEdicao.name &&
-      this.itemEmEdicao.birthDate &&
-      this.itemEmEdicao.password
-    ) {
+    if (!this.itemEmEdicao) {
+      this.itemEmEdicao = {
+        id: 0,
+        nome: '',
+        email: '',
+        datanascimento: '',
+        senha: '',
+      };
+    }
+  }
+
+  ngOnInit(): void {
+    this.http.get<EmployeeMaintenance[]>(this.apiUrl + 'employee').subscribe({
+      next: (data: EmployeeMaintenance[]) => {
+        this.employees = data;
+        console.log(this.employees);
+      },
+      error: (error: any) => {
+        console.error('Erro ao buscar os dados:', error);
+      },
+    });
+  }
+
+  addItem() {
+    if (this.newEmployee.nome && this.newEmployee.email && this.newEmployee.datanascimento && this.newEmployee.senha) {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      this.http
+        .post<EmployeeMaintenance>(this.apiUrl + 'employee', this.newEmployee, { headers })
+        .subscribe({
+          next: (data: EmployeeMaintenance) => {
+            this.employees.push(data);
+            this.newEmployee = {
+              id: 0,
+              nome: '',
+              email: '',
+              datanascimento: '',
+              senha: '',
+            };
+            this.listaVazia = false;
+          },
+          error: (error: any) => {
+            console.error('Erro ao adicionar o item:', error);
+          },
+        });
+    }
+  }
+
+  putItem() {
+    if (this.itemEmEdicao) {
+      this.itemEmEdicao = { ...this.itemEmEdicao, ...this.newEmployee };
+
       const index = this.employees.findIndex(
-        (item) => item === this.itemEmEdicao,
+        (item) => item.id === this.itemEmEdicao?.id,
       );
       if (index !== -1) {
-        this.employees[index] = { ...this.itemEmEdicao };
-        this.itemEmEdicao = null;
+        this.http
+          .put<EmployeeMaintenance>(
+            `${this.apiUrl}employee/${this.itemEmEdicao.id}`,
+            this.itemEmEdicao,
+          )
+          .subscribe({
+            next: (data: EmployeeMaintenance) => {
+              this.employees[index] = data;
+              this.itemEmEdicao = null;
+              this.cleanForm()
+            },
+            error: (error: any) => {
+              console.error('Erro ao atualizar o item:', error);
+            },
+          });
       }
-    } else if (
-      this.employee.email &&
-      this.employee.name &&
-      this.employee.birthDate &&
-      this.employee.password
-    ) {
-      this.employees.push({ ...this.employee });
-      this.employee = {
-        email: '',
-        name: '',
-        birthDate: '',
-        password: '',
-      };
+    }
+  }
+
+  updateItem() {
+    if (this.newEmployee.id === 0) {
+      this.addItem();
+    } else {
+      this.putItem();
     }
   }
 
   removeItem(item: EmployeeMaintenance) {
     const index = this.employees.indexOf(item);
     if (index !== -1) {
-      this.employees.splice(index, 1);
+      const employeeId = item.id;
+
+      this.http.delete(`${this.apiUrl}employee/${employeeId}`).subscribe({
+        next: () => {
+          this.employees.splice(index, 1);
+          this.listaVazia = this.employees.length === 0;
+        },
+        error: (error: any) => {
+          console.error('Erro ao excluir o item:', error);
+        },
+      });
     }
-    this.listaVazia = this.employees.length === 0;
   }
 
   cleanForm() {
     this.itemEmEdicao = null;
-    this.employee = {
+    this.newEmployee = {
+      id: 0,
       email: '',
-      name: '',
-      birthDate: '',
-      password: '',
+      nome: '',
+      datanascimento: '',
+      senha: '',
     };
   }
-
-  employees: EmployeeMaintenance[] = [
-    {
-      email: 'user1@example.com',
-      name: 'Alice Smith',
-      birthDate: '05/15/1985',
-      password: 'securePass123',
-    },
-    {
-      email: 'user2@example.com',
-      name: 'Bob Johnson',
-      birthDate: '12/30/1992',
-      password: 'myP@ssw0rd',
-    },
-    {
-      email: 'user3@example.com',
-      name: 'Eva Brown',
-      birthDate: '09/22/1988',
-      password: 'pass1234',
-    },
-    {
-      email: 'user4@example.com',
-      name: 'David Wilson',
-      birthDate: '03/10/1995',
-      password: 'p@ssw0rd567',
-    },
-    {
-      email: 'user5@example.com',
-      name: 'Sophia Davis',
-      birthDate: '07/04/1990',
-      password: 'securePass456',
-    },
-    {
-      email: 'user6@example.com',
-      name: 'Liam Martinez',
-      birthDate: '11/20/1987',
-      password: 'mySecureP@ss',
-    },
-    {
-      email: 'user7@example.com',
-      name: 'Olivia Taylor',
-      birthDate: '02/08/1993',
-      password: 'p@ssw0rd789',
-    },
-    {
-      email: 'user8@example.com',
-      name: 'Lucas Anderson',
-      birthDate: '06/25/1986',
-      password: 'passw0rd123',
-    },  
-  ];
 }
