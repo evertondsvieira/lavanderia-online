@@ -9,6 +9,13 @@ export interface IStatusOrder {
   descricao: string;
   status: string;
   data: string;
+  prazo: string
+  valor: string
+  items: {
+    nome: string,
+    valor: string,
+    imgUrl: string
+  }[]
 }
 
 @Component({
