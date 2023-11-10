@@ -9,6 +9,7 @@ export interface IProduct {
   valor: number;
   imgUrl: string;
   quantidade: number
+  prazo: string
 }
 
 @Component({
@@ -40,7 +41,7 @@ export class ProductComponent implements OnInit {
       nome: product.nome,
       valor: product.valor,
       imgUrl: product.imgUrl,
-      descricao: product.descricao,
+      prazo: product.prazo,
       quantidade: 1,
     };
 

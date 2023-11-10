@@ -7,7 +7,7 @@ import { IProduct } from '../product/product.component';
   templateUrl: './cart.component.html',
 })
 export class CartComponent {
-  @Input() detalhesPedido: string | undefined;
+  @Input() detalhesPedido!: string;
 
   products: IProduct[] = [];
 
@@ -45,6 +45,7 @@ export class CartComponent {
 
   onConfirmClick(): void {
     this.isConfirmationModalOpen = false;
+    this.cartService.createOrder(this.detalhesPedido);
     console.log('Compra finalizada');
   }
 
