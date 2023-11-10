@@ -3,10 +3,20 @@ package com.lavanderia.lavanderiaback.entities;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class Pedido {
@@ -18,18 +28,32 @@ public class Pedido {
     @Column(nullable = false)
     private String data;
     @Column(nullable = false)
-    private String descricao;
-    @Column(nullable = false)
     private String status;
     @Column(nullable = false)
     private String valor;
     @Column(nullable = false)
     private String prazo;
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "usuario_id") 
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    private List<Item> items;
     public Long getId() {
         return id;
+    }
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    public List<Item> getItems() {
+        return items;
+    }
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
     public void setId(Long id) {
         this.id = id;
@@ -45,12 +69,6 @@ public class Pedido {
     }
     public void setData(String data) {
         this.data = data;
-    }
-    public String getDescricao() {
-        return descricao;
-    }
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
     public String getStatus() {
         return status;

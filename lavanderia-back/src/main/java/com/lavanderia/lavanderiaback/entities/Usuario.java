@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Usuario {
@@ -38,8 +39,9 @@ public class Usuario {
     private String senha;
     @Column(nullable = false)
     private String salt;
+    @JsonManagedReference
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Pedido> pedidos;  
+    private List<Pedido> pedidos;
     public Long getId() {
         return id;
     }
