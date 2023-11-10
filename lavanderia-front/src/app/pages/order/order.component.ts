@@ -66,6 +66,15 @@ export class OrderComponent implements OnInit {
     }
   }
 
+  confirmStatusCancel(pedido: IStatusOrder) {
+    if (pedido) {
+      if (pedido.status === 'Em andamento'){
+        pedido.status = 'Cancelado';
+      this.selectedOrderToChangeStatus = null;
+    }
+  }
+  }
+
   cancelStatusChange() {
     this.selectedOrderToChangeStatus = null;
   }

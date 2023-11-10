@@ -43,6 +43,7 @@ import { WrapperComponent } from './components/ui-components/wrapper/wrapper.com
 import { ReportCustomerDetailsComponent } from './pages/report-customer-details/report-customer-details.component';
 import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/employee-maintenance.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { CancelationModalComponent } from './components/ui-components/cancelation-modal/cancelation-modal.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
     ReportCustomerDetailsComponent,
     EmployeeMaintenanceComponent,
     UserHomeComponent,
+    CancelationModalComponent,
   ],
   imports: [
     BrowserModule,
