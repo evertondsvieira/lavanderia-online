@@ -4,6 +4,7 @@ import { environment } from 'src/app/environment';
 import { HttpClient } from '@angular/common/http';
 
 export interface IProduct {
+  id: number;
   nome: string;
   descricao?: string;
   valor: number;
@@ -25,7 +26,7 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<IProduct[]>(this.apiUrl + 'item').subscribe({
       next: (data: IProduct[]) => {
-        this.products = data;
+        this.products = data.sort((a, b) => a.id - b.id);
         console.log(this.products);
       },
       error: (error: any) => {
@@ -38,6 +39,7 @@ export class ProductComponent implements OnInit {
 
   adicionarAoCarrinho(product: IProduct) {
     const cartItem = {
+      id: product.id,
       nome: product.nome,
       valor: product.valor,
       imgUrl: product.imgUrl,

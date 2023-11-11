@@ -4,7 +4,7 @@
     class="border-light-blue-500 gap-2 flex flex-col w-56 h-auto p-4 justify-center rounded-md border-2 border-solid"
   >
     <p class="text-center font-medium">{{ product.nome }}</p>
-    <img [src]="product.imgUrl" alt="" />
+    <img [src]="product.imgUrl" alt="Product: {{ product.nome }}" class="w-48 h-48" />
     <p class="text-justify">{{ product.descricao }}</p>
 
     <span class="font-medium flex gap-2">
