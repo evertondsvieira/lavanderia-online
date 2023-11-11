@@ -1,61 +1,33 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-interface IStatusOrder {
-  id: number;
-  title: string;
-  date: Date;
-  description: string;
-  statusBtn: string;
-}
+import { environment } from 'src/app/environment';
+import { IStatusOrder } from '../order/order.component';
 
 @Component({
   selector: 'app-order',
   templateUrl: './home-employee.component.html',
 })
 export class HomeEmployeeComponent {
+  apiUrl = environment.apiUrl;
   selectedStatus: string = 'all';
-  statusOptions: string[] = ['Aberto', 'Cancelado', 'Rejeitado'];
   listaVazia: boolean = false
+  pedidos: IStatusOrder[] = []
 
-  pedidos: IStatusOrder[] = [
-    {
-      id: 1,
-      title: 'Pedido 1 - Joaquina',
-      date: new Date(),
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-      statusBtn: 'Confirmar recolhimento',
-    },
-    {
-      id: 2,
-      title: 'Pedido 2 - Joana',
-      date: new Date(),
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-      statusBtn: 'Confirmar recolhimento',
-    },
-    {
-      id: 3,
-      title: 'Pedido 3 - José',
-      date: new Date(),
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, nam tempore odio consequuntur optio cumque eum reprehenderit, hic alias autem temporibus veniam facere labore qui, magni suscipit ab repudiandae voluptate',
-      statusBtn: 'Confirmar recolhimento',
-    },
-  ];
+  constructor(private http: HttpClient, private router: Router) {}
 
-  get filteredPedidos() {
-    if (this.selectedStatus === 'all') {
-      return this.pedidos;
-    } else {
-      return this.pedidos.filter(
-        (pedido) => pedido.statusBtn === this.selectedStatus,
-      );
-    }
+  ngOnInit(): void {
+    this.http.get<IStatusOrder[]>(this.apiUrl + 'order').subscribe({
+      next: (pedidos: IStatusOrder[]) => {
+        this.pedidos = pedidos.filter(
+          (pedido) => pedido.status === 'EM ABERTO',
+        );
+      },
+      error: (error: any) => {
+        console.log('Erro ao buscar os dados', error);
+      },
+    });
   }
-
-  constructor(private router: Router) {}
 
   showDetailsOrder(id: number) {
     this.router.navigate(['/order', id]);
