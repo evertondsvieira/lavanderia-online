@@ -24,7 +24,7 @@
       *ngFor="let status of filteredPedidos"
     >
       <div class="flex justify-between items-center">
-        <a class="font-bold" routerLink="/order/details">{{ status.nome }}</a>
+        <a class="font-bold" (click)="showDetailsOrder(status.id)">{{ status.nome }} {{ status.id }}</a>
         <button
           class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
           >
