@@ -19,38 +19,38 @@ import com.lavanderia.lavanderiaback.entities.Item;
 @RequestMapping("/item")
 public class ItemController {
     @Autowired
-    private ItemRepository repository;
+    private ItemRepository itemRepository;
 
     @PostMapping
-    public void createItem(@RequestBody Item item) {
-        repository.save(item);
+    public Item createItem(@RequestBody Item item) {
+        return itemRepository.save(item);
     }
 
     @GetMapping
     public List<Item> getAllItems() {
-        return repository.findAll();
+        return itemRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public Item getItemById(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+        return itemRepository.findById(id).orElse(null);
     }
 
     @PutMapping("/{id}")
     public void updateItem(@PathVariable Long id, @RequestBody Item updatedItem) {
-        Item existingItem = repository.findById(id).orElse(null);
+        Item existingItem = itemRepository.findById(id).orElse(null);
         if (existingItem != null) {
             existingItem.setNome(updatedItem.getNome());
             existingItem.setValor(updatedItem.getValor());
             existingItem.setDescricao(updatedItem.getDescricao());
             existingItem.setImgUrl(updatedItem.getImgUrl());
             existingItem.setPrazo(updatedItem.getPrazo());
-            repository.save(existingItem);
+            itemRepository.save(existingItem);
         }
     }
 
     @DeleteMapping("/{id}")
     public void deleteItem(@PathVariable Long id) {
-        repository.deleteById(id);
+        itemRepository.deleteById(id);
     }
 }

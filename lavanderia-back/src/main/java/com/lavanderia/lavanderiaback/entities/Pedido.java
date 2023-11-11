@@ -38,7 +38,7 @@ public class Pedido {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     @JsonManagedReference
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items;
     public Long getId() {
         return id;

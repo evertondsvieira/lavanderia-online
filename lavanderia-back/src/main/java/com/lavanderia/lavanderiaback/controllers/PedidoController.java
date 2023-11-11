@@ -1,9 +1,9 @@
 package com.lavanderia.lavanderiaback.controllers;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,12 +39,39 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<Pedido> post(@RequestBody Pedido order) {
-        Pedido savedOrder = repository.save(order);
-        for (Item item : savedOrder.getItems()) {
-            item.setPedido(savedOrder);
+    public ResponseEntity<?> criarPedido(@RequestBody Pedido order) {
+        Pedido pedido = new Pedido();
+        pedido.setNome(order.getNome());
+        pedido.setPrazo(order.getPrazo());
+        pedido.setStatus(order.getStatus());
+        pedido.setValor(order.getValor());
+        pedido.setData(order.getData());
+
+        List<Item> items = new ArrayList<>();
+
+        if (order.getItems() != null) {
+            for (Item newItem : order.getItems()) {
+                if (newItem.getId() != null) {
+                    Item existingItem = itemRepository.findById(newItem.getId()).orElse(null);
+
+                    if (existingItem != null) {
+                        existingItem.setPedido(pedido);
+                        items.add(existingItem);
+                    } else {
+                        return ResponseEntity.badRequest().body("ID de item inválido: " + newItem.getId());
+                    }
+                }
+            }
         }
-        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+
+        pedido.setItems(items);
+
+        if (!items.isEmpty()) {
+            repository.save(pedido);
+            return ResponseEntity.ok(pedido);
+        } else {
+            return ResponseEntity.badRequest().body("Nenhum item válido associado ao pedido.");
+        }
     }
 
     @PutMapping("/{id}")
