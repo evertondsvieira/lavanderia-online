@@ -30,6 +30,7 @@ const routes: Routes = [
       { path: 'order/view', component: OrderViewComponent},
       { path: 'order/:id', component: OrderDetailsComponent },
       { path: 'cart', component: CartItemsComponent },
+      { path: 'user/home', component: UserHomeComponent },
       { path: 'employee/home', component: HomeEmployeeComponent},
       { path: 'employee/crud', component: EmployeeCrudComponent},
       { path: 'employee/maintenance', component: EmployeeMaintenanceComponent},
@@ -37,7 +38,6 @@ const routes: Routes = [
       { path: 'report/customer', component: ReportCustomerComponent },
       { path: 'report/customer/:id', component: ReportCustomerDetailsComponent },
       { path: 'report/loyalcustomer', component: ReportLoyalCustomerComponent },
-      { path: 'user/home', component: UserHomeComponent },
     ],
   },
 ];
