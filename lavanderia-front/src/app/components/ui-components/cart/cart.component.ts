@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from './cart.service';
 import { IProduct } from '../product/product.component';
+import { IStatusOrder } from 'src/app/pages/order/order.component';
 
 @Component({
   selector: 'app-cart',
@@ -8,7 +9,6 @@ import { IProduct } from '../product/product.component';
 })
 export class CartComponent {
   @Input() detalhesPedido!: string;
-
   products: IProduct[] = [];
 
   constructor(private cartService: CartService) {

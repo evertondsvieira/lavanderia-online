@@ -3,29 +3,29 @@ import { BehaviorSubject } from 'rxjs';
 import { IProduct } from '../product/product.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cartItemsSubject = new BehaviorSubject<IProduct[]
-  >([]);
+  private cartItemsSubject = new BehaviorSubject<IProduct[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
   apiUrl = environment.apiUrl
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   addToCart(product: IProduct): void {
-    const currentItems = this.cartItemsSubject.getValue();
+    const currentItems = this.cartItemsSubject.value;
     this.cartItemsSubject.next([...currentItems, product]);
   }
 
   getCartItems(): IProduct[] {
-    return this.cartItemsSubject.getValue();
+    return this.cartItemsSubject.value;
   }
 
   removeCartItem(index: number): void {
-    const currentItems = this.cartItemsSubject.getValue();
+    const currentItems = this.cartItemsSubject.value;
     if (index >= 0 && index < currentItems.length) {
       currentItems.splice(index, 1);
       this.cartItemsSubject.next(currentItems);
@@ -33,8 +33,9 @@ export class CartService {
   }
 
   createOrder(detalhesPedido: string): void {
-    const items = this.cartItemsSubject.getValue().map((product) => {
+    const items = this.cartItemsSubject.value.map((product) => {
       return {
+        id: product.id,
         nome: product.nome,
         quantidade: product.quantidade,
         valor: product.valor,
@@ -44,28 +45,29 @@ export class CartService {
     });
 
     const order = {
+      id: detalhesPedido,
       nome: 'Pedido do Carrinho',
       data: new Date().toISOString(),
       descricao: detalhesPedido,
-      status: 'Pendente',
+      status: 'EM ABERTO',
       valor: this.calculateTotalValue().toString(),
       prazo: '2023-11-15', 
       items: items,
     };
 
-    this.http.post(this.apiUrl + 'order', order).subscribe(
-      (response) => {
-        console.log('Pedido criado com sucesso:', response);
-        this.clearCart();
+    this.http.post(this.apiUrl + 'order', order).subscribe({
+      next: () => {
+        this.clearCart()
+        this.router.navigate(['order'])
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao criar o pedido:', error);
       }
-    );
+    });
   }
 
   calculateTotalValue(): number {
-    return this.cartItemsSubject.getValue().reduce(
+    return this.cartItemsSubject.value.reduce(
       (total, product) => total + product.valor * product.quantidade,
       0,
     );
