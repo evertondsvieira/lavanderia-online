@@ -9,13 +9,13 @@ export interface IStatusOrder {
   descricao: string;
   status: string;
   data: string;
-  prazo: string
-  valor: string
+  prazo: string;
+  valor: string;
   items: {
-    nome: string,
-    valor: string,
-    imgUrl: string
-  }[]
+    nome: string;
+    valor: string;
+    imgUrl: string;
+  }[];
 }
 
 @Component({
@@ -27,15 +27,18 @@ export class OrderComponent implements OnInit {
   pedidos: IStatusOrder[] = [];
   selectedStatus: string = 'all';
   selectedOrderToChangeStatus: IStatusOrder | null = null;
-  statusOptions: string[] = ['Em andamento', 'Cancelado', 'Rejeitado'];
+  statusOptions: string[] = ['Em aberto', 'Cancelado', 'Rejeitado'];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.http.get<IStatusOrder[]>(this.apiUrl + 'order').subscribe({
       next: (data: IStatusOrder[]) => {
         this.pedidos = data;
-        console.log(this.pedidos)
+        console.log(this.pedidos);
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);
@@ -48,7 +51,7 @@ export class OrderComponent implements OnInit {
       return this.pedidos;
     } else {
       return this.pedidos.filter(
-        (pedido) => pedido.status === this.selectedStatus
+        (pedido) => pedido.status === this.selectedStatus,
       );
     }
   }
@@ -59,7 +62,7 @@ export class OrderComponent implements OnInit {
 
   confirmStatusChange(pedido: IStatusOrder) {
     if (pedido) {
-      if (pedido.status === 'Em andamento') {
+      if (pedido.status === 'Em aberto') {
         pedido.status = 'Pago';
         this.selectedOrderToChangeStatus = null;
       }
@@ -68,11 +71,11 @@ export class OrderComponent implements OnInit {
 
   confirmStatusCancel(pedido: IStatusOrder) {
     if (pedido) {
-      if (pedido.status === 'Em andamento'){
+      if (pedido.status === 'Em aberto') {
         pedido.status = 'Cancelado';
-      this.selectedOrderToChangeStatus = null;
+        this.selectedOrderToChangeStatus = null;
+      }
     }
-  }
   }
 
   cancelStatusChange() {
