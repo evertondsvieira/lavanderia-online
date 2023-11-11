@@ -10,9 +10,7 @@
   <div class="flex flex-col gap-2 w-full" *ngFor="let pedido of pedidos">
     <div class="flex items-center justify-between">
       <p class="text-mainBlue font-medium">Número do pedido: {{ pedido.id }}</p>
-      <app-button [success]="true" (click)="openConfirmationModal()"
-        >Realizar Pagamento</app-button
-      >
+      <app-button [success]="true" (click)="openConfirmationModal()">Realizar Pagamento</app-button>
     </div>
 
     <div class="font-2xl text-mainBlue flex items-center gap-2">

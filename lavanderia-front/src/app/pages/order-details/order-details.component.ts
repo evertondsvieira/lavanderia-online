@@ -17,23 +17,19 @@ export class OrderDetailsComponent {
 
   ngOnInit(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
-  
+
     this.http.get<IStatusOrder>(this.apiUrl + 'order/' + orderId).subscribe({
       next: (data: IStatusOrder) => {
-        // Convert items from object to array
-        data.items = Object.values(data.items);
+        data.items = Object.values(data.items)
   
-        this.pedidos = [data]; // Wrap data in an array
-        console.log(this.pedidos);
+        this.pedidos = [data]
       },
       error: (error: any) => {
-        console.error('Erro ao buscar os dados:', error);
-      },
-    });
+        console.error('Erro ao buscar os dados:', error)
+      }
+    })
   }
   
-
-
   openConfirmationModal(): void {
     this.isConfirmationModalOpen = true;
   }
