@@ -1,77 +1,71 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-
-export interface Order {
-  id: number;
-  status: string;
-  date: Date;
-}
+import { environment } from 'src/app/environment';
+import { IStatusOrder } from '../order/order.component';
 
 @Component({
   selector: 'app-order-view',
   templateUrl: './order-view.component.html',
 })
 export class OrderViewComponent {
-  orders: Order[] = [
-    { id: 1, status: 'EM ABERTO', date: new Date() },
-    { id: 2, status: 'REJEITADO', date: new Date() },
-    { id: 3, status: 'RECOLHIDO', date: new Date('2023-08-01') },
-    { id: 4, status: 'AGUARDANDO PAGAMENTO', date: new Date('2023-08-05') },
-    { id: 5, status: 'PAGO', date: new Date('2023-08-10') },
-    { id: 6, status: 'FINALIZADO', date: new Date('2023-08-15') },
-    // ... 
-  ];
+  apiUrl = environment.apiUrl
+  pedidos: IStatusOrder[] = []
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.http.get<IStatusOrder[]>(this.apiUrl + 'order').subscribe({
+      next: (data: IStatusOrder[]) => {
+        this.pedidos = data;
+        console.log(this.pedidos)
+      },
+      error: (error: any) => {
+        console.error('Erro ao buscar os dados:', error)
+      },
+    });
+  }
+
+  palette: { [key: string]: string } = {
+    'EM ABERTO': 'bg-yellow-300',
+    'REJEITADO': 'bg-red-500',
+    'CANCELADO': 'bg-red-500',
+    'RECOLHIDO': 'bg-gray-400',
+    'AGUARDANDO PAGAMENTO': 'bg-blue-300',
+    'PAGO': 'bg-orange-300',
+    'FINALIZADO': 'bg-green-300', 
+  }
 
   getColor(status: string): string {
-    switch (status) {
-      case 'EM ABERTO':
-        return 'bg-yellow-300';
-      case 'REJEITADO':
-      case 'CANCELADO':
-        return 'bg-red-500';
-      case 'RECOLHIDO':
-        return 'bg-gray-400';
-      case 'AGUARDANDO PAGAMENTO':
-        return 'bg-blue-300';
-      case 'PAGO':
-        return 'bg-orange-300';
-      case 'FINALIZADO':
-        return 'bg-green-300';
-      default:
-        return 'bg-black';
-    }
+    return this.palette[status] || 'bg-white';
   }
 
-  onRecolhimentoConfirmed(order: Order): void {
-  }
-
-  onLavagemConfirmed(order: Order): void {
-  }
-
-  onFinalizacaoConfirmed(order: Order): void {
-  }
-
-  selectedOrderToChangeStatus: Order | null = null;
-
-  openConfirmationModal(order: Order) {
-    this.selectedOrderToChangeStatus = order;
-  }
-
-  confirmStatusChange(order: Order) {
-    if (order) {
-      if (order.status === 'EM ABERTO'){
-        order.status = 'RECOLHIDO';
-      }
-      else if (order.status === 'RECOLHIDO'){
-        order.status = 'AGUARDANDO PAGAMENTO';
-      }
-      else if (order.status === 'AGUARDANDO PAGAMENTO'){
-        order.status = 'PAGO';
-      }
-      else if (order.status === 'PAGO'){
-        order.status = 'FINALIZADO';
-      }
+  statusTransitions: Record<string, string> = {
+    'EM ABERTO': 'RECOLHIDO',
+    'RECOLHIDO': 'AGUARDANDO PAGAMENTO',
+    'AGUARDANDO PAGAMENTO': 'PAGO',
+    'PAGO': 'FINALIZADO',
+  };
+  
+  confirmStatusChange(order: IStatusOrder) {
+    if (order && this.statusTransitions.hasOwnProperty(order.status)) {
+      order.status = this.statusTransitions[order.status];
       this.selectedOrderToChangeStatus = null;
     }
+  }
+
+  onRecolhimentoConfirmed(order: IStatusOrder): void {
+  }
+
+  onLavagemConfirmed(order: IStatusOrder): void {
+  }
+
+  onFinalizacaoConfirmed(order: IStatusOrder): void {
+  }
+
+  selectedOrderToChangeStatus: IStatusOrder | null = null;
+
+  openConfirmationModal(order: IStatusOrder) {
+    this.selectedOrderToChangeStatus = order;
   }
 
   cancelStatusChange() {

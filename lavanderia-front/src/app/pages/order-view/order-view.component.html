@@ -3,55 +3,56 @@
     <h1 class="text-xl text-mainBlue font-bold">Visualização de pedidos</h1>
     <app-date-filter></app-date-filter>
   </div>
+
   <img src="assets/order-view.jpg" class="rounded-md w-full pb-4" />
 
   <div
-    *ngFor="let order of orders"
-    [ngClass]="getColor(order.status)"
-    [style.background-color]="getColor(order.status)"
+    *ngFor="let pedido of pedidos"
+    [ngClass]="getColor(pedido.status)"
+    [style.background-color]="getColor(pedido.status)"
     class="flex w-full h-18 rounded-lg mb-4"
   >
     <div class="flex flex-col w-full m-2 p-2 gap-2">
-      <div class="flex gap-1">
-        <p>Pedido #{{ order.id }} -</p>
-        <span>Data: {{ order.date | date }}</span>
+      <div class="flex flex-col gap-1">
+        <p class="font-bold">{{ pedido.nome }} {{ pedido.id }}</p>
+        <span>Data: {{ pedido.data | date:'dd/MM/yyyy - HH:mm' }}</span>
       </div>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
     </div>
 
-    <div class="flex flex-col items-center mr-2 pt-2 w-[120px]">
-      <p class="text-center font-medium">{{ order.status }}</p>
+    <div class="flex flex-col justify-center items-end p-4 w-[360px]">
+      <p class="w-auto text-end font-medium">{{ pedido.status }}</p>
       <button
-        *ngIf="order.status === 'EM ABERTO'"
-        (click)="openConfirmationModal(order)"
-        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
+        *ngIf="pedido.status === 'EM ABERTO'"
+        (click)="openConfirmationModal(pedido)"
+        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
       >
         Confirmar Recolhimento
       </button>
       <button
-        *ngIf="order.status === 'RECOLHIDO'"
-        (click)="openConfirmationModal(order)"
-        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
+        *ngIf="pedido.status === 'RECOLHIDO'"
+        (click)="openConfirmationModal(pedido)"
+        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
       >
         Confirmar Lavagem
       </button>
       <button
-        *ngIf="order.status === 'AGUARDANDO PAGAMENTO'"
-        (click)="openConfirmationModal(order)"
-        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
+        *ngIf="pedido.status === 'AGUARDANDO PAGAMENTO'"
+        (click)="openConfirmationModal(pedido)"
+        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
       >
         Confirmar Pagamento
       </button>
       <button
-        *ngIf="order.status === 'PAGO'"
-        (click)="openConfirmationModal(order)"
-        class="w-28 bg-mainBlue text-white font-medium uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 cursor-pointer"
+        *ngIf="pedido.status === 'PAGO'"
+        (click)="openConfirmationModal(pedido)"
+        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
       >
         Finalizar Pedido
       </button>
     </div>
   </div>
 </app-box>
+
 <app-confirmation-modal
   *ngIf="selectedOrderToChangeStatus"
   (confirm)="confirmStatusChange(selectedOrderToChangeStatus)"
