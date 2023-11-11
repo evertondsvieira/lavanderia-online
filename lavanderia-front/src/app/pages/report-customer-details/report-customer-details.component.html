@@ -2,7 +2,7 @@
   <div class="w-full">
     <h2 class="font-medium flex gap-1">
       Detalhes do Cliente:
-      <p class="font-normal">{{ selectedReport.name }}</p>
+      <p class="font-normal">{{ selectedReport.nome }}</p>
     </h2>
 
     <div #pdfContent class="p-2">
@@ -23,15 +23,15 @@
           </tr>
           <tbody>
             <tr class="border-b bg-white">
-              <td class="w-32 p-4">{{ selectedReport.name }}</td>
+              <td class="w-32 p-4">{{ selectedReport.nome }}</td>
               <td class="w-32 p-4">{{ selectedReport.email }}</td>
               <td class="w-32 p-4">{{ selectedReport.cpf }}</td>
-              <td class="w-32 p-4">{{ selectedReport.phone }}</td>
+              <td class="w-32 p-4">{{ selectedReport.telefone }}</td>
               <td class="w-32 p-4">{{ selectedReport.cep }}</td>
               <td class="w-4 p-4">{{ selectedReport.uf }}</td>
-              <td class="w-32 p-4">{{ selectedReport.city }}</td>
-              <td class="w-32 p-4">{{ selectedReport.neighborhood }}</td>
-              <td class="w-32 p-4">{{ selectedReport.street }}</td>
+              <td class="w-32 p-4">{{ selectedReport.cidade }}</td>
+              <td class="w-32 p-4">{{ selectedReport.bairro }}</td>
+              <td class="w-32 p-4">{{ selectedReport.rua }}</td>
             </tr>
           </tbody>
         </table>
@@ -54,10 +54,10 @@
                 *ngFor="let order of selectedReport.order"
               >
                 <td class="w-32 p-4">{{ order.id }}</td>
-                <td class="w-32 p-4">{{ order.date }}</td>
-                <td class="w-32 p-4">{{ order.deliveryDate }}</td>
+                <td class="w-32 p-4">{{ order.data }}</td>
+                <td class="w-32 p-4">{{ order.prazo }}</td>
                 <td class="w-32 p-4">{{ order.status }}</td>
-                <td class="w-32 p-4">R$ {{ order.value }},00</td>
+                <td class="w-32 p-4">R$ {{ order.valor }},00</td>
               </tr>
             </tbody>
           </table>
@@ -79,7 +79,7 @@
         <a
           *ngIf="pdfConvertido && selectedReport"
           [href]="pdfDataUri"
-          download="{{ selectedReport.name }}.pdf"
+          download="{{ selectedReport.nome }}.pdf"
         >
           <app-button [success]="true">Baixar PDF</app-button>
         </a>
