@@ -8,6 +8,13 @@ export class NavBarComponent {
   @ViewChild('drawerNavigation')
   drawerNavigation!: ElementRef;
 
+  navItems = [
+    { nome: 'Home', icone: 'home', link: 'user/home' },
+    { nome: 'Pedidos', icone: 'article', link: '/order' },
+    { nome: 'Serviços', icone: 'local_laundry_service', link: '/services' },
+    { nome: 'Carrinho', icone: 'shopping_cart', link: '/cart' },
+  ]
+
   toggleDrawer(): void {
     const drawer = this.drawerNavigation.nativeElement;
     drawer.classList.toggle('translate-x-0');
