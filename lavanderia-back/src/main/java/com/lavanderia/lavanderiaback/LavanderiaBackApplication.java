@@ -9,5 +9,4 @@ public class LavanderiaBackApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LavanderiaBackApplication.class, args);
 	}
-
 }
