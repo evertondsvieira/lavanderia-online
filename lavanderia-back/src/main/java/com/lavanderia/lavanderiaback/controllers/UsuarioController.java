@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lavanderia.lavanderiaback.database.UsuarioRepository;
 import com.lavanderia.lavanderiaback.entities.Usuario;
-import com.lavanderia.lavanderiaback.services.JwtToken;
-import com.lavanderia.lavanderiaback.services.UsuarioService;
 import com.lavanderia.lavanderiaback.utils.EmailService;
 import com.lavanderia.lavanderiaback.utils.PasswordService;
 
@@ -29,9 +27,6 @@ public class UsuarioController {
 
     @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private UsuarioService usuarioService;
 
     @GetMapping
     public List<Usuario> get() {
@@ -54,7 +49,6 @@ public class UsuarioController {
         String randomPassword = PasswordService.generateRandomPassword();
 
         String salt = PasswordService.gerarSalt();
-
         String encryptedPassword = PasswordService.criptografarSenha(randomPassword, salt);
 
         user.setSenha(encryptedPassword);
@@ -65,19 +59,6 @@ public class UsuarioController {
         emailService.sendRandomPasswordEmail(user.getEmail(), randomPassword);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        String email = loginRequest.getEmail();
-        String senha = loginRequest.getSenha();
-
-        if (usuarioService.autenticarUsuario(email, senha)) {
-            String token = JwtToken.generateToken(email);
-            return ResponseEntity.ok(token);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação.");
-        }
     }
 
     @PutMapping("/{id}")
