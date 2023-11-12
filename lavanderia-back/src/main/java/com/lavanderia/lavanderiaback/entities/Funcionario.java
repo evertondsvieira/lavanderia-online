@@ -20,7 +20,6 @@ public class Funcionario {
     @Column(nullable = false)
     private String datanascimento;
     @Column(nullable = false)
-    @JsonIgnore
     private String senha;
     @Column(nullable = false) 
     @JsonIgnore
