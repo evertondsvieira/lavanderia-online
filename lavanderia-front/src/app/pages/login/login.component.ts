@@ -32,7 +32,7 @@ export class LoginComponent {
       });
 
       this.http
-        .post<ILoginUser>(`${this.apiUrl}login`, this.newUser, { headers })
+        .post<ILoginUser>(this.apiUrl + 'login', this.newUser, { headers })
         .subscribe({
           next: (user) => {
             this.user.push(user);

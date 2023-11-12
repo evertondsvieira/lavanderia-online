@@ -2,6 +2,8 @@ package com.lavanderia.lavanderiaback.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lavanderia.lavanderiaback.database.FuncionarioRepository;
 import com.lavanderia.lavanderiaback.entities.Funcionario;
+import com.lavanderia.lavanderiaback.services.FuncionarioService;
 import com.lavanderia.lavanderiaback.utils.PasswordService;
 
 @RestController
 @RequestMapping("/employee")
 public class FuncionarioController {
+    private static final Logger log = LoggerFactory.getLogger(FuncionarioService.class);
+
     @Autowired
     private FuncionarioRepository repository;
 
@@ -36,24 +41,23 @@ public class FuncionarioController {
 
     @PostMapping
     public ResponseEntity<Funcionario> post(@RequestBody Funcionario funcionario) {
+        String senha = funcionario.getSenha();
+
         String salt = PasswordService.gerarSalt(); 
-        String senhaCriptografada = hashSenha(funcionario.getSenha(), salt); 
+        String encryptedPassword = PasswordService.criptografarSenha(senha, salt);
     
-        funcionario.setSenha(senhaCriptografada);
+        funcionario.setSenha(encryptedPassword);
         funcionario.setSalt(salt);
     
-        Funcionario savedEmployee = repository.save(funcionario);
-        return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
-    }
-    
-    private String hashSenha(String senha, String salt) {
-        return PasswordService.criptografarSenha(senha, salt);
+        repository.save(funcionario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(funcionario);
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<Funcionario> updateEmployee(@PathVariable Long id, @RequestBody Funcionario updatedFuncionario) {
         Funcionario existingFuncionario = repository.findById(id).orElse(null);
-    
+        String senha = updatedFuncionario.getSenha();
+
         if (existingFuncionario != null) {
             existingFuncionario.setNome(updatedFuncionario.getNome());
             existingFuncionario.setEmail(updatedFuncionario.getEmail());
@@ -61,8 +65,8 @@ public class FuncionarioController {
     
             if (updatedFuncionario.getSenha() != null) {
                 String salt = PasswordService.gerarSalt();
-                String senhaCriptografada = hashSenha(updatedFuncionario.getSenha(), salt);
-                existingFuncionario.setSenha(senhaCriptografada);
+                String encryptedPassword = PasswordService.criptografarSenha(senha, salt);
+                existingFuncionario.setSenha(encryptedPassword);
                 existingFuncionario.setSalt(salt);
             }
     
