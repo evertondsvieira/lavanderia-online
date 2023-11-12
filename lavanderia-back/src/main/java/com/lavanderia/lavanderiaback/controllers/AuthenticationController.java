@@ -43,16 +43,15 @@ public class AuthenticationController {
                 String token = JwtToken.generateToken(email);
                 LoginResponse response = new LoginResponse(token);
                 return ResponseEntity.ok(response);
-            } else if (funcionario != null) {
-                if (funcionarioService.autenticarFuncionario(funcionario, senha)) {
-                    String token = JwtToken.generateToken(email);
-                    LoginResponse response = new LoginResponse(token);
-                    return ResponseEntity.ok(response);
-                } 
+            } else if (funcionario != null && funcionarioService.autenticarFuncionario(funcionario, senha)) {
+                String token = JwtToken.generateToken(email);
+                LoginResponse response = new LoginResponse(token);
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-            return null;
         } catch (Exception e) {
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
