@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -33,6 +32,8 @@ public class Usuario {
     private String cidade;
     @Column(nullable = false)
     private String bairro;
+    @Column(nullable = false)
+    private String role = "usuario";
     @Column(nullable = false)
     private String rua;
     @Column(nullable = false)
@@ -102,7 +103,6 @@ public class Usuario {
     public void setRua(String rua) {
         this.rua = rua;
     }
-    @JsonIgnore
     public String getSenha() {
         return senha;
     }
@@ -120,5 +120,11 @@ public class Usuario {
     }
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
     }
 }

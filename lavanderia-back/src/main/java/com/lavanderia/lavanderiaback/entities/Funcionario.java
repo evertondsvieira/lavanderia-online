@@ -20,8 +20,10 @@ public class Funcionario {
     @Column(nullable = false)
     private String datanascimento;
     @Column(nullable = false)
+    private String role = "funcionario";
+    @Column(nullable = false)
     private String senha;
-    @Column(nullable = false) 
+    @Column(nullable = false)
     @JsonIgnore
     private String salt;
     public Long getId() {
@@ -59,5 +61,11 @@ public class Funcionario {
     }
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
     }
 }

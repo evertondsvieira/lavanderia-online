@@ -40,11 +40,13 @@ public class AuthenticationController {
             Funcionario funcionario = employeeRepository.findByEmail(email);
 
             if (usuario != null && usuarioService.autenticarUsuario(usuario, senha)) {
-                String token = JwtToken.generateToken(email);
+                String role = "usuario";
+                String token = JwtToken.generateToken(email, role);
                 LoginResponse response = new LoginResponse(token);
                 return ResponseEntity.ok(response);
             } else if (funcionario != null && funcionarioService.autenticarFuncionario(funcionario, senha)) {
-                String token = JwtToken.generateToken(email);
+                String role = "funcionario";
+                String token = JwtToken.generateToken(email, role);
                 LoginResponse response = new LoginResponse(token);
                 return ResponseEntity.ok(response);
             } else {
