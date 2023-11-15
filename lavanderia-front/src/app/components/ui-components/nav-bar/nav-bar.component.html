@@ -3,7 +3,7 @@
     <mat-icon fontIcon="list"></mat-icon>
   </li>
   <ul class="flex space-x-3 font-bold text-center">
-    <li *ngFor="let item of navItems" class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform">
+    <li *ngFor="let item of getFilteredNavItems()" class="relative z-10 flex cursor-pointer group hover:translate-x-[-12px] transition-transform">
       <a [routerLink]="item.link">
         <div class="group-hover:pr-10 flex items-center">
           <mat-icon [fontIcon]="item.icone"></mat-icon>
