@@ -6,6 +6,7 @@ import { environment } from 'src/app/environment';
 interface ILoginUser {
   email: string;
   senha: string;
+  token: string;
 }
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent {
   newUser: ILoginUser = {
     email: '',
     senha: '',
+    token: '',
   };
 
   constructor(
@@ -37,10 +39,13 @@ export class LoginComponent {
           next: (user) => {
             this.user.push(user);
 
+            localStorage.setItem('@token', user.token);
+
             this.newUser = {
               email: '',
               senha: '',
-            }
+              token: '',
+            };
 
             this.router.navigate(['/user/home']);
           },
