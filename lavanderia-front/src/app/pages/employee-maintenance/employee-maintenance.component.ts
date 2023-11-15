@@ -41,7 +41,9 @@ export class EmployeeMaintenanceComponent {
         email: '',
         datanascimento: '',
         senha: '',
-      };
+      }
+    }else {
+      this.newEmployee.senha = '';
     }
   }
 
