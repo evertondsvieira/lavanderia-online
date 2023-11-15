@@ -24,6 +24,7 @@
     "@ngrx/store": "^16.2.0",
     "@popperjs/core": "^2.11.8",
     "html2pdf.js": "^0.9.0",
+    "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
     "tailwind-merge": "^1.14.0",
     "tailwind-variants": "^0.1.13",
