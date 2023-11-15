@@ -16,6 +16,7 @@ import { ReportIncomeComponent } from './pages/report-income/report-income.compo
 import { ReportCustomerDetailsComponent } from './pages/report-customer-details/report-customer-details.component';
 import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/employee-maintenance.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { EmployeeGuard } from './utils/employee.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -27,17 +28,18 @@ const routes: Routes = [
     children: [
       { path: 'services', component: LaundryServicesComponent },
       { path: 'order', component: OrderComponent },
-      { path: 'order/view', component: OrderViewComponent},
       { path: 'order/:id', component: OrderDetailsComponent },
       { path: 'cart', component: CartItemsComponent },
       { path: 'user/home', component: UserHomeComponent },
-      { path: 'employee/home', component: HomeEmployeeComponent},
-      { path: 'employee/crud', component: EmployeeCrudComponent},
-      { path: 'employee/maintenance', component: EmployeeMaintenanceComponent},
-      { path: 'report/income', component: ReportIncomeComponent },
-      { path: 'report/customer', component: ReportCustomerComponent },
-      { path: 'report/customer/:id', component: ReportCustomerDetailsComponent },
-      { path: 'report/loyalcustomer', component: ReportLoyalCustomerComponent },
+      { path: 'order/view', component: OrderViewComponent, canActivate: [EmployeeGuard] },
+      { path: 'employee/home', component: HomeEmployeeComponent, canActivate: [EmployeeGuard] },
+      { path: 'employee/crud', component: EmployeeCrudComponent, canActivate: [EmployeeGuard] },
+      { path: 'employee/maintenance', component: EmployeeMaintenanceComponent, canActivate: [EmployeeGuard]  },
+      { path: 'report/income', component: ReportIncomeComponent, canActivate: [EmployeeGuard] },
+      { path: 'report/customer', component: ReportCustomerComponent, canActivate: [EmployeeGuard] },
+      { path: 'report/customer/:id', component: ReportCustomerDetailsComponent, canActivate: [EmployeeGuard] },
+      { path: 'report/loyalcustomer', component: ReportLoyalCustomerComponent, canActivate: [EmployeeGuard] },
+      { path: '**', redirectTo: 'login' },
     ],
   },
 ];
