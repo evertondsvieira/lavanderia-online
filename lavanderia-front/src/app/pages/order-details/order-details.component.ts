@@ -29,6 +29,21 @@ export class OrderDetailsComponent {
       }
     })
   }
+
+  onConfirmPayment(): void {
+    const orderId = this.route.snapshot.paramMap.get('id');
+
+    this.http.put(this.apiUrl + `order/${orderId}`, { status: 'PAGO' }).subscribe({
+      next: () => {
+        window.location.reload();
+        this.ngOnInit(); 
+      },
+      error: (error: any) => {
+        console.error('Erro ao confirmar o pagamento:', error);
+      },
+    });
+    this.isConfirmationModalOpen = false;
+  }
   
   openConfirmationModal(): void {
     this.isConfirmationModalOpen = true;

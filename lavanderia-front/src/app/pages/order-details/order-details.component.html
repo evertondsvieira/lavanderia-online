@@ -10,7 +10,7 @@
   <div class="flex flex-col gap-2 w-full" *ngFor="let pedido of pedidos">
     <div class="flex items-center justify-between">
       <p class="text-mainBlue font-medium">Número do pedido: {{ pedido.id }}</p>
-      <app-button [success]="true" (click)="openConfirmationModal()">Realizar Pagamento</app-button>
+      <app-button [success]="true" *ngIf="pedido.status !== 'PAGO'" (click)="openConfirmationModal()">Realizar Pagamento</app-button>
     </div>
 
     <div class="font-2xl text-mainBlue flex items-center gap-2">
@@ -29,7 +29,7 @@
         <span class="flex gap-1"
           >Valor unitário:
           <p class="font-medium">
-            {{ item.valor | currency: "BRL" : "symbol" : "1.2-2" }}
+            {{ item.valor | currency: "BRL" }}
           </p></span
         >
       </div>
@@ -40,11 +40,11 @@
         <p class="font-medium">
           Valor total:
           <span class="font-normal">{{
-            pedido.valor | currency: "BRL" : "symbol" : "1.2-2"
-          }}</span>
+            pedido.valor | currency: "BRL" }}
+          </span>
         </p>
         <p class="font-medium">
-          Prazo do serviço: <span class="font-normal">{{ pedido.prazo }}</span>
+          Prazo do serviço: <span class="font-normal">{{ pedido.prazo | date: "dd/MM/yyyy - HH:mm" }}</span>
         </p>
       </div>
     </div>
@@ -54,5 +54,5 @@
 <app-confirmation-modal
   *ngIf="isConfirmationModalOpen"
   (cancel)="onCancelClick()"
-  (confirm)="onConfirmClick()"
+  (confirm)="onConfirmPayment()"
 ></app-confirmation-modal>
