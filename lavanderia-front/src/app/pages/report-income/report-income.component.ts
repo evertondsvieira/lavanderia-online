@@ -1,41 +1,44 @@
 import * as html2pdf from 'html2pdf.js';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { environment } from 'src/app/environment';
+import { HttpClient } from '@angular/common/http';
 
-export interface IReport {
-  dateS: Date;
-  dateE: Date;
-  income: string;
-  total: string;
+export interface IReportResponse {
+  inicio: Date;
+  fim: Date;
+  receitaTotal: number;
 }
 
 @Component({
   selector: 'app-report-income',
   templateUrl: './report-income.component.html',
 })
-export class ReportIncomeComponent {
+export class ReportIncomeComponent implements OnInit  {
   @ViewChild('pdfContent') pdfContent!: ElementRef;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
+  apiUrl = environment.apiUrl;
+  reports: IReportResponse[] = [];
 
-  reports: IReport[] = [
-    {
-      dateS: new Date('2023-08-27'),
-      dateE: new Date(),
-      income: 'R$ 3000',
-      total: 'R$ 5000',
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
-  // constructor(private router: Router) {}
-  // formatDate(date: Date): string {
-  //   const options: Intl.DateTimeFormatOptions = {
-  //     year: 'numeric',
-  //     month: '2-digit',
-  //     day: '2-digit',
-  //   };
-  //   return date.toLocaleDateString('en-US', options);
-  // }
-
+  ngOnInit(): void {
+    this.http.get<IReportResponse | IReportResponse[]>(this.apiUrl + 'recipe/report').subscribe({
+      next: (data: IReportResponse | IReportResponse[]) => {
+        if (Array.isArray(data)) {
+          this.reports = data;
+        } else if (typeof data === 'object' && data !== null) {
+          this.reports = [data];
+        } else {
+          console.error('API response format is not recognized:', data);
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao buscar os dados:', error);
+      },
+    });
+  }
+ 
   convertToPDF() {
     this.pdfConvertido = true;
     const content = this.pdfContent.nativeElement;

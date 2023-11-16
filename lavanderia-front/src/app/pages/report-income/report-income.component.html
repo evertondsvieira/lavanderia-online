@@ -12,18 +12,14 @@
           <tr>
             <th scope="col" class="px-6 py-3">Data Início</th>
             <th scope="col" class="px-6 py-3">Data Fim</th>
-            <th scope="col" class="px-6 py-3">Ganho Total</th>
             <th scope="col" class="px-6 py-3">Valor Total</th>
           </tr>
           <tbody>
-            <ng-container *ngFor="let report of reports">
-              <tr class="border-b bg-white">
-                <td class="w-32 p-4">{{ report.dateS | date }}</td>
-                <td class="w-32 p-4">{{ report.dateE | date }}</td>
-                <td class="w-32 p-4">{{ report.income }}</td>
-                <td class="w-32 p-4">{{ report.total }}</td>
-              </tr>
-            </ng-container>
+            <tr class="border-b bg-white" *ngFor="let report of reports">
+              <td class="w-32 p-4">{{ report.inicio | date: "dd/MM/yyyy - HH:mm" }}</td>
+              <td class="w-32 p-4">{{ report.fim | date: "dd/MM/yyyy - HH:mm" }}</td>
+              <td class="w-32 p-4">{{ report.receitaTotal | currency: 'BRL' }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
