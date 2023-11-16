@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environment';
+import { AuthService } from 'src/app/utils/AuthService';
 
 export interface IStatusOrder {
   id: number;
@@ -32,10 +33,13 @@ export class OrderComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    this.http.get<IStatusOrder[]>(this.apiUrl + 'order').subscribe({
+    const userId = this.authService.getUserId();
+
+    this.http.get<IStatusOrder[]>(this.apiUrl + `order/user/${userId}`).subscribe({
       next: (data: IStatusOrder[]) => {
         this.pedidos = data;
         console.log(this.pedidos);
