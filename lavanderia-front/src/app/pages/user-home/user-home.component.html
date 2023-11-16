@@ -27,7 +27,7 @@
         class="bg-white bg-opacity-90 flex items-center justify-between border-light-blue-500 w-auto h-auto p-4 rounded-md border-2 border-solid mb-4"
       >
         <p class="font-bold">{{pedido.nome}} {{ pedido.id }}</p>
-        <button (click)="onOpenModal()" class="bg-rose-500 px-4 py-2 rounded text-white w-48">
+        <button (click)="onOpenModal(pedido.id)" class="bg-rose-500 px-4 py-2 rounded text-white w-48">
           Cancelar Pedido
         </button>
       </li>
@@ -40,3 +40,4 @@
   (cancel)="onCancelClick()"
   (confirm)="onCancelOrder()"
 ></app-confirmation-modal>
+
