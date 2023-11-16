@@ -14,7 +14,7 @@ export interface IReport {
   cidade: string;
   bairro: string;
   rua: string;
-  order: {
+  pedidos: {
     id: number;
     data: string;
     prazo: string;
