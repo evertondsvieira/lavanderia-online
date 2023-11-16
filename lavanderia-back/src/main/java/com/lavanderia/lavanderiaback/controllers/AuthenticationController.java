@@ -35,18 +35,20 @@ public class AuthenticationController {
         try {
             String email = loginRequest.getEmail();
             String senha = loginRequest.getSenha();
-
+    
             Usuario usuario = userRepository.findByEmail(email);
             Funcionario funcionario = employeeRepository.findByEmail(email);
-
+    
             if (usuario != null && usuarioService.autenticarUsuario(usuario, senha)) {
                 String role = "usuario";
-                String token = JwtToken.generateToken(email, role);
+                Long userId = usuario.getId();
+                String token = JwtToken.generateToken(userId.toString(), email, role);
                 LoginResponse response = new LoginResponse(token);
                 return ResponseEntity.ok(response);
             } else if (funcionario != null && funcionarioService.autenticarFuncionario(funcionario, senha)) {
                 String role = "funcionario";
-                String token = JwtToken.generateToken(email, role);
+                Long employeeId = funcionario.getId();
+                String token = JwtToken.generateToken(employeeId.toString(), email, role);
                 LoginResponse response = new LoginResponse(token);
                 return ResponseEntity.ok(response);
             } else {
@@ -55,5 +57,5 @@ public class AuthenticationController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
+    }    
 }
