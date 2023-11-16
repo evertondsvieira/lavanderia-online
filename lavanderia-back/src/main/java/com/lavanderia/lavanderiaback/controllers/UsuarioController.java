@@ -1,6 +1,8 @@
 package com.lavanderia.lavanderiaback.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +45,20 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/top-loyal")
+    public ResponseEntity<List<Usuario>> getTopLoyalUsers() {
+        List<Usuario> allUsers = repository.findAll();
+    
+        List<Usuario> topLoyalUsers = allUsers.stream()
+                .filter(usuario -> usuario instanceof Usuario) 
+                .filter(usuario -> ((Usuario) usuario).getPedidos() != null)
+                .sorted(Comparator.comparingInt(usuario -> ((Usuario) usuario).getPedidos().size()).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+    
+        return ResponseEntity.ok(topLoyalUsers);
+    }   
     
     @PostMapping
     public ResponseEntity<Usuario> post(@RequestBody Usuario user) {
