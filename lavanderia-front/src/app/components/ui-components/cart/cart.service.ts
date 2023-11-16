@@ -4,6 +4,7 @@ import { IProduct } from '../product/product.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/utils/AuthService';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,11 @@ export class CartService {
   cartItems$ = this.cartItemsSubject.asObservable();
   apiUrl = environment.apiUrl
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   addToCart(product: IProduct): void {
     const currentItems = this.cartItemsSubject.value;
@@ -33,6 +38,8 @@ export class CartService {
   }
 
   createOrder(detalhesPedido: string): void {
+    const userId = this.authService.getUserId();
+    
     const items = this.cartItemsSubject.value.map((product) => {
       return {
         id: product.id,
@@ -55,10 +62,11 @@ export class CartService {
       items: items,
     };
 
-    this.http.post(this.apiUrl + 'order', order).subscribe({
+    this.http.post(this.apiUrl + `order/${userId}`, order).subscribe({
       next: () => {
         this.clearCart()
         this.router.navigate(['order'])
+        console.log('Order a ser enviada:', order);
       },
       error: (error) => {
         console.error('Erro ao criar o pedido:', error);
