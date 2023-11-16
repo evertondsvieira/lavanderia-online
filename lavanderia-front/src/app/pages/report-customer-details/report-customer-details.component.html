@@ -38,27 +38,20 @@
       </div>
       <div class="p-2">
         <div class="table-container overflow-x-auto">
-          <table
-            class="w-full text-center text-sm text-gray-500 dark:text-gray-400"
-          >
+          <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
             <tr>
               <th scope="col" class="px-6 py-3">Número do pedido</th>
               <th scope="col" class="px-6 py-3">Data do pedido</th>
-              <th scope="col" class="px-6 py-3">Data de entrega</th>
               <th scope="col" class="px-6 py-3">Status do pedido</th>
               <th scope="col" class="px-6 py-3">Valor</th>
             </tr>
             <tbody>
-              <tr
-                class="border-b bg-white"
-                *ngFor="let order of selectedReport.order"
-              >
+              <tr class="border-b bg-white" *ngFor="let order of selectedReport.pedidos">
                 <td class="w-32 p-4">{{ order.id }}</td>
-                <td class="w-32 p-4">{{ order.data }}</td>
-                <td class="w-32 p-4">{{ order.prazo }}</td>
+                <td class="w-32 p-4">{{ order.data | date: "dd/MM/yyyy - HH:mm" }}</td>
                 <td class="w-32 p-4">{{ order.status }}</td>
                 <td class="w-32 p-4">R$ {{ order.valor }},00</td>
-              </tr>
+              </tr>              
             </tbody>
           </table>
         </div>
