@@ -1,6 +1,9 @@
 import * as html2pdf from 'html2pdf.js';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IReport } from '../report-customer/report-customer.component';
+import { environment } from 'src/app/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-report-loyal-customer',
@@ -8,10 +11,32 @@ import { IReport } from '../report-customer/report-customer.component';
 })
 export class ReportLoyalCustomerComponent {
   @ViewChild('pdfContent') pdfContent!: ElementRef;
+  apiUrl = environment.apiUrl;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
 
   reports: IReport[] = [];
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.loadLoyalCustomers();
+  }
+
+  loadLoyalCustomers() {
+    this.getAllUsers().subscribe({
+      next: (loyalUsers: IReport[]) => {
+        this.reports = loyalUsers;
+      },
+      error: (error: any) => {
+        console.error('Erro ao buscar usuários fiéis:', error);
+      },
+    });
+  }
+
+  getAllUsers() {
+    return this.http.get<IReport[]>(`${this.apiUrl}user/top-loyal`);
+  }
 
   convertToPDF() {
     this.pdfConvertido = true;
