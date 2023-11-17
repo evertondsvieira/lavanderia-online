@@ -44,6 +44,7 @@ import { ReportCustomerDetailsComponent } from './pages/report-customer-details/
 import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/employee-maintenance.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { CancelationModalComponent } from './components/ui-components/cancelation-modal/cancelation-modal.component';
+import { OrderSearchComponent } from './pages/order-search/order-search.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { CancelationModalComponent } from './components/ui-components/cancelatio
     EmployeeMaintenanceComponent,
     UserHomeComponent,
     CancelationModalComponent,
+    OrderSearchComponent,
   ],
   imports: [
     BrowserModule,

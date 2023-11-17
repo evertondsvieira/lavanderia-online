@@ -13,6 +13,23 @@ export class OrderDetailsComponent {
   apiUrl = environment.apiUrl;
   pedidos: IStatusOrder[] = [];
 
+  numeroDoPedido: string = '';
+
+  pesquisarPedido(): void { //Lógica para busca de pedidos por número
+    if (this.numeroDoPedido.trim() !== '') {
+      this.http.get<IStatusOrder>(this.apiUrl + 'order/' + this.numeroDoPedido).subscribe({
+        next: (data: IStatusOrder) => {
+          this.pedidos = [];
+          data.items = Object.values(data.items);
+          this.pedidos.push(data);
+        },
+        error: (error: any) => {
+          console.error('Erro ao buscar os dados:', error);
+        },
+      });
+    }
+  }
+
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {

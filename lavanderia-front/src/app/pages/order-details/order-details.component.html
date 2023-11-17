@@ -1,8 +1,13 @@
 <app-box>
-  <div class="pb-3">
-    <h1 class="flex font-medium text-mainBlue text-3xl">Detalhes do pedido</h1>
+  <div>
+    <div class="pb-3">
+      <h1 class="flex font-medium text-mainBlue text-3xl">Detalhes do pedido</h1>
+    </div>
+    <div class="flex items-center justify-between mb-4">
+      <input type="text" [(ngModel)]="numeroDoPedido" placeholder="Número do Pedido" class="p-2 border rounded-md">
+      <button (click)="pesquisarPedido()" class="p-2 bg-mainBlue text-white rounded-md">Pesquisar</button>
+    </div>
   </div>
-
   <div class="flex flex-col gap-4 items-center justify-start w-full h-auto">
     <img src="assets/lavanderia-header.png" class="rounded-md w-full mb-2" />
   </div>
