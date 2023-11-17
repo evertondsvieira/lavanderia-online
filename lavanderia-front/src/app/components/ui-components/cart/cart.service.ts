@@ -52,7 +52,7 @@ export class CartService {
     });
 
     const order = {
-      id: detalhesPedido,
+      usuario: { id: userId },
       nome: 'Pedido do Carrinho',
       data: new Date().toISOString(),
       descricao: detalhesPedido,
@@ -62,11 +62,10 @@ export class CartService {
       items: items,
     };
 
-    this.http.post(this.apiUrl + `order/${userId}`, order).subscribe({
+    this.http.post(`${this.apiUrl}order`, order).subscribe({
       next: () => {
         this.clearCart()
         this.router.navigate(['order'])
-        console.log('Order a ser enviada:', order);
       },
       error: (error) => {
         console.error('Erro ao criar o pedido:', error);

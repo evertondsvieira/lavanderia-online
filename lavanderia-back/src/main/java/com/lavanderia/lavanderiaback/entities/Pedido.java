@@ -12,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -26,11 +27,11 @@ public class Pedido {
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
-    private String data;
+    private LocalDate data;
     @Column(nullable = false)
     private String status;
     @Column(nullable = false)
-    private String valor;
+    private Double valor;
     @Column(nullable = false)
     private String prazo;
     @JsonBackReference
@@ -38,7 +39,7 @@ public class Pedido {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     @JsonManagedReference
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Item> items;
     public Long getId() {
         return id;
@@ -64,10 +65,10 @@ public class Pedido {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
     public String getStatus() {
@@ -76,10 +77,10 @@ public class Pedido {
     public void setStatus(String status) {
         this.status = status;
     }
-    public String getValor() {
+    public Double getValor() {
         return valor;
     }
-    public void setValor(String valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
     public String getPrazo() {
