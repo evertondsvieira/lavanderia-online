@@ -12,12 +12,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 @Entity
 public class Pedido {
@@ -31,16 +33,16 @@ public class Pedido {
     @Column(nullable = false)
     private String status;
     @Column(nullable = false)
-    private Double valor;
+    private BigDecimal valor;
     @Column(nullable = false)
     private String prazo;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    @JsonManagedReference
+    @JsonIgnoreProperties("items")
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Item> items;
+    private List<ItemPedido> itemsPedido;
     public Long getId() {
         return id;
     }
@@ -50,11 +52,11 @@ public class Pedido {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    public List<Item> getItems() {
-        return items;
+    public List<ItemPedido> getItemsPedido() {
+        return itemsPedido;
     }
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setItems(List<ItemPedido> itemsPedido) {
+        this.itemsPedido = itemsPedido;
     }
     public void setId(Long id) {
         this.id = id;
@@ -77,10 +79,10 @@ public class Pedido {
     public void setStatus(String status) {
         this.status = status;
     }
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
     public String getPrazo() {

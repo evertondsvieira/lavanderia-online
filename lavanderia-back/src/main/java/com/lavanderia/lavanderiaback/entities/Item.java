@@ -5,10 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Item {
@@ -27,21 +23,13 @@ public class Item {
     private String prazo;
     @Column(nullable = true)
     private Integer quantidade;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
+    public Item() {
+    }
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
-    }
-    public Pedido getPedido() {
-        return pedido;
-    }
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
     }
     public String getNome() {
         return nome;
@@ -78,5 +66,7 @@ public class Item {
     }
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+    public void setUsuario(Usuario usuario) {
     }
 }
