@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from './cart.service';
 import { IProduct } from '../product/product.component';
-import { IStatusOrder } from 'src/app/pages/order/order.component';
 
 @Component({
   selector: 'app-cart',

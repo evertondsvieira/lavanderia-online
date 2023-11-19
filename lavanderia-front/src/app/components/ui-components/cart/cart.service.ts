@@ -42,12 +42,15 @@ export class CartService {
     
     const items = this.cartItemsSubject.value.map((product) => {
       return {
-        id: product.id,
-        nome: product.nome,
-        quantidade: product.quantidade,
-        valor: product.valor,
-        imgUrl: product.imgUrl,
-        prazo: product.prazo,
+        item: {
+          id: product.id,
+          nome: product.nome,
+          quantidade: product.quantidade,
+          valor: product.valor,
+          imgUrl: product.imgUrl,
+          prazo: product.prazo,
+        },
+        quantidade: product.quantidade
       };
     });
 
@@ -59,7 +62,7 @@ export class CartService {
       status: 'EM ABERTO',
       valor: this.calculateTotalValue().toString(),
       prazo: '2023-11-15', 
-      items: items,
+      itemsPedido: items,
     };
 
     this.http.post(`${this.apiUrl}order`, order).subscribe({
