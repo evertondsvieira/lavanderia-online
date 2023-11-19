@@ -17,6 +17,26 @@ import { ReportCustomerDetailsComponent } from './pages/report-customer-details/
 import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/employee-maintenance.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { EmployeeGuard } from './utils/employee.guard';
+import { UserGuard } from './utils/user.guard';
+
+export const userRoutes: Routes = [
+  { path: 'services', component: LaundryServicesComponent, canActivate: [UserGuard], data: { title: 'Laundry Services' } },
+  { path: 'order', component: OrderComponent, canActivate: [UserGuard] },
+  { path: 'order/:id', component: OrderDetailsComponent, canActivate: [UserGuard] },
+  { path: 'cart', component: CartItemsComponent, canActivate: [UserGuard] },
+  { path: 'user/home', component: UserHomeComponent, canActivate: [UserGuard] },
+];
+
+export const employeeRoutes: Routes = [
+  { path: 'order/view', component: OrderViewComponent, canActivate: [EmployeeGuard], data: { title: 'View Orders' } },
+  { path: 'employee/home', component: HomeEmployeeComponent, canActivate: [EmployeeGuard] },
+  { path: 'employee/crud', component: EmployeeCrudComponent, canActivate: [EmployeeGuard] },
+  { path: 'employee/maintenance', component: EmployeeMaintenanceComponent, canActivate: [EmployeeGuard] },
+  { path: 'report/income', component: ReportIncomeComponent, canActivate: [EmployeeGuard] },
+  { path: 'report/customer', component: ReportCustomerComponent, canActivate: [EmployeeGuard] },
+  { path: 'report/customer/:id', component: ReportCustomerDetailsComponent, canActivate: [EmployeeGuard] },
+  { path: 'report/loyalcustomer', component: ReportLoyalCustomerComponent, canActivate: [EmployeeGuard] },
+];
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,20 +46,9 @@ const routes: Routes = [
     path: '',
     component: MaskComponent,
     children: [
-      { path: 'services', component: LaundryServicesComponent },
-      { path: 'order', component: OrderComponent },
-      { path: 'order/:id', component: OrderDetailsComponent },
-      { path: 'cart', component: CartItemsComponent },
-      { path: 'user/home', component: UserHomeComponent },
-      { path: 'order/view', component: OrderViewComponent, canActivate: [EmployeeGuard] },
-      { path: 'employee/home', component: HomeEmployeeComponent, canActivate: [EmployeeGuard] },
-      { path: 'employee/crud', component: EmployeeCrudComponent, canActivate: [EmployeeGuard] },
-      { path: 'employee/maintenance', component: EmployeeMaintenanceComponent, canActivate: [EmployeeGuard]  },
-      { path: 'report/income', component: ReportIncomeComponent, canActivate: [EmployeeGuard] },
-      { path: 'report/customer', component: ReportCustomerComponent, canActivate: [EmployeeGuard] },
-      { path: 'report/customer/:id', component: ReportCustomerDetailsComponent, canActivate: [EmployeeGuard] },
-      { path: 'report/loyalcustomer', component: ReportLoyalCustomerComponent, canActivate: [EmployeeGuard] },
-      { path: '**', redirectTo: 'login' },
+      ...userRoutes,
+      ...employeeRoutes,
+      { path: '**', redirectTo: '/login' },
     ],
   },
 ];

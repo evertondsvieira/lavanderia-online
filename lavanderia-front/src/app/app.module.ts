@@ -44,6 +44,9 @@ import { ReportCustomerDetailsComponent } from './pages/report-customer-details/
 import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/employee-maintenance.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { CancelationModalComponent } from './components/ui-components/cancelation-modal/cancelation-modal.component';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { UserGuard } from './utils/user.guard';
+import { EmployeeGuard } from './utils/employee.guard';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,7 @@ import { CancelationModalComponent } from './components/ui-components/cancelatio
     EmployeeMaintenanceComponent,
     UserHomeComponent,
     CancelationModalComponent,
+    UnauthorizedComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +97,7 @@ import { CancelationModalComponent } from './components/ui-components/cancelatio
     HttpClientModule,
     StoreModule.forRoot({}, {})
   ],
-  providers: [],
+  providers: [UserGuard, EmployeeGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

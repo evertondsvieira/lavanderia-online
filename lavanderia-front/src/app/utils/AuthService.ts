@@ -41,6 +41,12 @@ export class AuthService {
     const decodedToken = this.decodeToken(token);
     return decodedToken?.sub ?? null;
   }
+
+  getUserRole(): string | null {
+    const token = this.getAuthToken() ?? '';
+    const decodedToken = this.decodeToken(token);
+    return decodedToken?.role ?? null;
+  }
   
   private getAuthToken(): string | null {
     return localStorage.getItem(this.authTokenKey);
