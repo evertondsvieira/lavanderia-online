@@ -21,39 +21,39 @@ import com.lavanderia.lavanderiaback.utils.RelatorioReceitaDTO;
 @RestController
 @RequestMapping("/recipe")
 public class ReceitaController {
-    @Autowired
-    private ReceitaRepository repository;
+  @Autowired
+  private ReceitaRepository repository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+  @Autowired
+  private UsuarioRepository usuarioRepository;
 
-    @GetMapping
-    public List<Receita> get() {
-        return repository.findAll();
-    }
+  @GetMapping
+  public List<Receita> get() {
+    return repository.findAll();
+  }
 
-    @GetMapping("/{id}")
-    public Receita getItemById(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
-    }
+  @GetMapping("/{id}")
+  public Receita getItemById(@PathVariable Long id) {
+    return repository.findById(id).orElse(null);
+  }
 
-    @GetMapping("/report")
-    public ResponseEntity<RelatorioReceitaDTO> getRelatorioReceita() {
-        LocalDate dataInicio = LocalDate.now().withDayOfMonth(1);
-        LocalDate dataFim = YearMonth.now().atEndOfMonth();
-    
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        double receitaTotal = usuarios.stream()
-                .flatMap(usuario -> usuario.getPedidos().stream())
-                .filter(pedido -> pedido.getData().isAfter(dataInicio) && pedido.getData().isBefore(dataFim))
-                .mapToDouble(Pedido::getValor)
-                .sum();
-    
-        RelatorioReceitaDTO relatorio = new RelatorioReceitaDTO();
-        relatorio.setInicio(dataInicio);
-        relatorio.setFim(dataFim);
-        relatorio.setReceitaTotal(receitaTotal);
-    
-        return ResponseEntity.ok(relatorio);
-    }
+  @GetMapping("/report")
+  public ResponseEntity<RelatorioReceitaDTO> getRelatorioReceita() {
+    LocalDate dataInicio = LocalDate.now().withDayOfMonth(1);
+    LocalDate dataFim = YearMonth.now().atEndOfMonth();
+
+    List<Usuario> usuarios = usuarioRepository.findAll();
+    double receitaTotal = usuarios.stream()
+        .flatMap(usuario -> usuario.getPedidos().stream())
+        .filter(pedido -> pedido.getData().isAfter(dataInicio) && pedido.getData().isBefore(dataFim))
+        .mapToDouble(pedido -> pedido.getValor().doubleValue()) 
+        .sum();
+
+    RelatorioReceitaDTO relatorio = new RelatorioReceitaDTO();
+    relatorio.setInicio(dataInicio);
+    relatorio.setFim(dataFim);
+    relatorio.setReceitaTotal(receitaTotal);
+
+    return ResponseEntity.ok(relatorio);
+  }
 }

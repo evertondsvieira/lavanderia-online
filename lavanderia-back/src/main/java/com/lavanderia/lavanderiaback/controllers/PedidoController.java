@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lavanderia.lavanderiaback.database.ItemPedidoRepository;
 import com.lavanderia.lavanderiaback.database.ItemRepository;
 import com.lavanderia.lavanderiaback.database.PedidoRepository;
 import com.lavanderia.lavanderiaback.database.UsuarioRepository;
 import com.lavanderia.lavanderiaback.entities.Item;
+import com.lavanderia.lavanderiaback.entities.ItemPedido;
 import com.lavanderia.lavanderiaback.entities.Pedido;
 import com.lavanderia.lavanderiaback.entities.Usuario;
 
@@ -32,6 +34,9 @@ public class PedidoController {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -47,10 +52,10 @@ public class PedidoController {
     public Pedido getItemById(@PathVariable Long id) {
         return repository.findById(id).orElse(null);
     }
-   
+
     @PutMapping("{orderId}/user/{usuarioId}")
     public ResponseEntity<String> putOrderForUser(@PathVariable Long usuarioId, @PathVariable Long orderId,
-        @RequestBody Pedido updatedOrder) {
+            @RequestBody Pedido updatedOrder) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
 
         if (usuario != null) {
@@ -85,62 +90,27 @@ public class PedidoController {
 
     @PostMapping()
     public ResponseEntity<?> criarPedido(@RequestBody Pedido order) {
-        Usuario usuarioPedido = order.getUsuario();
-        
-        if (usuarioPedido == null) {
-            return ResponseEntity.badRequest().body("O pedido não possui um usuário associado.");
+        Usuario usuario = order.getUsuario();
+
+        if (usuario == null || usuario.getId() == null) {
+            return ResponseEntity.badRequest().body("O pedido não possui um usuário válido associado.");
         }
-    
-        Long userId = usuarioPedido.getId();
-    
-        if (userId == null) {
-            return ResponseEntity.badRequest().body("O usuário associado ao pedido não possui ID.");
-        }
-        
-        Pedido pedido = new Pedido();
-        pedido.setNome(order.getNome());
-        pedido.setPrazo(order.getPrazo());
-        pedido.setStatus(order.getStatus());
-        pedido.setValor(order.getValor());
-        pedido.setData(order.getData());
-        pedido.setUsuario(usuarioPedido);
-    
-        List<Item> items = new ArrayList<>();
-    
-        if (order.getItems() != null) {
-            for (Item newItem : order.getItems()) {
-                if (newItem.getId() != null) {
-                    Item existingItem = itemRepository.findById(newItem.getId()).orElse(null);
-    
-                    if (existingItem != null) {
-                        Item newItemCopy = new Item();
-    
-                        newItemCopy.setNome(existingItem.getNome());
-                        newItemCopy.setValor(existingItem.getValor());
-                        newItemCopy.setDescricao(existingItem.getDescricao());
-                        newItemCopy.setImgUrl(existingItem.getImgUrl());
-                        newItemCopy.setPrazo(existingItem.getPrazo());
-                        newItemCopy.setQuantidade(existingItem.getQuantidade());
-    
-                        newItemCopy.setPedido(pedido);
-                        items.add(newItemCopy);
-                    } else {
-                        return ResponseEntity.badRequest().body("ID de item inválido: " + newItem.getId());
-                    }
-                }
+
+        order.setUsuario(usuario);
+
+        Pedido novoPedido = repository.save(order);
+
+        List<ItemPedido> itensPedido = order.getItemsPedido();
+        if (itensPedido != null) {
+            for (ItemPedido itemPedido : itensPedido) {
+                itemPedido.setPedido(novoPedido);
+                itemPedidoRepository.save(itemPedido);
             }
         }
-    
-        pedido.setItems(items);
-    
-        if (!items.isEmpty()) {
-            repository.save(pedido);
-            return ResponseEntity.ok(pedido);
-        } else {
-            return ResponseEntity.badRequest().body("Nenhum item válido associado ao pedido.");
-        }
+
+        return ResponseEntity.ok(novoPedido);
     }
-    
+
     @PutMapping("/{id}")
     public void put(@PathVariable Long id, @RequestBody Pedido updatedOrder) {
         Pedido existingOrder = repository.findById(id).orElse(null);
