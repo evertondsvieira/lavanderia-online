@@ -24,17 +24,18 @@
       *ngFor="let status of filteredPedidos"
     >
       <div class="flex justify-between items-center">
-        <a class="font-bold" (click)="showDetailsOrder(status.id)">{{ status.nome }} {{ status.id }}</a>
+        <a class="font-bold" (click)="showDetailsOrder(status.id)"
+          >{{ status.nome }} {{ status.id }}</a
+        >
         <button
           class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
-          >
+        >
           {{ status.status }}
-      </button>
+        </button>
       </div>
-      <span>Data e Hora: {{ status.data | date:'dd/MM/yyyy - HH:mm'}}</span>
+      <span>Data e Hora: {{ status.data | date: "dd/MM/yyyy - HH:mm" }}</span>
       <div class="flex justify-between items-center">
-      <p>{{ status.descricao }}</p>
-      <button
+        <button
           *ngIf="status.status === 'Em andamento'"
           class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
           type="button"
@@ -43,16 +44,16 @@
           Realizar pagamento
         </button>
         <button
-    *ngIf="status.status === 'Em andamento'"
-    class="w-28 bg-red-500 text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
-    type="button"
-    (click)="openConfirmationModal(status)"
-  >
-    Cancelar pedido
-  </button>
-        </div>
+          *ngIf="status.status === 'Em andamento'"
+          class="w-28 bg-red-500 text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
+          type="button"
+          (click)="openConfirmationModal(status)"
+        >
+          Cancelar pedido
+        </button>
+      </div>
+    </div>
   </div>
-</div>
 </app-box>
 <app-confirmation-modal
   *ngIf="selectedOrderToChangeStatus"

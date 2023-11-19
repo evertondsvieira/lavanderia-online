@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { environment } from 'src/app/environment';
-import { IStatusOrder } from '../order/order.component';
+import { PedidoCarrinho } from '../order/order.component';
 
 @Component({
   selector: 'app-order-view',
@@ -9,13 +9,13 @@ import { IStatusOrder } from '../order/order.component';
 })
 export class OrderViewComponent {
   apiUrl = environment.apiUrl
-  pedidos: IStatusOrder[] = []
+  pedidos: PedidoCarrinho[] = []
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<IStatusOrder[]>(this.apiUrl + 'order').subscribe({
-      next: (data: IStatusOrder[]) => {
+    this.http.get<PedidoCarrinho[]>(this.apiUrl + 'order').subscribe({
+      next: (data: PedidoCarrinho[]) => {
         this.pedidos = data;
         console.log(this.pedidos)
       },
@@ -46,25 +46,25 @@ export class OrderViewComponent {
     'PAGO': 'FINALIZADO',
   };
   
-  confirmStatusChange(order: IStatusOrder) {
+  confirmStatusChange(order: PedidoCarrinho) {
     if (order && this.statusTransitions.hasOwnProperty(order.status)) {
       order.status = this.statusTransitions[order.status];
       this.selectedOrderToChangeStatus = null;
     }
   }
 
-  onRecolhimentoConfirmed(order: IStatusOrder): void {
+  onRecolhimentoConfirmed(order: PedidoCarrinho): void {
   }
 
-  onLavagemConfirmed(order: IStatusOrder): void {
+  onLavagemConfirmed(order: PedidoCarrinho): void {
   }
 
-  onFinalizacaoConfirmed(order: IStatusOrder): void {
+  onFinalizacaoConfirmed(order: PedidoCarrinho): void {
   }
 
-  selectedOrderToChangeStatus: IStatusOrder | null = null;
+  selectedOrderToChangeStatus: PedidoCarrinho | null = null;
 
-  openConfirmationModal(order: IStatusOrder) {
+  openConfirmationModal(order: PedidoCarrinho) {
     this.selectedOrderToChangeStatus = order;
   }
 

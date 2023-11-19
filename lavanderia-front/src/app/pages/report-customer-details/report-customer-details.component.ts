@@ -4,7 +4,7 @@ import { IReport } from '../report-customer/report-customer.component';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environment';
-import { IStatusOrder } from '../order/order.component';
+import { PedidoCarrinho } from '../order/order.component';
 
 @Component({
   selector: 'app-report-customer-details',
@@ -16,7 +16,7 @@ export class ReportCustomerDetailsComponent implements OnInit {
   pdfConvertido = false;
   apiUrl = environment.apiUrl;
   selectedReport: IReport | null = null;
-  order: IStatusOrder | null = null;
+  order: PedidoCarrinho | null = null;
   reports: IReport[] = []
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}

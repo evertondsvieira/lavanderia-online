@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environment';
-import { IStatusOrder } from '../order/order.component';
+import { PedidoCarrinho } from '../order/order.component';
 
 @Component({
   selector: 'app-order',
@@ -12,13 +12,13 @@ export class HomeEmployeeComponent {
   apiUrl = environment.apiUrl;
   selectedStatus: string = 'all';
   listaVazia: boolean = false
-  pedidos: IStatusOrder[] = []
+  pedidos: PedidoCarrinho[] = []
 
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.http.get<IStatusOrder[]>(this.apiUrl + 'order').subscribe({
-      next: (pedidos: IStatusOrder[]) => {
+    this.http.get<PedidoCarrinho[]>(this.apiUrl + 'order').subscribe({
+      next: (pedidos: PedidoCarrinho[]) => {
         this.pedidos = pedidos.filter(
           (pedido) => pedido.status === 'EM ABERTO',
         );
@@ -33,9 +33,9 @@ export class HomeEmployeeComponent {
     this.router.navigate(['/order', id]);
   }
 
-  selectedStatusToChange: IStatusOrder | null = null;
+  selectedStatusToChange: PedidoCarrinho | null = null;
 
-  openConfirmationModal(status: IStatusOrder) {
+  openConfirmationModal(status: PedidoCarrinho) {
     this.selectedStatusToChange = status;
   }
 

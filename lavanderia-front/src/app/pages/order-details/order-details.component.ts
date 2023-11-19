@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IStatusOrder } from '../order/order.component';
+import { ItemPedido, PedidoCarrinho } from '../order/order.component';
 import { environment } from 'src/app/environment';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -11,31 +11,29 @@ import { ActivatedRoute } from '@angular/router';
 export class OrderDetailsComponent {
   isConfirmationModalOpen: boolean = false;
   apiUrl = environment.apiUrl;
-  pedidos: IStatusOrder[] = [];
+  pedidos: PedidoCarrinho[] = [];
+  itemPedido: ItemPedido[] = [];
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
-
-    this.http.get<IStatusOrder>(this.apiUrl + 'order/' + orderId).subscribe({
-      next: (data: IStatusOrder) => {
-        data.items = Object.values(data.items)
   
-        this.pedidos = [data]
+    this.http.get<PedidoCarrinho>(this.apiUrl + 'order/' + orderId).subscribe({
+      next: (data: PedidoCarrinho) => {
+        this.pedidos = [data]; 
       },
       error: (error: any) => {
-        console.error('Erro ao buscar os dados:', error)
-      }
-    })
+        console.error('Erro ao buscar os dados:', error);
+      },
+    });
   }
-
+  
   onConfirmPayment(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
 
     this.http.put(this.apiUrl + `order/${orderId}`, { status: 'PAGO' }).subscribe({
       next: () => {
-        window.location.reload();
         this.ngOnInit(); 
       },
       error: (error: any) => {

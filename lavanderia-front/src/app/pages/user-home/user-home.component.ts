@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environment';
-import { IStatusOrder } from '../order/order.component';
+import { PedidoCarrinho } from '../order/order.component';
 import { AuthService } from 'src/app/utils/AuthService';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/utils/AuthService';
 })
 export class UserHomeComponent implements OnInit {
   apiUrl = environment.apiUrl;
-  pedidosAbertos: IStatusOrder[] = [];
+  pedidosAbertos: PedidoCarrinho[] = [];
   isConfirmationModalOpen: boolean = false
   orderIdToCancel: number | null = null;
 
@@ -19,8 +19,8 @@ export class UserHomeComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.authService.getUserId();
 
-    this.http.get<IStatusOrder[]>(this.apiUrl + `order/user/${userId}`).subscribe({
-      next: (pedidos: IStatusOrder[]) => {
+    this.http.get<PedidoCarrinho[]>(this.apiUrl + `order/user/${userId}`).subscribe({
+      next: (pedidos: PedidoCarrinho[]) => {
         this.pedidosAbertos = pedidos.filter(
           (pedido) => pedido.status === 'EM ABERTO',
         );
