@@ -35,6 +35,7 @@ export class EmployeeCrudComponent implements OnInit {
  
   editItem(item: ClothingItem) {
     this.itemEmEdicao = { ...item };
+    this.novoItem = {... item};
 
     if (!this.itemEmEdicao) {
       this.itemEmEdicao = {
