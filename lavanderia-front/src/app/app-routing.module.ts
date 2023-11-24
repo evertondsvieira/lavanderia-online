@@ -20,7 +20,7 @@ import { EmployeeGuard } from './utils/employee.guard';
 import { UserGuard } from './utils/user.guard';
 
 export const userRoutes: Routes = [
-  { path: 'services', component: LaundryServicesComponent, canActivate: [UserGuard], data: { title: 'Laundry Services' } },
+  { path: 'services', component: LaundryServicesComponent, canActivate: [UserGuard] },
   { path: 'order', component: OrderComponent, canActivate: [UserGuard] },
   { path: 'order/:id', component: OrderDetailsComponent, canActivate: [UserGuard] },
   { path: 'cart', component: CartItemsComponent, canActivate: [UserGuard] },
@@ -28,7 +28,7 @@ export const userRoutes: Routes = [
 ];
 
 export const employeeRoutes: Routes = [
-  { path: 'order/view', component: OrderViewComponent, canActivate: [EmployeeGuard], data: { title: 'View Orders' } },
+  { path: 'order/view', component: OrderViewComponent, canActivate: [EmployeeGuard] },
   { path: 'employee/home', component: HomeEmployeeComponent, canActivate: [EmployeeGuard] },
   { path: 'employee/crud', component: EmployeeCrudComponent, canActivate: [EmployeeGuard] },
   { path: 'employee/maintenance', component: EmployeeMaintenanceComponent, canActivate: [EmployeeGuard] },
@@ -46,8 +46,8 @@ const routes: Routes = [
     path: '',
     component: MaskComponent,
     children: [
-      ...userRoutes,
       ...employeeRoutes,
+      ...userRoutes,
       { path: '**', redirectTo: '/login' },
     ],
   },
