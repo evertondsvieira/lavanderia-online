@@ -29,6 +29,29 @@ export class HomeEmployeeComponent {
     });
   }
 
+  updateStatus(newStatus: string, order: PedidoCarrinho): void {
+    const orderId = order.id
+    const userId = order.userId
+
+    if (order && order.id && order.userId) {
+      const requestBody = { ...order, status: newStatus }
+      const requestUrl = `${this.apiUrl}order/${orderId}/user/${userId}`
+  
+      this.http.put<PedidoCarrinho>(requestUrl, requestBody).subscribe({
+        next: (data: PedidoCarrinho) => {
+          this.pedidos = [data]
+          this.cancelStatusChange()
+          window.location.reload()
+        },
+        error: (error: any) => {
+          console.error('Error in HTTP request:', error)
+        }
+      })
+    } else {
+      console.error('Invalid order or user ID')
+    }
+  }
+
   showDetailsOrder(id: number) {
     this.router.navigate(['/order', id]);
   }
@@ -39,15 +62,8 @@ export class HomeEmployeeComponent {
     this.selectedStatusToChange = status;
   }
 
-  confirmStatusChange() {
-    if (this.selectedStatusToChange) { 
-      const index = this.pedidos.indexOf(this.selectedStatusToChange);
-      if (index !== -1) {       
-        this.pedidos.splice(index, 1);
-        this.listaVazia = this.pedidos.length === 0
-      }
-      this.selectedStatusToChange = null;
-    }
+  confirmStatusChange(order: PedidoCarrinho) {
+    this.updateStatus('RECOLHIDO', order)
   }
   
   cancelStatusChange() {

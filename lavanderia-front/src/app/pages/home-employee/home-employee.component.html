@@ -36,6 +36,6 @@
 
 <app-confirmation-modal
   *ngIf="selectedStatusToChange"
-  (confirm)="confirmStatusChange()"
+  (confirm)="confirmStatusChange(selectedStatusToChange)"
   (cancel)="cancelStatusChange()"
 ></app-confirmation-modal>
