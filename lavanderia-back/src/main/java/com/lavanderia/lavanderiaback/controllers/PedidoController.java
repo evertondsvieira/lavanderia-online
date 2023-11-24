@@ -1,7 +1,6 @@
 package com.lavanderia.lavanderiaback.controllers;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lavanderia.lavanderiaback.database.ItemPedidoRepository;
-import com.lavanderia.lavanderiaback.database.ItemRepository;
 import com.lavanderia.lavanderiaback.database.PedidoRepository;
 import com.lavanderia.lavanderiaback.database.UsuarioRepository;
-import com.lavanderia.lavanderiaback.entities.Item;
 import com.lavanderia.lavanderiaback.entities.ItemPedido;
 import com.lavanderia.lavanderiaback.entities.Pedido;
 import com.lavanderia.lavanderiaback.entities.Usuario;
@@ -33,9 +30,6 @@ public class PedidoController {
     private PedidoRepository repository;
 
     @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
     @Autowired
@@ -45,7 +39,15 @@ public class PedidoController {
 
     @GetMapping
     public List<Pedido> get() {
-        return repository.findAll();
+        List<Pedido> pedidos = repository.findAll();
+
+        for (Pedido pedido : pedidos) {
+            if (pedido.getUsuario() != null) {
+                pedido.setUserId(pedido.getUsuario().getId());
+            }
+        }
+
+        return pedidos;
     }
 
     @GetMapping("/{id}")
@@ -54,8 +56,8 @@ public class PedidoController {
     }
 
     @PutMapping("{orderId}/user/{usuarioId}")
-    public ResponseEntity<String> putOrderForUser(@PathVariable Long usuarioId, @PathVariable Long orderId,
-            @RequestBody Pedido updatedOrder) {
+    public ResponseEntity<?> putOrderForUser(@PathVariable Long usuarioId, @PathVariable Long orderId,
+        @RequestBody Pedido updatedOrder) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
 
         if (usuario != null) {
@@ -66,7 +68,7 @@ public class PedidoController {
                 existingOrder.setData(updatedOrder.getData());
 
                 repository.save(existingOrder);
-                return ResponseEntity.ok("Pedido atualizado com sucesso.");
+                return ResponseEntity.ok(existingOrder);
             } else {
                 return ResponseEntity.notFound().build();
             }
