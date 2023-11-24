@@ -29,6 +29,7 @@ export interface PedidoCarrinho {
   valor: number;
   prazo: string;
   usuario: Usuario;
+  userId: Number;
   itemsPedido: ItemPedido[];
 }
 

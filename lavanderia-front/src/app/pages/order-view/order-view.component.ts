@@ -16,13 +16,36 @@ export class OrderViewComponent {
   ngOnInit(): void {
     this.http.get<PedidoCarrinho[]>(this.apiUrl + 'order').subscribe({
       next: (data: PedidoCarrinho[]) => {
-        this.pedidos = data;
+        this.pedidos = data
         console.log(this.pedidos)
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error)
       },
-    });
+    })
+  }
+
+  updateStatus(newStatus: string, order: PedidoCarrinho): void {
+    const orderId = order.id
+    const userId = order.userId
+
+    if (order && order.id && order.userId) {
+      const requestBody = { ...order, status: newStatus }
+      const requestUrl = `${this.apiUrl}order/${orderId}/user/${userId}`
+  
+      this.http.put<PedidoCarrinho>(requestUrl, requestBody).subscribe({
+        next: (data: PedidoCarrinho) => {
+          this.pedidos = [data]
+          this.cancelStatusChange()
+          window.location.reload()
+        },
+        error: (error: any) => {
+          console.error('Error in HTTP request:', error)
+        }
+      })
+    } else {
+      console.error('Invalid order or user ID')
+    }
   }
 
   palette: { [key: string]: string } = {
@@ -36,7 +59,7 @@ export class OrderViewComponent {
   }
 
   getColor(status: string): string {
-    return this.palette[status] || 'bg-white';
+    return this.palette[status] || 'bg-white'
   }
 
   statusTransitions: Record<string, string> = {
@@ -44,31 +67,55 @@ export class OrderViewComponent {
     'RECOLHIDO': 'AGUARDANDO PAGAMENTO',
     'AGUARDANDO PAGAMENTO': 'PAGO',
     'PAGO': 'FINALIZADO',
-  };
+  }
   
   confirmStatusChange(order: PedidoCarrinho) {
-    if (order && this.statusTransitions.hasOwnProperty(order.status)) {
-      order.status = this.statusTransitions[order.status];
-      this.selectedOrderToChangeStatus = null;
+    const newStatus = this.getNextStatus(order.status)
+    this.handleStatusChange(newStatus, order)
+  }
+
+  getNextStatus(currentStatus: string): string {
+    const statusTransitions: Record<string, string> = {
+      'EM ABERTO': 'RECOLHIDO',
+      'RECOLHIDO': 'AGUARDANDO PAGAMENTO',
+      'AGUARDANDO PAGAMENTO': 'PAGO',
+      'PAGO': 'FINALIZADO',
+    }
+
+    return statusTransitions[currentStatus]
+  }
+
+  handleStatusChange(newStatus: string, order: PedidoCarrinho): void {
+    if (newStatus) {
+      this.updateStatus(newStatus, order)
+    } else {
+      console.error('Invalid status transition')
     }
   }
 
   onRecolhimentoConfirmed(order: PedidoCarrinho): void {
+    this.updateStatus('RECOLHIDO', order)
   }
-
+  
   onLavagemConfirmed(order: PedidoCarrinho): void {
+    this.updateStatus('AGUARDANDO PAGAMENTO', order)
   }
-
+  
   onFinalizacaoConfirmed(order: PedidoCarrinho): void {
+    this.updateStatus('PAGO', order)
   }
 
-  selectedOrderToChangeStatus: PedidoCarrinho | null = null;
+  onFinal(order: PedidoCarrinho): void {
+    this.updateStatus('FINALIZADO', order)
+  }
+
+  selectedOrderToChangeStatus: PedidoCarrinho | null = null
 
   openConfirmationModal(order: PedidoCarrinho) {
-    this.selectedOrderToChangeStatus = order;
+    this.selectedOrderToChangeStatus = order
   }
 
   cancelStatusChange() {
-    this.selectedOrderToChangeStatus = null;
+    this.selectedOrderToChangeStatus = null
   }
 }
