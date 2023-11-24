@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lavanderia.lavanderiaback.database.ReceitaRepository;
 import com.lavanderia.lavanderiaback.database.UsuarioRepository;
-import com.lavanderia.lavanderiaback.entities.Pedido;
 import com.lavanderia.lavanderiaback.entities.Receita;
 import com.lavanderia.lavanderiaback.entities.Usuario;
 import com.lavanderia.lavanderiaback.utils.RelatorioReceitaDTO;

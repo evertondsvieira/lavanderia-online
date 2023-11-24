@@ -17,9 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido {
@@ -36,6 +34,8 @@ public class Pedido {
     private BigDecimal valor;
     @Column(nullable = false)
     private String prazo;
+    @Column(name = "user_id", insertable = false, updatable = false)
+    private Long userId;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -54,6 +54,9 @@ public class Pedido {
     }
     public List<ItemPedido> getItemsPedido() {
         return itemsPedido;
+    }
+    public void setItemsPedido(List<ItemPedido> itemsPedido) {
+        this.itemsPedido = itemsPedido;
     }
     public void setItems(List<ItemPedido> itemsPedido) {
         this.itemsPedido = itemsPedido;
@@ -90,5 +93,11 @@ public class Pedido {
     }
     public void setPrazo(String prazo) {
         this.prazo = prazo;
+    }
+    public Long getUserId() {
+        return userId;
+    }
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
