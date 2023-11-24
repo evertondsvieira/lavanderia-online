@@ -20,6 +20,7 @@ export class EmployeeCrudComponent implements OnInit {
   listaVazia: boolean = false
   clothingItems: ClothingItem[] = []
   itemEmEdicao: ClothingItem | null = null
+  RemovingItem: ClothingItem | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -31,10 +32,10 @@ export class EmployeeCrudComponent implements OnInit {
     prazo: '',
     descricao: '',
   };
-
+ 
   editItem(item: ClothingItem) {
     this.itemEmEdicao = { ...item };
-    this.novoItem = { ...item };
+    this.novoItem = {... item};
 
     if (!this.itemEmEdicao) {
       this.itemEmEdicao = {
@@ -148,5 +149,19 @@ export class EmployeeCrudComponent implements OnInit {
       prazo: '',
       descricao: '',
     };
+  }
+  openConfirmationModal(clothingItems: ClothingItem) {
+    this.RemovingItem = clothingItems;
+  }
+
+  confirmRemoveItem(clothingItems: ClothingItem) {
+    if (clothingItems) {
+      this.removeItem(clothingItems)
+      this.RemovingItem = null;
+    }
+  }
+
+  cancelRemoveItem() {
+    this.RemovingItem = null;
   }
 }
