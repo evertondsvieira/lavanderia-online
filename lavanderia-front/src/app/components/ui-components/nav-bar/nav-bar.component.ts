@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/utils/AuthService';
 
 interface INaveItems {
@@ -29,7 +30,7 @@ export class NavBarComponent {
     { nome: 'Loyal', icone: 'loyalty', link: 'report/loyalcustomer', role: 'funcionario' },
   ]
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   getFilteredNavItems(): INaveItems[] {
     const userRole = this.authService.getCurrentUser()?.role
@@ -49,6 +50,11 @@ export class NavBarComponent {
     const drawer = this.drawerNavigation.nativeElement
     drawer.classList.remove('translate-x-0')
     drawer.classList.add('-translate-x-full')
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   isLanguagePopoverVisible = false

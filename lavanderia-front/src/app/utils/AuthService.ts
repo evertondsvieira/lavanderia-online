@@ -47,6 +47,11 @@ export class AuthService {
     const decodedToken = this.decodeToken(token);
     return decodedToken?.role ?? null;
   }
+
+  clearToken(): void {
+    localStorage.removeItem(this.authTokenKey);
+  }
+  
   
   private getAuthToken(): string | null {
     return localStorage.getItem(this.authTokenKey);
