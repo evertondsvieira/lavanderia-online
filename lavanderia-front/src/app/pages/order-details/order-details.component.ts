@@ -49,11 +49,9 @@ export class OrderDetailsComponent {
 
   onCancelClick(): void {
     this.isConfirmationModalOpen = false;
-    console.log('Compra cancelada');
   }
 
   onConfirmClick(): void {
     this.isConfirmationModalOpen = false;
-    console.log('Compra finalizada');
   }
 }

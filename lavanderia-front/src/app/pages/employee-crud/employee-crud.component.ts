@@ -53,7 +53,6 @@ export class EmployeeCrudComponent implements OnInit {
     this.http.get<ClothingItem[]>(this.apiUrl + 'item').subscribe({
       next: (data: ClothingItem[]) => {
         this.clothingItems = data;
-        console.log(this.clothingItems);
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);

@@ -17,7 +17,6 @@ export class OrderViewComponent {
     this.http.get<PedidoCarrinho[]>(this.apiUrl + 'order').subscribe({
       next: (data: PedidoCarrinho[]) => {
         this.pedidos = data
-        console.log(this.pedidos)
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error)

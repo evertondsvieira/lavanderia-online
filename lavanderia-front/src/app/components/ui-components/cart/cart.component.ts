@@ -39,13 +39,11 @@ export class CartComponent {
 
   onCancelClick(): void {
     this.isConfirmationModalOpen = false;
-    console.log('Compra cancelada');
   }
 
   onConfirmClick(): void {
     this.isConfirmationModalOpen = false;
     this.cartService.createOrder(this.detalhesPedido);
-    console.log('Compra finalizada');
   }
 
   removeCartItem(index: number): void {

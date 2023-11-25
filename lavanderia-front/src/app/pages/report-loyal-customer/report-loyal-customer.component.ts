@@ -55,11 +55,9 @@ export class ReportLoyalCustomerComponent {
       .output()
       .then((pdf: string) => {
         this.pdfDataUri = 'data:application/pdf;base64,' + btoa(pdf);
-        console.log('PDF generated successfully');
       })
       .catch((error: unknown) => {
         console.error(error);
-        console.log('PDF generation failed');
       });
   }
 }

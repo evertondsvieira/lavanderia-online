@@ -42,7 +42,7 @@ export class OrderComponent implements OnInit {
   pedidos: PedidoCarrinho[] = [];
   selectedStatus: string = 'all';
   selectedOrderToChangeStatus: PedidoCarrinho | null = null;
-  statusOptions: string[] = ['Em aberto', 'Cancelado', 'Rejeitado'];
+  statusOptions: string[] = ['EM ABERTO', 'CANCELADO', 'REJEITADO'];
 
   constructor(
     private http: HttpClient,
@@ -58,7 +58,6 @@ export class OrderComponent implements OnInit {
       .subscribe({
         next: (data: PedidoCarrinho[]) => {
           this.pedidos = data;
-          console.log(this.pedidos);
         },
         error: (error: any) => {
           console.error('Erro ao buscar os dados:', error);

@@ -27,7 +27,6 @@ export class ProductComponent implements OnInit {
     this.http.get<IProduct[]>(this.apiUrl + 'item').subscribe({
       next: (data: IProduct[]) => {
         this.products = data.sort((a, b) => a.id - b.id);
-        console.log(this.products);
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);
@@ -53,6 +52,5 @@ export class ProductComponent implements OnInit {
     setTimeout(() => {
       this.showAlert = false;
     }, 3000);
-    console.log('Produto adicionado ao carrinho:', product);
   }
 }

@@ -23,6 +23,7 @@ export class NavBarComponent {
     { nome: 'Serviços', icone: 'local_laundry_service', link: '/services', role: 'usuario' },
     { nome: 'Carrinho', icone: 'shopping_cart', link: '/cart', role: 'usuario' },
     { nome: 'Home', icone: 'home', link: 'employee/home', role: 'funcionario' },
+    { nome: 'View', icone: 'search', link: 'order/view', role: 'funcionario' },
     { nome: 'Cadastro', icone: 'assignment_ind', link: 'employee/maintenance', role: 'funcionario' },
     { nome: 'Crud', icone: 'create', link: 'employee/crud', role: 'funcionario' },
     { nome: 'Receita', icone: 'attach_money', link: 'report/income', role: 'funcionario' },

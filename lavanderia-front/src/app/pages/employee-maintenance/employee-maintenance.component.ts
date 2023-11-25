@@ -51,7 +51,6 @@ export class EmployeeMaintenanceComponent {
     this.http.get<EmployeeMaintenance[]>(this.apiUrl + 'employee').subscribe({
       next: (data: EmployeeMaintenance[]) => {
         this.employees = data;
-        console.log(this.employees);
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);
