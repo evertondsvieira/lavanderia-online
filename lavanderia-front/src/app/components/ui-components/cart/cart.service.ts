@@ -63,6 +63,7 @@ export class CartService {
       valor: this.calculateTotalValue().toString(),
       prazo: '2023-11-15', 
       itemsPedido: items,
+      userId: this.authService.getUserId()
     };
 
     this.http.post(`${this.apiUrl}order`, order).subscribe({
