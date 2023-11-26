@@ -52,6 +52,11 @@ export class AuthService {
     localStorage.removeItem(this.authTokenKey);
   }
   
+  getUserName(): string | null {
+    const token = this.getAuthToken() ?? ''
+    const decodedToken = this.decodeToken(token)
+    return decodedToken?.nome ?? null
+  }
   
   private getAuthToken(): string | null {
     return localStorage.getItem(this.authTokenKey);

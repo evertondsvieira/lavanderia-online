@@ -11,9 +11,10 @@ import { AuthService } from 'src/app/utils/AuthService';
 export class UserHomeComponent implements OnInit {
   apiUrl = environment.apiUrl;
   pedidos: PedidoCarrinho[] = [];
+  nome = this.authService.getUserName()
 
   constructor(private http: HttpClient, private authService: AuthService) {}
-
+  
   ngOnInit(): void {
     const userId = this.authService.getUserId();
 

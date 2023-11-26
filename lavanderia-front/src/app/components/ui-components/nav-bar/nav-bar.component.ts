@@ -16,7 +16,8 @@ interface INaveItems {
 export class NavBarComponent {
   @ViewChild('drawerNavigation')
   drawerNavigation!: ElementRef;
-
+  nome: string | null = this.authService.getUserName();
+  
   navItems: INaveItems[] = [
     { nome: 'Home', icone: 'home', link: 'user/home', role: 'usuario' },
     { nome: 'Pedidos', icone: 'article', link: '/order', role: 'usuario' },
@@ -33,6 +34,16 @@ export class NavBarComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit(): void {
+    if (this.nome !== null) {
+      this.nome = this.capitalizeFirstLetter(this.nome);
+    }
+  }
+
+  private capitalizeFirstLetter(name: string): string {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+  
   getFilteredNavItems(): INaveItems[] {
     const userRole = this.authService.getCurrentUser()?.role
     if (userRole) {
