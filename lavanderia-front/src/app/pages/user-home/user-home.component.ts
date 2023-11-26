@@ -10,18 +10,16 @@ import { AuthService } from 'src/app/utils/AuthService';
 })
 export class UserHomeComponent implements OnInit {
   apiUrl = environment.apiUrl;
-  pedidosAbertos: PedidoCarrinho[] = [];
-  isConfirmationModalOpen: boolean = false
-  orderIdToCancel: number | null = null;
+  pedidos: PedidoCarrinho[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {}
-  
+
   ngOnInit(): void {
     const userId = this.authService.getUserId();
 
     this.http.get<PedidoCarrinho[]>(this.apiUrl + `order/user/${userId}`).subscribe({
       next: (pedidos: PedidoCarrinho[]) => {
-        this.pedidosAbertos = pedidos.filter(
+        this.pedidos = pedidos.filter(
           (pedido) => pedido.status === 'EM ABERTO',
         );
       },
@@ -31,31 +29,38 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
-  onCancelOrder(): void {
-    if (this.orderIdToCancel !== null) {
-      const userId = this.authService.getUserId();
-  
-      this.http.put(this.apiUrl + `order/${this.orderIdToCancel}/user/${userId}`, { status: 'CANCELADO' })
-        .subscribe({
-          next: () => {
-            window.location.reload();
-          },
-          error: (error: any) => {
-            console.log('Erro ao cancelar o pedido', error);
-          },
-        });
-  
-      this.isConfirmationModalOpen = false;
-      this.orderIdToCancel = null;
+  onCancelOrder(order: PedidoCarrinho): void {
+    const orderId = order.id
+    const userId = order.userId
+
+    if (order && order.id && order.userId) {
+      const requestBody = { ...order, status: 'CANCELADO' }
+      const requestUrl = `${this.apiUrl}order/${orderId}/user/${userId}`
+
+      this.http.put<PedidoCarrinho>(requestUrl, requestBody).subscribe({
+        next: (data: PedidoCarrinho) => {
+          const index = this.pedidos.findIndex(pedido => pedido.id === data.id);
+          if (index !== -1) {
+            this.pedidos[index] = data;
+          }
+          this.selectedOrderToChangeStatus = null;
+        },
+        error: (error: any) => {
+          console.log('Error in HTTP response:', error);
+        },
+      });
+    } else {
+      console.error('Invalid order or user ID');
     }
   }
-  
-  onOpenModal(id: number): void {
-    this.orderIdToCancel = id;
-    this.isConfirmationModalOpen = true;
+
+  selectedOrderToChangeStatus: PedidoCarrinho | null = null
+
+  openConfirmationModal(order: PedidoCarrinho) {
+    this.selectedOrderToChangeStatus = order
   }
 
-  onCancelClick(): void {
-    this.isConfirmationModalOpen = false;
-  }
+  cancelStatusChange() {
+    this.selectedOrderToChangeStatus = null
+  }  
 }

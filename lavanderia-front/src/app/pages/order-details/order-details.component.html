@@ -13,7 +13,7 @@
       <app-button
         [success]="true"
         *ngIf="pedido.status !== 'PAGO'"
-        (click)="openConfirmationModal()"
+        (click)="openConfirmationModal(pedido)"
       >
         Realizar Pagamento
       </app-button>
@@ -57,7 +57,7 @@
 </app-box>
 
 <app-confirmation-modal
-  *ngIf="isConfirmationModalOpen"
+  *ngIf="selectedOrderToChangeStatus"
+  (confirm)="onConfirmPayment(selectedOrderToChangeStatus)"
   (cancel)="onCancelClick()"
-  (confirm)="onConfirmPayment()"
 ></app-confirmation-modal>

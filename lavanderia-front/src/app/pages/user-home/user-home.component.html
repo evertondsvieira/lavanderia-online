@@ -23,11 +23,11 @@
     </div>
     <ul>
       <li
-        *ngFor="let pedido of pedidosAbertos"
+        *ngFor="let pedido of pedidos"
         class="bg-white bg-opacity-90 flex items-center justify-between border-light-blue-500 w-auto h-auto p-4 rounded-md border-2 border-solid mb-4"
       >
         <p class="font-bold">{{pedido.nome}} {{ pedido.id }}</p>
-        <button (click)="onOpenModal(pedido.id)" class="bg-rose-500 px-4 py-2 rounded text-white w-48">
+        <button (click)="openConfirmationModal(pedido)" class="bg-rose-500 px-4 py-2 rounded text-white w-48">
           Cancelar Pedido
         </button>
       </li>
@@ -36,8 +36,7 @@
 </app-box>
 
 <app-confirmation-modal
-  *ngIf="isConfirmationModalOpen"
-  (cancel)="onCancelClick()"
-  (confirm)="onCancelOrder()"
+  *ngIf="selectedOrderToChangeStatus"
+  (confirm)="onCancelOrder(selectedOrderToChangeStatus)"
+  (cancel)="cancelStatusChange()"
 ></app-confirmation-modal>
-
