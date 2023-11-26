@@ -55,9 +55,8 @@ public class PedidoController {
         Pedido pedido = repository.findById(id).orElse(null);
     
         if (pedido != null && pedido.getUsuario() != null) {
-            pedido.getUsuario().getId();
-            pedido.setId(pedido.getUsuario().getId());
-        }
+            pedido.setId(pedido.getId());
+        }        
     
         return pedido;
     }
@@ -73,7 +72,8 @@ public class PedidoController {
             if (existingOrder != null) {
                 existingOrder.setStatus(updatedOrder.getStatus());
                 existingOrder.setData(updatedOrder.getData());
-
+                existingOrder.setDataPagamento(updatedOrder.getDataPagamento());
+                
                 repository.save(existingOrder);
                 return ResponseEntity.ok(existingOrder);
             } else {

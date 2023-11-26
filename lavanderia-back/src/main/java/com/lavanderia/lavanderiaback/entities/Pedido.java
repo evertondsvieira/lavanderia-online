@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -34,6 +35,8 @@ public class Pedido {
     private BigDecimal valor;
     @Column(nullable = false)
     private String prazo;
+    @Column()
+    private String dataPagamento;
     @Column(name = "user_id", insertable = false, updatable = false)
     private Long userId;
     @JsonBackReference
@@ -99,5 +102,11 @@ public class Pedido {
     }
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+    public String getDataPagamento() {
+        return dataPagamento;
+    }
+    public void setDataPagamento(String dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 }
