@@ -15,7 +15,7 @@ export class OrderDetailsComponent {
   pedidos: PedidoCarrinho[] = [];
   itemPedido: ItemPedido[] = [];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthService) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
@@ -64,5 +64,14 @@ export class OrderDetailsComponent {
 
   onCancelClick(): void {
     this.selectedOrderToChangeStatus = null;
+  }
+
+
+  parseDateString(dateString: string): Date {
+    const [day, month, yearAndTime] = dateString.split('/');
+    const [year, time] = yearAndTime.split(', ');
+    const [hours, minutes, seconds] = time.split(':');
+
+    return new Date(+year, +month - 1, +day, +hours, +minutes, +seconds);
   }
 }

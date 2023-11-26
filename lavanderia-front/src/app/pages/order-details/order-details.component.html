@@ -12,7 +12,7 @@
       <p class="text-mainBlue font-medium">Número do pedido: {{ pedido.id }}</p>
       <app-button
         [success]="true"
-        *ngIf="pedido.status !== 'PAGO'"
+        *ngIf="pedido.status === 'AGUARDANDO PAGAMENTO'"
         (click)="openConfirmationModal(pedido)"
       >
         Realizar Pagamento
@@ -47,9 +47,7 @@
         </p>
         <p class="font-medium">
           Prazo do serviço:
-          <span class="font-normal">{{
-            pedido.prazo | date: "dd/MM/yyyy - HH:mm"
-          }}</span>
+          <span class="font-normal">{{ parseDateString(pedido.prazo) | date: "dd/MM/yyyy - HH:mm" }}</span>
         </p>
       </div>
     </div>
