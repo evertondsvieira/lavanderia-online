@@ -18,8 +18,8 @@
                   alt="imagem do produto"
                   class="w-36 h-36"
                 />
-                <p>Preço: {{ item.valor }}</p>
-                <p>Prazo: {{ item.prazo }} horas</p>
+                <p>Preço: {{ item.valor | currency:'BRL' }}</p>
+                <p>Prazo: {{ +item.prazo === 1 ? item.prazo + ' dia' : item.prazo + ' dias' }}</p>
                 <div class="flex flex-col gap-2">
                   <button
                     class="bg-blue-600 text-white rounded p-2"
