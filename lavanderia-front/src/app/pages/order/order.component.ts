@@ -57,10 +57,10 @@ export class OrderComponent implements OnInit {
       .get<PedidoCarrinho[]>(this.apiUrl + `order/user/${userId}`)
       .subscribe({
         next: (data: PedidoCarrinho[]) => {
-          this.pedidos = data;
+          this.pedidos = data.sort((a, b) => b.id - a.id)
         },
         error: (error: any) => {
-          console.error('Erro ao buscar os dados:', error);
+          console.error('Erro ao buscar os dados:', error)
         },
       });
   }
