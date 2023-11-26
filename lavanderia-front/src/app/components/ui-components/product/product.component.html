@@ -9,7 +9,7 @@
 
     <span class="font-medium flex gap-2">
       Valor unitário:
-      <p class="font-normal">{{ product.valor }}</p>
+      <p class="font-normal">{{ product.valor | currency:'BRL' }}</p>
     </span>
 
     <div class="flex items-center justify-center">

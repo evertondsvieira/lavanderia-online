@@ -24,11 +24,11 @@
       *ngFor="let status of filteredPedidos"
     >
       <div class="flex justify-between items-center">
-        <a class="font-bold" (click)="showDetailsOrder(status.id)"
-          >{{ status.nome }} {{ status.id }}</a
-        >
+        <p class="font-bold cursor-pointer" (click)="showDetailsOrder(status.id)">
+          {{ status.nome }} {{ status.id }}
+        </p>
         <button
-          class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
+          class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         >
           {{ status.status }}
         </button>
@@ -37,7 +37,7 @@
       <div class="flex justify-between items-center">
         <button
           *ngIf="status.status === 'Em andamento'"
-          class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
+          class="w-28 bg-mainBlue text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           type="button"
           (click)="openConfirmationModal(status)"
         >
@@ -45,7 +45,7 @@
         </button>
         <button
           *ngIf="status.status === 'Em andamento'"
-          class="w-28 bg-red-500 text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
+          class="w-28 bg-red-500 text-white font-medium uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           type="button"
           (click)="openConfirmationModal(status)"
         >
