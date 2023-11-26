@@ -52,7 +52,14 @@ public class PedidoController {
 
     @GetMapping("/{id}")
     public Pedido getItemById(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+        Pedido pedido = repository.findById(id).orElse(null);
+    
+        if (pedido != null && pedido.getUsuario() != null) {
+            pedido.getUsuario().getId();
+            pedido.setId(pedido.getUsuario().getId());
+        }
+    
+        return pedido;
     }
 
     @PutMapping("{orderId}/user/{usuarioId}")

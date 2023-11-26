@@ -38,7 +38,7 @@ public class Pedido {
     private Long userId;
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "user_id")
     private Usuario usuario;
     @JsonIgnoreProperties("items")
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
