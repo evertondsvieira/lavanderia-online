@@ -49,6 +49,10 @@
           Prazo do serviço:
           <span class="font-normal">{{ parseDateString(pedido.prazo) | date: "dd/MM/yyyy - HH:mm" }}</span>
         </p>
+        <p class="font-medium" *ngIf="isDisplayPaymentDate(pedido.status)">
+          Data de pagamento:
+          <span class="font-normal">{{ pedido.dataPagamento }}</span>
+        </p>
       </div>
     </div>
   </div>

@@ -46,6 +46,7 @@ import { CancelationModalComponent } from './components/ui-components/cancelatio
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { UserGuard } from './utils/user.guard';
 import { EmployeeGuard } from './utils/employee.guard';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,7 @@ import { EmployeeGuard } from './utils/employee.guard';
     HttpClientModule,
     StoreModule.forRoot({}, {})
   ],
-  providers: [UserGuard, EmployeeGuard],
+  providers: [UserGuard, EmployeeGuard, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

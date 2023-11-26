@@ -3,7 +3,8 @@ import { ItemPedido, PedidoCarrinho } from '../order/order.component';
 import { environment } from 'src/app/environment';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/utils/AuthService';
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-order-details',
@@ -15,11 +16,11 @@ export class OrderDetailsComponent {
   pedidos: PedidoCarrinho[] = [];
   itemPedido: ItemPedido[] = [];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
-  
+
     this.http.get<PedidoCarrinho>(this.apiUrl + 'order/' + orderId).subscribe({
       next: (data: PedidoCarrinho) => {
         this.pedidos = [data]; 
@@ -33,9 +34,10 @@ export class OrderDetailsComponent {
   onConfirmPayment(order: PedidoCarrinho): void {
     const orderId = this.route.snapshot.paramMap.get('id')
     const userId = order.userId
+    const formattedDate = moment(new Date()).format('DD/MM/YYYY - HH:mm');
 
     if (order && order.id && order.userId) {
-      const requestBody = { ...order, status: 'PAGO' }
+      const requestBody = { ...order, dataPagamento: formattedDate, status: 'PAGO' }
       const requestUrl = `${this.apiUrl}order/${orderId}/user/${userId}`
 
       this.http.put<PedidoCarrinho>(requestUrl, requestBody).subscribe({
@@ -56,6 +58,11 @@ export class OrderDetailsComponent {
     }
   }
 
+  isDisplayPaymentDate(status: string): boolean {
+    const excludedStatus = ["EM ABERTO", "AGUARDANDO PAGAMENTO", "RECOLHIDO"];
+    return !excludedStatus.includes(status);
+  }
+
   selectedOrderToChangeStatus: PedidoCarrinho | null = null
 
   openConfirmationModal(order: PedidoCarrinho): void {
@@ -65,7 +72,6 @@ export class OrderDetailsComponent {
   onCancelClick(): void {
     this.selectedOrderToChangeStatus = null;
   }
-
 
   parseDateString(dateString: string): Date {
     const [day, month, yearAndTime] = dateString.split('/');
