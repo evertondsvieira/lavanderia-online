@@ -53,4 +53,8 @@ export class CartComponent {
   clearCart(): void {
     this.cartService.clearCart();
   }
+
+  calculateDeliveryDate(): string {
+    return this.cartService.calculateDeliveryDate();
+  }
 }

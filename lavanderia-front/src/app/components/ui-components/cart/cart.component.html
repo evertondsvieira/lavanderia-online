@@ -11,7 +11,6 @@
           <th scope="col" class="px-6 py-3">Produto</th>
           <th scope="col" class="px-6 py-3">Quantidade</th>
           <th scope="col" class="px-6 py-3">Preço</th>
-          <th scope="col" class="px-6 py-3">Descrição</th>
           <th scope="col" class="px-2 py-3">Remover</th>
         </tr>
       </thead>
@@ -86,9 +85,6 @@
           <td class="dark:text-gray px-6 py-4 font-semibold text-gray-900">
             {{ product.valor }}
           </td>
-          <td class="dark:text-gray px-6 py-4 font-semibold text-gray-900 w-96">
-            {{ product.descricao }}
-          </td>
           <td
             class="dark:text-gray px-6 py-4 font-semibold text-gray-900 w-10"
             (click)="removeCartItem(i)"
@@ -109,7 +105,7 @@
         <p class="font-medium text-white">
           Valor total: R$: {{ calculateTotalValue() | number: "1.2-2" }}
         </p>
-        <p class="font-medium text-white">Prazo de entrega: 17/08/2023 8:00</p>
+        <p class="font-medium text-white">Prazo de entrega: {{ calculateDeliveryDate() }}</p>
       </div>
       <app-button [success]="false" (click)="openConfirmationModal()"
         >Finalizar orçamento</app-button

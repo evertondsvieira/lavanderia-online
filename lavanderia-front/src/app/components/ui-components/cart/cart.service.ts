@@ -39,6 +39,7 @@ export class CartService {
 
   createOrder(detalhesPedido: string): void {
     const userId = this.authService.getUserId();
+    const deliveryDate = this.calculateDeliveryDate();
     
     const items = this.cartItemsSubject.value.map((product) => {
       return {
@@ -61,7 +62,7 @@ export class CartService {
       descricao: detalhesPedido,
       status: 'EM ABERTO',
       valor: this.calculateTotalValue().toString(),
-      prazo: '2023-11-15', 
+      prazo: deliveryDate, 
       itemsPedido: items,
       userId: this.authService.getUserId()
     };
@@ -82,6 +83,16 @@ export class CartService {
       (total, product) => total + product.valor * product.quantidade,
       0,
     );
+  }
+
+  calculateDeliveryDate(): string {
+    const currentDate = new Date();
+    const maxPrazo = Math.max(
+      ...this.cartItemsSubject.value.map((product) => parseInt(product.prazo, 10))
+    );
+  
+    const deliveryDate = new Date(currentDate.setDate(currentDate.getDate() + maxPrazo));
+    return deliveryDate.toLocaleString();
   }
 
   clearCart(): void {
