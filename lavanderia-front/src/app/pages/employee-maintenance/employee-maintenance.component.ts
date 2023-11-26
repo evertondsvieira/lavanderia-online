@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { environment } from 'src/app/environment';
+import * as moment from 'moment';
 
 interface EmployeeMaintenance {
   id: number
@@ -61,25 +62,34 @@ export class EmployeeMaintenanceComponent {
   addItem() {
     if (this.newEmployee.nome && this.newEmployee.email && this.newEmployee.datanascimento && this.newEmployee.senha) {
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-      this.http
-        .post<EmployeeMaintenance>(this.apiUrl + 'employee', this.newEmployee, { headers })
-        .subscribe({
-          next: (data: EmployeeMaintenance) => {
-            this.employees.push(data);
-            this.newEmployee = {
-              id: 0,
-              nome: '',
-              email: '',
-              datanascimento: '',
-              senha: '',
-            };
-            this.listaVazia = false;
-          },
-          error: (error: any) => {
-            console.error('Erro ao adicionar o item:', error);
-          },
-        });
+   
+      const formattedDate = moment(this.newEmployee.datanascimento).format('DD/MM/YYYY');
+      const employeeToAdd: EmployeeMaintenance = {
+        ...this.newEmployee,
+        datanascimento: formattedDate,
+      };
+    
+      this.http.post<EmployeeMaintenance>(
+        this.apiUrl + 'employee',
+        employeeToAdd,
+        { headers }
+      ).subscribe({
+        next: (data: EmployeeMaintenance) => {
+          this.employees.push(data);
+          this.newEmployee = {
+            id: 0,
+            nome: '',
+            email: '',
+            datanascimento: '',
+            senha: '',
+          };
+          console.log(data)
+          this.listaVazia = false;
+        },
+        error: (error: any) => {
+          console.error('Erro ao adicionar o item:', error);
+        },
+      });
     }
   }
 
