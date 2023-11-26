@@ -35,7 +35,6 @@ import { StoreModule } from '@ngrx/store';
 import { DateFilterComponent } from './components/ui-components/date-filter/date-filter.component';
 import { HomeEmployeeComponent} from './pages/home-employee/home-employee.component';
 import { EmployeeCrudComponent } from './pages/employee-crud/employee-crud.component';
-import { HomeComponent } from './pages/home/home.component';
 import { ReportCustomerComponent } from './pages/report-customer/report-customer.component';
 import { ReportLoyalCustomerComponent } from './pages/report-loyal-customer/report-loyal-customer.component';
 import { ReportIncomeComponent } from './pages/report-income/report-income.component';
@@ -76,7 +75,6 @@ import { EmployeeGuard } from './utils/employee.guard';
     DateFilterComponent,
     HomeEmployeeComponent,
     EmployeeCrudComponent,
-    HomeComponent,
     ReportCustomerComponent,
     ReportLoyalCustomerComponent,
     ReportIncomeComponent,
