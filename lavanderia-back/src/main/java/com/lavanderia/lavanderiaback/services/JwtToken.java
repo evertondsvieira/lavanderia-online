@@ -7,11 +7,11 @@ import java.util.Base64;
 public class JwtToken {
   private static final String SECRET_KEY = "supersenhasecreta";
 
-  public static String generateToken(String id, String email, String role) {
+  public static String generateToken(String id, String nome, String email, String role) {
     String header = "{\"alg\":\"HS256\",\"typ\":\"JWT\"}";
     String encodedHeader = Base64.getEncoder().encodeToString(header.getBytes());
 
-    String payload = "{\"sub\":\"" + id + "\",\"email\":\"" + email + "\",\"exp\":1609459200,\"role\":\"" + role + "\"}";
+    String payload = "{\"sub\":\"" + id + "\",\"nome\":\"" + nome + "\",\"email\":\"" + email + "\",\"exp\":1609459200,\"role\":\"" + role + "\"}";
     String encodedPayload = Base64.getEncoder().encodeToString(payload.getBytes());
 
     String signatureData = encodedHeader + "." + encodedPayload + SECRET_KEY;

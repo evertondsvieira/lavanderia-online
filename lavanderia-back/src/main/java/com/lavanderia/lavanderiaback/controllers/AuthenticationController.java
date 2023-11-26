@@ -42,13 +42,15 @@ public class AuthenticationController {
             if (usuario != null && usuarioService.autenticarUsuario(usuario, senha)) {
                 String role = "usuario";
                 Long userId = usuario.getId();
-                String token = JwtToken.generateToken(userId.toString(), email, role);
+                String nomeUsuario = usuario.getNome();
+                String token = JwtToken.generateToken(userId.toString(), nomeUsuario, email, role);
                 LoginResponse response = new LoginResponse(token);
                 return ResponseEntity.ok(response);
             } else if (funcionario != null && funcionarioService.autenticarFuncionario(funcionario, senha)) {
                 String role = "funcionario";
                 Long employeeId = funcionario.getId();
-                String token = JwtToken.generateToken(employeeId.toString(), email, role);
+                String nomeFuncionario = funcionario.getNome();
+                String token = JwtToken.generateToken(employeeId.toString(), nomeFuncionario, email, role);
                 LoginResponse response = new LoginResponse(token);
                 return ResponseEntity.ok(response);
             } else {
