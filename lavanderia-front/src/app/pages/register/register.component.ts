@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IProduct } from 'src/app/components/ui-components/product/product.component';
 import { environment } from 'src/app/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 
 export interface IUser {
   id: number;
@@ -26,7 +26,7 @@ export interface IUser {
 })
 export class RegisterComponent {
   apiUrl = environment.apiUrl;
-  users: IUser[] = []
+  users: IUser[] = [];
   newUser: IUser = {
     id: 0,
     nome: '',
@@ -41,12 +41,24 @@ export class RegisterComponent {
     senha: '',
     salt: '',
     pedidos: [],
-  }
+  };
 
-  constructor(private http: HttpClient, private router: Router) {} 
+  errorMessages = {
+    nome: '',
+    email: '',
+    cpf: '',
+    telefone: '',
+  };
+
+  showErrorMessages = false; 
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   onSubmit() {
-    if (this.areAllFieldsFilled()) {
+    if (this.areAllFieldsFilled() && this.validateForm()) {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
@@ -56,7 +68,7 @@ export class RegisterComponent {
         .subscribe({
           next: (user) => {
             this.users.push(user);
-  
+
             this.newUser = {
               id: 0,
               nome: '',
@@ -72,14 +84,15 @@ export class RegisterComponent {
               salt: '',
               pedidos: [],
             };
-            this.router.navigate(['/'])
+            this.router.navigate(['/']);
           },
           error: (error) => {
             console.error('Erro ao registrar o usuário:', error);
           },
         });
     } else {
-      console.error('Preencha todos os campos antes de enviar o formulário.');
+      console.error('Preencha o formulário completo e/ou corrija os erros antes de enviar.');
+      this.showErrorMessages = true;
     }
   }
 
@@ -96,4 +109,68 @@ export class RegisterComponent {
       this.newUser.rua !== ''
     );
   }
+
+  validateForm(): boolean {
+    this.errorMessages = {
+      nome: '',
+      email: '',
+      cpf: '',
+      telefone: '',
+    };
+
+    return true;
+  }
+
+  validateField(fieldName: string): void {
+    switch (fieldName) {
+      case 'nome':
+        this.validateNome();
+        break;
+      case 'email':
+        this.validateEmail();
+        break;
+      case 'cpf':
+        this.validateCPF();
+        break;
+      case 'telefone':
+        this.validateTelefone();
+        break;
+    }
+  }
+
+  validateNome(): void {
+    this.errorMessages.nome = '';
+
+    if (this.newUser.nome.length < 5 || this.newUser.nome.length > 60) {
+      this.errorMessages.nome = 'O nome deve ter entre 5 e 60 caracteres.';
+    }
+  }
+
+  validateEmail(): void {
+    this.errorMessages.email = '';
+
+    if (!this.newUser.email.includes('@')) {
+      this.errorMessages.email = 'Email inválido.';
+    }
+  }
+
+  validateCPF(): void {
+    this.errorMessages.cpf = '';
+
+    const cpfString = this.newUser.cpf.toString();
+
+    if (cpfString.length !== 10) {
+      this.errorMessages.cpf = 'CPF inválido.';
+    }
+  }
+
+  validateTelefone(): void {
+    this.errorMessages.telefone = '';
+
+    if (this.newUser.telefone.length < 8 || !/^\d+$/.test(this.newUser.telefone)) {
+      this.errorMessages.telefone = 'Telefone inválido.';
+
+  }
+}
+
 }
