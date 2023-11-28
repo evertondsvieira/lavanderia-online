@@ -30,7 +30,7 @@
                     </button>
                     <button
                       class="bg-red-600 text-white rounded p-2"
-                      (click)="removeItem(employee)"
+                      (click)="openConfirmationModal(employee)"
                     >
                       Remover
                     </button>
@@ -101,3 +101,8 @@
     </div>
   </div>
 </app-box>
+<app-confirmation-modal
+  *ngIf="RemovingItem"
+  (confirm)="confirmRemoveItem(RemovingItem)"
+  (cancel)="cancelRemoveItem()"
+></app-confirmation-modal>
