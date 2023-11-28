@@ -50,9 +50,10 @@
         <input
           placeholder="CEP"
           name="cep"
-          type="number"
+          type="text"
           class="border rounded h-10 w-64 pl-2 focus:outline-none"
           [(ngModel)]="newUser.cep"
+          (ngModelChange)="onCepChange()"
           required
         />
         <input

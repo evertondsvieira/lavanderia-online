@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IProduct } from 'src/app/components/ui-components/product/product.component';
 import { environment } from 'src/app/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 
 export interface IUser {
   id: number;
@@ -26,7 +26,7 @@ export interface IUser {
 })
 export class RegisterComponent {
   apiUrl = environment.apiUrl;
-  users: IUser[] = []
+  users: IUser[] = [];
   newUser: IUser = {
     id: 0,
     nome: '',
@@ -41,9 +41,12 @@ export class RegisterComponent {
     senha: '',
     salt: '',
     pedidos: [],
-  }
+  };
 
-  constructor(private http: HttpClient, private router: Router) {} 
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   onSubmit() {
     if (this.areAllFieldsFilled()) {
@@ -56,7 +59,7 @@ export class RegisterComponent {
         .subscribe({
           next: (user) => {
             this.users.push(user);
-  
+
             this.newUser = {
               id: 0,
               nome: '',
@@ -72,7 +75,7 @@ export class RegisterComponent {
               salt: '',
               pedidos: [],
             };
-            this.router.navigate(['/'])
+            this.router.navigate(['/']);
           },
           error: (error) => {
             console.error('Erro ao registrar o usuário:', error);
@@ -80,6 +83,24 @@ export class RegisterComponent {
         });
     } else {
       console.error('Preencha todos os campos antes de enviar o formulário.');
+    }
+  }
+
+  onCepChange() {
+    if (this.newUser.cep.length === 8) {
+      this.http
+        .get<any>(`https://viacep.com.br/ws/${this.newUser.cep}/json/`)
+        .subscribe({
+          next: (data) => {
+            this.newUser.uf = data.uf
+            this.newUser.cidade = data.localidade
+            this.newUser.bairro = data.bairro
+            this.newUser.rua = data.logradouro
+          },
+          error: (error) => {
+            console.error('Erro ao consultar o CEP:', error)
+          },
+        })
     }
   }
 
