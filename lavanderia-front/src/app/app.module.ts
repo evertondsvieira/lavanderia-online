@@ -94,7 +94,7 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     MatDialogModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
   ],
   providers: [UserGuard, EmployeeGuard, DatePipe],
   bootstrap: [AppComponent],

@@ -78,5 +78,10 @@
     "name": "email.username",
     "type": "java.lang.String",
     "description": "A description for 'email.username'"
+  },
+  {
+    "name": "spring.mvc.cors.allowed-methods",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.mvc.cors.allowed-methods'"
   }
 ]}
