@@ -31,6 +31,18 @@ export class LoginComponent {
     private authService: AuthService,
   ) {}
 
+  errorMessage: string = '';
+  // emailError: string = '';
+
+
+  // validateEmail() {
+  //   if (!this.newUser.email.includes('@')) {
+  //     this.emailError = 'O email digitado não é valido.';
+  //   } else {
+  //     this.emailError = '';
+  //   }
+  // }
+
   onSubmit() {
     if (this.areAllFieldsFilled()) {
       const headers = new HttpHeaders({
@@ -64,11 +76,10 @@ export class LoginComponent {
           },
           error: (error) => {
             console.error('Erro ao logar:', error);
-          },
-        });
-    } else {
-      console.error('Preencha todos os campos antes de enviar o formulário.');
-    }
+            this.errorMessage = 'Ocorreu um erro ao fazer login. Por favor, tente novamente.';
+    },
+  });
+}
   }
 
   areAllFieldsFilled(): boolean {
