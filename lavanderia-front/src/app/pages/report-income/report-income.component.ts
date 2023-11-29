@@ -24,6 +24,29 @@ export class ReportIncomeComponent {
 
   constructor(private http: HttpClient) {}
 
+  ngOnInit() {
+    const fistDayOfTheMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+    this.startDate = fistDayOfTheMonth.toISOString();
+
+    const lastDayOfTheMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
+    this.endDate = lastDayOfTheMonth.toISOString()
+
+    const params = {
+      startDate: this.startDate.slice(0, 10),
+      endDate: this.endDate.slice(0, 10),
+    };
+  
+    this.http.get<IReportResponse>(this.apiUrl + 'recipe/report', { params })
+      .subscribe({
+        next: (data: IReportResponse) => {
+          this.reports = [data]
+        },
+        error: (error: any) => {
+          console.error('Erro ao buscar os dados:', error)
+        }
+      })
+  }
+  
   arrayToDate(dateArray: number[]): Date {
     if (dateArray.length < 3) {
       throw new Error('Array de data inválido');
