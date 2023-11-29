@@ -10,6 +10,8 @@ import { PedidoCarrinho } from '../order/order.component';
 export class OrderViewComponent {
   apiUrl = environment.apiUrl
   pedidos: PedidoCarrinho[] = []
+  startDate: string | null = null;
+  endDate: string | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +24,64 @@ export class OrderViewComponent {
         console.error('Erro ao buscar os dados:', error)
       },
     })
+  }
+
+  getParams(): { [key: string]: string } {
+    const params: { [key: string]: string } = {};
+    if (this.startDate) {
+      params['startDate'] = this.startDate;
+    }
+    if (this.endDate) {
+      params['endDate'] = this.endDate;
+    }
+    return params;
+  }
+  
+  arrayToDate(dateArray: number[]): Date {
+    if (dateArray.length < 3) {
+      throw new Error('Array de data inválido');
+    }
+
+    const [year, month, day] = dateArray;
+
+    return new Date(year, month - 1, day);
+  }
+
+  formatDate(date: Date): string {
+    const formattedMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+    const formattedDay = date.getDate().toString().padStart(2, '0');
+    const formattedYear = date.getFullYear();
+
+    return `${formattedDay}/${formattedMonth}/${formattedYear}`;
+  }
+
+  formatDateAndLog(data: number[]): string {
+    const formattedDate = this.formatDate(this.arrayToDate(data));
+    return formattedDate;
+  }
+
+  updateDateRange(dateRange: {
+    startDate: string | null;
+    endDate: string | null;
+  }) {
+    this.startDate = dateRange.startDate;
+    this.endDate = dateRange.endDate;
+    this.applyFilter();
+  }
+
+  applyFilter(): void {
+    this.http
+      .get<PedidoCarrinho[]>(this.apiUrl + 'order/search', {
+        params: this.getParams(),
+      })
+      .subscribe({
+        next: (data: PedidoCarrinho[]) => {
+          this.pedidos = data;
+        },
+        error: (error: any) => {
+          console.error('Erro ao buscar os dados:', error);
+        },
+      });
   }
 
   updateStatus(newStatus: string, order: PedidoCarrinho): void {
