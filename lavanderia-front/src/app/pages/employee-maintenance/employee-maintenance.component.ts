@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { environment } from 'src/app/environment';
 import * as moment from 'moment';
+import { environment } from 'src/app/environment';
 
 interface EmployeeMaintenance {
   id: number
@@ -20,6 +20,7 @@ export class EmployeeMaintenanceComponent {
   listaVazia: boolean = false;
   employees: EmployeeMaintenance[] = []
   itemEmEdicao: EmployeeMaintenance | null = null
+  RemovingItem: EmployeeMaintenance | null = null
 
   constructor(private http: HttpClient) {}
 
@@ -155,4 +156,20 @@ export class EmployeeMaintenanceComponent {
       senha: '',
     };
   }
+  openConfirmationModal(employees: EmployeeMaintenance) {
+    this.RemovingItem = employees;
+  }
+
+  confirmRemoveItem(employees: EmployeeMaintenance) {
+    if (employees) {
+      this.removeItem(employees)
+      this.RemovingItem = null;
+    }
+  }
+
+  cancelRemoveItem() {
+    this.RemovingItem = null;
+  }
 }
+
+
