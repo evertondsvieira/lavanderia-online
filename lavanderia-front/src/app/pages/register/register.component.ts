@@ -20,6 +20,13 @@ export interface IUser {
   pedidos?: IProduct[];
 }
 
+interface CepData {
+  uf: string;
+  localidade: string;
+  bairro: string;
+  logradouro: string;
+}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -89,7 +96,7 @@ export class RegisterComponent {
   onCepChange() {
     if (this.newUser.cep.length === 8) {
       this.http
-        .get<any>(`https://viacep.com.br/ws/${this.newUser.cep}/json/`)
+        .get<CepData>(`https://viacep.com.br/ws/${this.newUser.cep}/json/`)
         .subscribe({
           next: (data) => {
             this.newUser.uf = data.uf
