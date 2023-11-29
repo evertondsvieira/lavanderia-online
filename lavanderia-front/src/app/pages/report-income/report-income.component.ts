@@ -4,8 +4,8 @@ import { environment } from 'src/app/environment';
 import { HttpClient } from '@angular/common/http';
 
 export interface IReportResponse {
-  inicio: Date;
-  fim: Date;
+  inicio: any;
+  fim: any;
   receitaTotal: number;
 }
 
@@ -13,32 +13,70 @@ export interface IReportResponse {
   selector: 'app-report-income',
   templateUrl: './report-income.component.html',
 })
-export class ReportIncomeComponent implements OnInit  {
+export class ReportIncomeComponent {
   @ViewChild('pdfContent') pdfContent!: ElementRef;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
   apiUrl = environment.apiUrl;
   reports: IReportResponse[] = [];
+  startDate: string | null = null;
+  endDate: string | null = null;
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-    this.http.get<IReportResponse | IReportResponse[]>(this.apiUrl + 'recipe/report').subscribe({
-      next: (data: IReportResponse | IReportResponse[]) => {
-        if (Array.isArray(data)) {
-          this.reports = data;
-        } else if (typeof data === 'object' && data !== null) {
-          this.reports = [data];
-        } else {
-          console.error('API response format is not recognized:', data);
-        }
-      },
-      error: (error: any) => {
-        console.error('Erro ao buscar os dados:', error);
-      },
-    });
+  arrayToDate(dateArray: number[]): Date {
+    if (dateArray.length < 3) {
+      throw new Error('Array de data inválido');
+    }
+
+    const [year, month, day] = dateArray;
+
+    return new Date(year, month - 1, day);
   }
- 
+
+  formatDate(date: Date): string {
+    const formattedMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+    const formattedDay = date.getDate().toString().padStart(2, '0');
+    const formattedYear = date.getFullYear();
+
+    return `${formattedDay}/${formattedMonth}/${formattedYear}`;
+  }
+
+  getParams(): { [key: string]: string } {
+    const params: { [key: string]: string } = {};
+    if (this.startDate) {
+      params['startDate'] = this.startDate;
+    }
+    if (this.endDate) {
+      params['endDate'] = this.endDate;
+    }
+    return params;
+  }
+
+  applyFilter(): void {
+    this.http
+      .get<IReportResponse>(this.apiUrl + 'recipe/report', {
+        params: this.getParams(),
+      })
+      .subscribe({
+        next: (data: IReportResponse) => {
+          this.reports = [data];
+        },
+        error: (error: any) => {
+          console.error('Erro ao buscar os dados:', error);
+        },
+      });
+  }
+
+  updateDateRange(dateRange: {
+    startDate: string | null;
+    endDate: string | null;
+  }) {
+    this.startDate = dateRange.startDate;
+    this.endDate = dateRange.endDate;
+    this.applyFilter();
+  }
+
   convertToPDF() {
     this.pdfConvertido = true;
     const content = this.pdfContent.nativeElement;

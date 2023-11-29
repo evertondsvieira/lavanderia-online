@@ -1,26 +1,34 @@
 <app-box>
   <div class="flex items-center justify-between w-full pb-3">
     <h1 class="text-xl text-mainBlue font-bold">Relatório de Receita</h1>
-    <app-date-filter></app-date-filter>
+    <app-date-filter
+      [startDate]="startDate"
+      [endDate]="endDate"
+      [reportIncomeComponent]="this"
+      (filterApplied)="updateDateRange($event)">
+    </app-date-filter>
   </div>
   <div class="w-full">
     <div #pdfContent class="p-2">
       <div class="table-container overflow-x-auto">
-        <table
-          class="w-full text-center text-sm text-gray-500 dark:text-gray-400"
-        >
+        <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">Data Início</th>
             <th scope="col" class="px-6 py-3">Data Fim</th>
             <th scope="col" class="px-6 py-3">Valor Total</th>
           </tr>
-          <tbody>
+          <tbody *ngIf="reports && reports.length > 0; else noData">
             <tr class="border-b bg-white" *ngFor="let report of reports">
-              <td class="w-32 p-4">{{ report.inicio | date: "dd/MM/yyyy - HH:mm" }}</td>
-              <td class="w-32 p-4">{{ report.fim | date: "dd/MM/yyyy - HH:mm" }}</td>
+              <td class="w-32 p-4">{{ formatDateAndLog(report.inicio) }}</td>
+              <td class="w-32 p-4">{{ formatDateAndLog(report.fim) }}</td>                      
               <td class="w-32 p-4">{{ report.receitaTotal | currency: 'BRL' }}</td>
-            </tr>
+            </tr>                        
           </tbody>
+          <ng-template #noData>
+            <tr>
+              <td colspan="3" class="mt-4 text-lg">Nenhum relatório disponível</td>
+            </tr>
+          </ng-template>
         </table>
       </div>
     </div>
