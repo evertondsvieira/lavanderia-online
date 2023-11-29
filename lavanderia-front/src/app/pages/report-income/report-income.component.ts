@@ -42,6 +42,11 @@ export class ReportIncomeComponent {
     return `${formattedDay}/${formattedMonth}/${formattedYear}`;
   }
 
+  formatDateAndLog(data: number[]): string {
+    const formattedDate = this.formatDate(this.arrayToDate(data));
+    return formattedDate;
+  }
+
   getParams(): { [key: string]: string } {
     const params: { [key: string]: string } = {};
     if (this.startDate) {
