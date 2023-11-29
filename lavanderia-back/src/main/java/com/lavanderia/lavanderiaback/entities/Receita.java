@@ -1,5 +1,7 @@
 package com.lavanderia.lavanderiaback.entities;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,9 +16,9 @@ public class Receita {
     @Column(nullable = false)
     private String valor;
     @Column(nullable = false)
-    private String inicio;
+    private LocalDate inicio;
     @Column(nullable = false)
-    private String fim;
+    private LocalDate fim;
     public Long getId() {
         return id;
     }
@@ -29,16 +31,16 @@ public class Receita {
     public void setValor(String valor) {
         this.valor = valor;
     }
-    public String getInicio() {
+    public LocalDate getInicio() {
         return inicio;
     }
-    public void setInicio(String inicio) {
+    public void setInicio(LocalDate inicio) {
         this.inicio = inicio;
     }
-    public String getFim() {
+    public LocalDate getFim() {
         return fim;
     }
-    public void setFim(String fim) {
+    public void setFim(LocalDate fim) {
         this.fim = fim;
     }    
 }
