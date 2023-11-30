@@ -1,11 +1,15 @@
 package com.lavanderia.lavanderiaback.controllers;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lavanderia.lavanderiaback.database.ItemPedidoRepository;
@@ -53,17 +58,17 @@ public class PedidoController {
     @GetMapping("/{id}")
     public Pedido getItemById(@PathVariable Long id) {
         Pedido pedido = repository.findById(id).orElse(null);
-    
+
         if (pedido != null && pedido.getUsuario() != null) {
             pedido.setId(pedido.getId());
-        }        
-    
+        }
+
         return pedido;
     }
 
     @PutMapping("{orderId}/user/{usuarioId}")
     public ResponseEntity<?> putOrderForUser(@PathVariable Long usuarioId, @PathVariable Long orderId,
-        @RequestBody Pedido updatedOrder) {
+            @RequestBody Pedido updatedOrder) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
 
         if (usuario != null) {
@@ -73,7 +78,7 @@ public class PedidoController {
                 existingOrder.setStatus(updatedOrder.getStatus());
                 existingOrder.setData(updatedOrder.getData());
                 existingOrder.setDataPagamento(updatedOrder.getDataPagamento());
-                
+
                 repository.save(existingOrder);
                 return ResponseEntity.ok(existingOrder);
             } else {
@@ -95,6 +100,16 @@ public class PedidoController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Pedido>> getPedidosByDateRange(
+        @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+        List<Pedido> pedidos = repository.findByDataBetween(startDate, endDate);
+
+        return ResponseEntity.ok(pedidos);
     }
 
     @PostMapping()

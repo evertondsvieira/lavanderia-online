@@ -21,8 +21,6 @@ public class Item {
     private String imgUrl;
     @Column(nullable = false)
     private String prazo;
-    @Column(nullable = true)
-    private Integer quantidade;
     public Item() {
     }
     public Long getId() {
@@ -60,12 +58,6 @@ public class Item {
     }
     public void setPrazo(String prazo) {
         this.prazo = prazo;
-    }
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
     public void setUsuario(Usuario usuario) {
     }
