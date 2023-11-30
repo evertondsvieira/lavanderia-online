@@ -30,12 +30,13 @@
         *ngFor="let item of pedido.itemsPedido"
         class="border-light-blue-500 gap-2 flex flex-col w-auto h-auto p-4 justify-center items-center rounded-md border-2 border-solid"
       >
-        <p class="text-center font-medium">{{ item.item.descricao }}</p>
-        <img class="w-48" [src]="item.item.imgUrl" alt="" />
-        <span class="flex gap-1">
-          Valor unitário:
-          <p class="font-medium">{{ item.item.valor | currency: "BRL" }}</p>
-        </span>
+      <p class="text-center font-medium">{{ item.item.descricao }}</p>
+      <img class="w-48" [src]="item.item.imgUrl" alt="" />
+      <span class="flex gap-1">Quantidade: <p class="font-medium">{{ item.quantidade }}</p></span>
+      <span class="flex gap-1">
+        Valor unitário:
+        <p class="font-medium">{{ item.item.valor | currency: "BRL" }}</p>
+      </span>
       </div>
     </div>
 
