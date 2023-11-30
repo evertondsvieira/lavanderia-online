@@ -54,4 +54,6 @@ export class OrderDetailsComponent {
   onConfirmClick(): void {
     this.isConfirmationModalOpen = false;
   }
+
+  
 }

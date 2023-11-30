@@ -18,6 +18,7 @@ import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/emplo
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { EmployeeGuard } from './utils/employee.guard';
 import { UserGuard } from './utils/user.guard';
+import { OrderSearchComponent } from './order-search/order-search.component';
 
 export const userRoutes: Routes = [
   { path: 'services', component: LaundryServicesComponent, canActivate: [UserGuard] },
@@ -25,6 +26,7 @@ export const userRoutes: Routes = [
   { path: 'order/:id', component: OrderDetailsComponent, canActivate: [UserGuard] },
   { path: 'cart', component: CartItemsComponent, canActivate: [UserGuard] },
   { path: 'user/home', component: UserHomeComponent, canActivate: [UserGuard] },
+  { path: 'search', component: OrderSearchComponent },
 ];
 
 export const employeeRoutes: Routes = [

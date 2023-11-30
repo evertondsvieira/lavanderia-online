@@ -1,0 +1,48 @@
+<app-box>
+    <div>
+    <div class="pb-3">
+        <h1 class="font-medium text-mainBlue text-3xl m-2">Buscar pedido</h1>
+    </div>
+    <div>
+        <input
+        type="text"
+        placeholder="Digite o número do pedido"
+        [(ngModel)]="pedidoId"
+        class="p-2 border rounded-md min-w-[230px]"
+        />
+        <button class="bg-mainBlue text-white p-2 rounded-md ml-2" (click)="buscarPedido()">Buscar</button>
+    </div>
+</div>
+
+</app-box>
+
+<app-box *ngIf="pedidoEncontrado">
+    <div>
+        <h2 class="flex font-medium text-2xl m-2">Detalhes do pedido encontrado:</h2>
+        <div class="bg-white bg-opacity-90 items-center justify-between border-light-blue-500 w-auto h-auto p-4 rounded-md border-2 border-solid mb-4">
+            <section>
+                <p class="text-mainBlue font-medium">Número do Pedido: {{ pedidoEncontrado.id }}</p>
+                <p>Status: {{ pedidoEncontrado.status }}</p>
+                <p>Valor: {{ pedidoEncontrado.valor | currency: 'BRL' }}</p>
+                <p>Data: {{ pedidoEncontrado.data | date: 'dd/MM/yyyy' }}</p>
+                <p>Prazo: {{ pedidoEncontrado.prazo | date: 'dd/MM/yyyy' }}</p>
+            </section>
+
+            <div *ngIf="pedidoEncontrado.itemsPedido.length > 0" class="mt-4">
+                <p class="font-medium">Itens do pedido:</p>
+                    <ul>
+                        <li *ngFor="let item of pedidoEncontrado.itemsPedido">
+                            <p>Nome do item: {{ item.item.nome }}</p>
+                            <p>Descrição do item: {{ item.item.descricao }}</p>
+                            <p>Valor unitário: {{ item.item.valor | currency: 'BRL' }}</p>
+                            <p>Quantidade: {{ item.quantidade }}</p>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+</app-box>
+
+<app-box *ngIf="erroAoBuscarPedido" class="text-red-500 mt-2">
+    {{ erroAoBuscarPedido }}
+</app-box>
