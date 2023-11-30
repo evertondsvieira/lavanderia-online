@@ -45,6 +45,7 @@
           Valor total:
           <span class="font-normal">{{ pedido.valor | currency: "BRL" }}</span>
         </p>
+        <ng-container *ngIf="pedido.status!= 'REJEITADO'">
         <p class="font-medium">
           Prazo do serviço:
           <span class="font-normal">{{ parseDateString(pedido.prazo) | date: "dd/MM/yyyy - HH:mm" }}</span>
@@ -53,6 +54,7 @@
           Data de pagamento:
           <span class="font-normal">{{ pedido.dataPagamento }}</span>
         </p>
+      </ng-container>
       </div>
     </div>
   </div>

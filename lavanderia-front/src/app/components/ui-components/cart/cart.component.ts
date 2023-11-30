@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from './cart.service';
 import { IProduct } from '../product/product.component';
+import { environment } from 'src/app/environment';
+import { HttpClient } from '@angular/common/http';
+import { PedidoCarrinho } from 'src/app/pages/order/order.component';
 
 @Component({
   selector: 'app-cart',
@@ -9,6 +12,9 @@ import { IProduct } from '../product/product.component';
 export class CartComponent {
   @Input() detalhesPedido!: string;
   products: IProduct[] = [];
+  apiUrl = environment.apiUrl
+  order: PedidoCarrinho[] =[];
+  selectedOrderToChangeStatus = this.order;
 
   constructor(private cartService: CartService) {
     this.products = this.cartService.getCartItems();
@@ -33,7 +39,8 @@ export class CartComponent {
 
   isConfirmationModalOpen: boolean = false;
 
-  openConfirmationModal(): void {
+  
+  openConfirmationModal():void {
     this.isConfirmationModalOpen = true;
   }
 
@@ -44,6 +51,11 @@ export class CartComponent {
   onConfirmClick(): void {
     this.isConfirmationModalOpen = false;
     this.cartService.createOrder(this.detalhesPedido);
+  }
+
+  onRejectClick(): void {
+    this.isConfirmationModalOpen = false;
+    this.cartService.RejectOrder(this.detalhesPedido);
   }
 
   removeCartItem(index: number): void {
@@ -57,4 +69,6 @@ export class CartComponent {
   calculateDeliveryDate(): string {
     return this.cartService.calculateDeliveryDate();
   }
+  
 }
+

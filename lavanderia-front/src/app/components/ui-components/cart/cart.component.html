@@ -119,8 +119,9 @@
   </ng-template>
 </div>
 
-<app-confirmation-modal
+<app-details-modal
   *ngIf="isConfirmationModalOpen"
+  (reject)="onRejectClick()"
   (cancel)="onCancelClick()"
   (confirm)="onConfirmClick()"
-></app-confirmation-modal>
+></app-details-modal>
