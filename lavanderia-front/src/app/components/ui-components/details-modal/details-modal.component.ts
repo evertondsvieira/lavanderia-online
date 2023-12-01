@@ -42,6 +42,7 @@ export class DetailsModalComponent {
       0,
     );
   }
+  
   calculateDeliveryDate(): string {
     return this.cartService.calculateDeliveryDate();
   }

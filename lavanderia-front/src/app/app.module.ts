@@ -47,6 +47,7 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 import { UserGuard } from './utils/user.guard';
 import { EmployeeGuard } from './utils/employee.guard';
 import { DatePipe } from '@angular/common';
+import { NoDataFoundComponent } from './components/ui-components/no-data-found/no-data-found.component';
 import { DetailsModalComponent } from './components/ui-components/details-modal/details-modal.component';
 import { ErrorAlertComponent } from './components/ui-components/error-alert/error-alert.component';
 
@@ -87,6 +88,7 @@ import { ErrorAlertComponent } from './components/ui-components/error-alert/erro
     UserHomeComponent,
     CancelationModalComponent,
     UnauthorizedComponent,
+    NoDataFoundComponent,
     DetailsModalComponent,
     ErrorAlertComponent,
   ],

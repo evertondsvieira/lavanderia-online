@@ -22,17 +22,18 @@
         <app-button routerLink="/services" class="m-4" [success]="true">Novo Pedido</app-button>
       </div>
     </div>
-    <ul>
-      <li
-        *ngFor="let pedido of pedidos"
-        class="bg-white bg-opacity-90 flex items-center justify-between border-light-blue-500 w-auto h-auto p-4 rounded-md border-2 border-solid mb-4"
-      >
-        <p class="font-bold">{{pedido.nome}} {{ pedido.id }}</p>
+    <ul *ngIf="pedidos.length > 0; else empty">
+      <li *ngFor="let pedido of pedidos" class="bg-white bg-opacity-90 flex items-center justify-between border-light-blue-500 w-auto h-auto p-4 rounded-md border-2 border-solid mb-4">
+        <p class="font-bold">{{ pedido.nome }} {{ pedido.id }}</p>
         <button (click)="openConfirmationModal(pedido)" class="bg-rose-500 px-4 py-2 rounded text-white w-48">
           Cancelar Pedido
         </button>
       </li>
     </ul>
+
+    <ng-template #empty>
+      <app-no-data-found></app-no-data-found>
+    </ng-template>
   </div>
 </app-box>
 
