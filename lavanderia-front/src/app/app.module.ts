@@ -49,6 +49,7 @@ import { EmployeeGuard } from './utils/employee.guard';
 import { DatePipe } from '@angular/common';
 import { NoDataFoundComponent } from './components/ui-components/no-data-found/no-data-found.component';
 import { DetailsModalComponent } from './components/ui-components/details-modal/details-modal.component';
+import { OrderSearchComponent } from './order-search/order-search.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { DetailsModalComponent } from './components/ui-components/details-modal/
     UnauthorizedComponent,
     NoDataFoundComponent,
     DetailsModalComponent,
+    OrderSearchComponent,
   ],
   imports: [
     BrowserModule,

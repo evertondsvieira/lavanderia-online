@@ -6,29 +6,38 @@
   />
   
   <div
-    class="absolute opacity-90 bg-customGray w-[480px] h-[588px] rounded-lg p-8 flex flex-col"
+    class="absolute opacity-90 bg-customGray w-[480px] min-h-[588px] rounded-lg p-8 flex flex-col"
   >
     <h1 class="text-4xl mt-16 text-mainBlue font-bold mb-4 text-center">
       Cadastro
     </h1>
     <div [class]="'form-group flex flex-col gap-4'">
-      <input
-        placeholder="Nome de usuário"
-        name="nome"
-        type="text"
-        [(ngModel)]="newUser.nome"
-        class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
-        required
-      />
-      <input
-        placeholder="E-mail"
-        name="email"
-        type="email"
-        [(ngModel)]="newUser.email"
-        class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
-        required
-      />
+      <div>
+        <input
+          placeholder="Nome de usuário"
+          name="nome"
+          type="text"
+          [(ngModel)]="newUser.nome"
+          class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
+          required
+          (focusout)="validateField('nome')"
+          />
+          <div *ngIf="errorMessages.nome" class="error-message text-red-500">{{ errorMessages.nome }}</div>
+      </div>
+      <div>
+        <input
+          placeholder="E-mail"
+          name="email"
+          type="email"
+          [(ngModel)]="newUser.email"
+          class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
+          required
+          (focusout)="validateField('email')"
+          />
+          <div *ngIf="errorMessages.email" class="error-message text-red-500">{{ errorMessages.email }}</div>
+      </div>
       <div class="flex justify-between gap-8">
+        <div>
         <input
           placeholder="CPF"
           name="cpf"
@@ -36,7 +45,11 @@
           [(ngModel)]="newUser.cpf"
           class="border rounded h-10 w-48 pl-2 focus:outline-none"
           required
-        />
+          (focusout)="validateField('cpf')"
+          />
+          <div *ngIf="errorMessages.cpf" class="error-message text-red-500">{{ errorMessages.cpf }}</div>
+        </div>
+        <div>
         <input
           placeholder="Telefone"
           name="telefone"
@@ -44,6 +57,10 @@
           class="border rounded h-10 w-48 pl-2 focus:outline-none"
           [(ngModel)]="newUser.telefone"
           required
+          (focusout)="validateField('telefone')"
+          />
+          <div *ngIf="errorMessages.telefone" class="error-message text-red-500">{{ errorMessages.telefone }}</div>
+        </div>
         />
       </div>
       <div class="flex justify-between gap-8">
@@ -98,6 +115,9 @@
         <a routerLink="/login">
           <app-button [success]="false">Voltar</app-button>
         </a>
+      </div>
+      <div *ngIf="showErrorMessages" class="error-message text-red-500">
+        Preencha o formulário completo e/ou corrija os erros antes de enviar.
       </div>
     </div>
   </div>

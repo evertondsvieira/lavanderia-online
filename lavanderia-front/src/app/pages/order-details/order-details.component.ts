@@ -80,4 +80,6 @@ export class OrderDetailsComponent {
 
     return new Date(+year, +month - 1, +day, +hours, +minutes, +seconds);
   }
+
+  
 }

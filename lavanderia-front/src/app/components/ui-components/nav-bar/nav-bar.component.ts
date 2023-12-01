@@ -21,6 +21,7 @@ export class NavBarComponent {
   navItems: INaveItems[] = [
     { nome: 'Home', icone: 'home', link: 'user/home', role: 'usuario' },
     { nome: 'Pedidos', icone: 'article', link: '/order', role: 'usuario' },
+    { nome: 'Busca', icone: 'search', link: '/search', role: 'usuario' },
     { nome: 'Serviços', icone: 'local_laundry_service', link: '/services', role: 'usuario' },
     { nome: 'Carrinho', icone: 'shopping_cart', link: '/cart', role: 'usuario' },
     { nome: 'Home', icone: 'home', link: 'employee/home', role: 'funcionario' },
