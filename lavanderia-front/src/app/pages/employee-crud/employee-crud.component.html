@@ -5,33 +5,21 @@
         Lista de Peças de Roupas
       </h2>
       <div class="flex flex-col md:flex-row md:flex-wrap gap-4 overflow-x-auto">
-        <div
-          class="flex flex-col bg-white p-4 gap-2 w-full md:w-44 rounded mb-4 md:mr-4"
-          *ngFor="let item of clothingItems"
-        >
+        <div class="flex flex-col bg-white p-4 gap-2 w-full md:w-44 rounded mb-4 md:mr-4"
+          *ngFor="let item of clothingItems">
           <h2 class="text-base font-medium text-center">{{ item.nome }}</h2>
           <div class="flex justify-center items-start">
             <div class="flex flex-col gap-2">
-              <img
-                [src]="item.imgUrl"
-                alt="imagem do produto"
-                class="w-36 h-36"
-              />
+              <img [src]="item.imgUrl" alt="imagem do produto" class="w-36 h-36" />
               <p>Preço: {{ item.valor | currency:'BRL' }}</p>
               <p>
                 Prazo: {{ +item.prazo === 1 ? item.prazo + ' dia' : item.prazo + ' dias' }}
               </p>
               <div class="flex flex-col gap-2">
-                <button
-                  class="bg-blue-600 text-white rounded p-2"
-                  (click)="editItem(item)"
-                >
+                <button class="bg-blue-600 text-white rounded p-2" (click)="editItem(item)">
                   Editar
                 </button>
-                <button
-                  class="bg-red-600 text-white rounded p-2"
-                  (click)="openConfirmationModal(item)"
-                >
+                <button class="bg-red-600 text-white rounded p-2" (click)="openConfirmationModal(item)">
                   Remover
                 </button>
               </div>
@@ -40,10 +28,7 @@
         </div>
       </div>
 
-      <div
-        *ngIf="listaVazia"
-        class="flex items-center justify-center w-full pt-4 md:pt-40 font-medium text-xl"
-      >
+      <div *ngIf="listaVazia" class="flex items-center justify-center w-full pt-4 md:pt-40 font-medium text-xl">
         A lista está vazia
       </div>
     </div>
@@ -54,47 +39,47 @@
       </h2>
 
       <div class="flex flex-col gap-2 p-4 bg-white rounded">
+
         <p class="font-medium">Nome da peça de roupa:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="text"
-          [(ngModel)]="novoItem.nome"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="text" [(ngModel)]="novoItem.nome"
+          required (focusout)="validateField('nome')" />
+        <div *ngIf="errorMessages.nome" class="error-message text-red-500">
+          {{ errorMessages.nome }}
+        </div>
+
         <p class="font-medium">Preço individual:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="text"
-          [(ngModel)]="novoItem.valor"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="text" [(ngModel)]="novoItem.valor"
+          required (focusout)="validateField('valor')" />
+        <div *ngIf="errorMessages.valor" class="error-message text-red-500">
+          {{ errorMessages.valor }}
+        </div>
+
         <p class="font-medium">Descrição:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="text"
-          [(ngModel)]="novoItem.descricao"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="text" [(ngModel)]="novoItem.descricao"
+          required (focusout)="validateField('descricao')" />
+        <div *ngIf="errorMessages.descricao" class="error-message text-red-500">
+          {{ errorMessages.descricao }}
+        </div>
+
         <p class="font-medium">Prazo de lavagem:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="text"
-          [(ngModel)]="novoItem.prazo"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="text" [(ngModel)]="novoItem.prazo"
+          required (focusout)="validateField('prazo')" />
+        <div *ngIf="errorMessages.prazo" class="error-message text-red-500">
+          {{ errorMessages.prazo }}
+        </div>
+
         <p class="font-medium">Imagem:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="text"
-          [(ngModel)]="novoItem.imgUrl"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="text" [(ngModel)]="novoItem.imgUrl"
+          required (focusout)="validateField('imgUrl')" />
+        <div *ngIf="errorMessages.imgUrl" class="error-message text-red-500">
+          {{ errorMessages.imgUrl }}
+        </div>
+
         <div class="flex justify-between gap-2">
-          <button
-            class="bg-red-600 w-full text-white rounded p-2"
-            (click)="cleanForm()"
-          >
+          <button class="bg-red-600 w-full text-white rounded p-2" (click)="cleanForm()">
             Cancelar
           </button>
-          <button
-            class="bg-green-600 w-full text-white rounded p-2"
-            (click)="updateItem()"
-          >
+          <button class="bg-green-600 w-full text-white rounded p-2" (click)="validateForm(); updateItem()">
             Salvar
           </button>
         </div>
@@ -102,9 +87,6 @@
     </div>
   </div>
 </app-box>
-<app-confirmation-modal
-  *ngIf="RemovingItem"
-  (confirm)="confirmRemoveItem(RemovingItem)"
-  (cancel)="cancelRemoveItem()"
-></app-confirmation-modal>
+<app-confirmation-modal *ngIf="RemovingItem" (confirm)="confirmRemoveItem(RemovingItem)"
+  (cancel)="cancelRemoveItem()"></app-confirmation-modal>
 <app-error-alert *ngIf="showErrorAlert"></app-error-alert>
