@@ -21,6 +21,7 @@ export class ReportIncomeComponent {
   reports: IReportResponse[] = [];
   startDate: string | null = null;
   endDate: string | null = null;
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -43,6 +44,11 @@ export class ReportIncomeComponent {
         },
         error: (error: any) => {
           console.error('Erro ao buscar os dados:', error)
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         }
       })
   }
@@ -92,6 +98,11 @@ export class ReportIncomeComponent {
         },
         error: (error: any) => {
           console.error('Erro ao buscar os dados:', error);
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
   }
@@ -125,6 +136,11 @@ export class ReportIncomeComponent {
       })
       .catch((error: unknown) => {
         console.error(error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       });
   }
 }

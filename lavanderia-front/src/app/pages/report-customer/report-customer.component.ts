@@ -30,6 +30,7 @@ export interface IReport {
 export class ReportCustomerComponent {
   reports: IReport[] = []
   apiUrl = environment.apiUrl;
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -40,6 +41,11 @@ export class ReportCustomerComponent {
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error)
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     })
   }

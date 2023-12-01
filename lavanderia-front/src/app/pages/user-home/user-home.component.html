@@ -41,3 +41,5 @@
   (confirm)="onCancelOrder(selectedOrderToChangeStatus)"
   (cancel)="cancelStatusChange()"
 ></app-confirmation-modal>
+
+<app-error-alert *ngIf="showErrorAlert"></app-error-alert>

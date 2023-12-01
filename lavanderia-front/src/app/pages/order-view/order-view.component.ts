@@ -12,6 +12,7 @@ export class OrderViewComponent {
   pedidos: PedidoCarrinho[] = []
   startDate: string | null = null;
   endDate: string | null = null;
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +23,11 @@ export class OrderViewComponent {
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error)
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     })
   }
@@ -80,6 +86,11 @@ export class OrderViewComponent {
         },
         error: (error: any) => {
           console.error('Erro ao buscar os dados:', error);
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
   }
@@ -100,10 +111,20 @@ export class OrderViewComponent {
         },
         error: (error: any) => {
           console.error('Error in HTTP request:', error)
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         }
       })
     } else {
       console.error('Invalid order or user ID')
+      this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
     }
   }
 
@@ -149,6 +170,11 @@ export class OrderViewComponent {
       this.updateStatus(newStatus, order)
     } else {
       console.error('Invalid status transition')
+      this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
     }
   }
 

@@ -13,7 +13,7 @@ export class CartService {
   private cartItemsSubject = new BehaviorSubject<IProduct[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
   apiUrl = environment.apiUrl
-  
+  showErrorAlert: boolean = false;
 
   constructor(
     private http: HttpClient, 
@@ -75,6 +75,11 @@ export class CartService {
       },
       error: (error) => {
         console.error('Erro ao criar o pedido:', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       }
     });
   }

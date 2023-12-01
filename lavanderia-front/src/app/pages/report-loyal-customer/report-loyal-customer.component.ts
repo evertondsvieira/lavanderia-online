@@ -14,6 +14,7 @@ export class ReportLoyalCustomerComponent {
   apiUrl = environment.apiUrl;
   pdfDataUri: string | null = null;
   pdfConvertido = false;
+  showErrorAlert: boolean = false;
 
   reports: IReport[] = [];
 
@@ -30,6 +31,11 @@ export class ReportLoyalCustomerComponent {
       },
       error: (error: any) => {
         console.error('Erro ao buscar usuários fiéis:', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     });
   }
@@ -58,6 +64,11 @@ export class ReportLoyalCustomerComponent {
       })
       .catch((error: unknown) => {
         console.error(error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       });
   }
 }

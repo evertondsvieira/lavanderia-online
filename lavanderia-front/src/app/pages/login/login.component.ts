@@ -24,6 +24,7 @@ export class LoginComponent {
     token: '',
     role: '',
   };
+  showErrorAlert: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -64,10 +65,20 @@ export class LoginComponent {
           },
           error: (error) => {
             console.error('Erro ao logar:', error);
+            this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
           },
         });
     } else {
       console.error('Preencha todos os campos antes de enviar o formulário.');
+      this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
     }
   }
 

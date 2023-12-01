@@ -12,6 +12,7 @@ export class UserHomeComponent implements OnInit {
   apiUrl = environment.apiUrl;
   pedidos: PedidoCarrinho[] = [];
   nome = this.authService.getUserName()
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
   
@@ -26,6 +27,11 @@ export class UserHomeComponent implements OnInit {
       },
       error: (error: any) => {
         console.log('Erro ao buscar os dados', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     });
   }
@@ -48,6 +54,11 @@ export class UserHomeComponent implements OnInit {
         },
         error: (error: any) => {
           console.log('Error in HTTP response:', error);
+          this.showErrorAlert = true;
+
+    setTimeout(() => {
+      this.showErrorAlert = false;
+    }, 5000);
         },
       });
     } else {

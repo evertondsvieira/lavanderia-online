@@ -15,6 +15,7 @@ export class CartComponent {
   apiUrl = environment.apiUrl
   order: PedidoCarrinho[] =[];
   selectedOrderToChangeStatus = this.order;
+  showErrorAlert:boolean = false;
 
   constructor(private cartService: CartService) {
     this.products = this.cartService.getCartItems();

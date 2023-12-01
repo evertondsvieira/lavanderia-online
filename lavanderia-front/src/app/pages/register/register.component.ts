@@ -49,6 +49,7 @@ export class RegisterComponent {
     salt: '',
     pedidos: [],
   };
+  showErrorAlert: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -86,10 +87,20 @@ export class RegisterComponent {
           },
           error: (error) => {
             console.error('Erro ao registrar o usuário:', error);
+            this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
           },
         });
     } else {
       console.error('Preencha todos os campos antes de enviar o formulário.');
+      this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
     }
   }
 
@@ -106,6 +117,11 @@ export class RegisterComponent {
           },
           error: (error) => {
             console.error('Erro ao consultar o CEP:', error)
+            this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
           },
         })
     }

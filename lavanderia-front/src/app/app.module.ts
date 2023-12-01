@@ -48,6 +48,7 @@ import { UserGuard } from './utils/user.guard';
 import { EmployeeGuard } from './utils/employee.guard';
 import { DatePipe } from '@angular/common';
 import { DetailsModalComponent } from './components/ui-components/details-modal/details-modal.component';
+import { ErrorAlertComponent } from './components/ui-components/error-alert/error-alert.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { DetailsModalComponent } from './components/ui-components/details-modal/
     CancelationModalComponent,
     UnauthorizedComponent,
     DetailsModalComponent,
+    ErrorAlertComponent,
   ],
   imports: [
     BrowserModule,
