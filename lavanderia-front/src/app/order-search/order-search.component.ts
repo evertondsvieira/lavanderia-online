@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environment';
@@ -15,6 +15,7 @@ export class OrderSearchComponent {
   pedidoId!: PedidoCarrinho['id'];
   pedidoEncontrado: PedidoCarrinho | null = null;
   erroAoBuscarPedido: string | null = null;
+  @ViewChild('notFound', { read: TemplateRef }) notFound!: TemplateRef<any>;
 
   constructor(private http: HttpClient, private router: Router) {}
 
