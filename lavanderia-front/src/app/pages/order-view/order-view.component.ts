@@ -19,7 +19,8 @@ export class OrderViewComponent {
   ngOnInit(): void {
     this.http.get<PedidoCarrinho[]>(this.apiUrl + 'order').subscribe({
       next: (data: PedidoCarrinho[]) => {
-        this.pedidos = data
+        const sortedData = data.sort((a, b) => a.id - b.id)
+        this.pedidos = sortedData
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error)
