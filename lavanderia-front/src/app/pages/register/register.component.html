@@ -1,113 +1,61 @@
 <div class="relative h-full w-full flex flex-col items-center justify-center">
-  <img
-    class="bg-cover w-full h-full"
-    src="assets/background.jpg"
-    alt="Imagem de Fundo"
-  />
-  
-  <div
-    class="absolute opacity-90 bg-customGray w-[480px] min-h-[588px] rounded-lg p-8 flex flex-col"
-  >
+  <img class="bg-cover w-full h-full" src="assets/background.jpg" alt="Imagem de Fundo" />
+
+  <div class="absolute opacity-90 bg-customGray w-[480px] min-h-[588px] rounded-lg p-8 flex flex-col">
     <h1 class="text-4xl mt-16 text-mainBlue font-bold mb-4 text-center">
       Cadastro
     </h1>
     <div [class]="'form-group flex flex-col gap-4'">
       <div>
-        <input
-          placeholder="Nome de usuário"
-          name="nome"
-          type="text"
-          [(ngModel)]="newUser.nome"
-          class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
-          required
-          (focusout)="validateField('nome')"
-          />
-          <div *ngIf="errorMessages.nome" class="error-message text-red-500">{{ errorMessages.nome }}</div>
+        <input placeholder="Nome de usuário" name="nome" type="text" [(ngModel)]="newUser.nome"
+          class="border rounded h-10 w-[416px] pl-2 focus:outline-none" required (focusout)="validateField('nome')" />
+        <div *ngIf="errorMessages.nome" class="error-message text-red-500">
+          {{ errorMessages.nome }}
+        </div>
       </div>
       <div>
-        <input
-          placeholder="E-mail"
-          name="email"
-          type="email"
-          [(ngModel)]="newUser.email"
-          class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
-          required
-          (focusout)="validateField('email')"
-          />
-          <div *ngIf="errorMessages.email" class="error-message text-red-500">{{ errorMessages.email }}</div>
+        <input placeholder="E-mail" name="email" type="email" [(ngModel)]="newUser.email"
+          class="border rounded h-10 w-[416px] pl-2 focus:outline-none" required (focusout)="validateField('email')" />
+        <div *ngIf="errorMessages.email" class="error-message text-red-500">
+          {{ errorMessages.email }}
+        </div>
       </div>
       <div class="flex justify-between gap-8">
         <div>
-        <input
-          placeholder="CPF"
-          name="cpf"
-          type="number"
-          [(ngModel)]="newUser.cpf"
-          class="border rounded h-10 w-48 pl-2 focus:outline-none"
-          required
-          (focusout)="validateField('cpf')"
-          />
-          <div *ngIf="errorMessages.cpf" class="error-message text-red-500">{{ errorMessages.cpf }}</div>
+          <input placeholder="CPF" name="cpf" type="number" [(ngModel)]="newUser.cpf"
+            class="border rounded h-10 w-48 pl-2 focus:outline-none" required (focusout)="validateField('cpf')" />
+          <div *ngIf="errorMessages.cpf" class="error-message text-red-500">
+            {{ errorMessages.cpf }}
+          </div>
         </div>
         <div>
-        <input
-          placeholder="Telefone"
-          name="telefone"
-          type="tel"
-          class="border rounded h-10 w-48 pl-2 focus:outline-none"
-          [(ngModel)]="newUser.telefone"
-          required
-          (focusout)="validateField('telefone')"
-          />
-          <div *ngIf="errorMessages.telefone" class="error-message text-red-500">{{ errorMessages.telefone }}</div>
+          <input placeholder="Telefone" name="telefone" type="tel"
+            class="border rounded h-10 w-48 pl-2 focus:outline-none" [(ngModel)]="newUser.telefone" required
+            (focusout)="validateField('telefone')" />
+          <div *ngIf="errorMessages.telefone" class="error-message text-red-500">
+            {{ errorMessages.telefone }}
+          </div>
         </div>
-        />
       </div>
       <div class="flex justify-between gap-8">
-        <input
-          placeholder="CEP"
-          name="cep"
-          type="text"
-          class="border rounded h-10 w-64 pl-2 focus:outline-none"
-          [(ngModel)]="newUser.cep"
-          (ngModelChange)="onCepChange()"
-          required
-        />
-        <input
-          placeholder="UF"
-          name="uf"
-          type="text"
-          class="border rounded h-10 w-32 pl-2 focus:outline-none"
-          [(ngModel)]="newUser.uf"
-          required
-        />
+        <input placeholder="CEP" name="cep" type="text" class="border rounded h-10 w-64 pl-2 focus:outline-none"
+          [(ngModel)]="newUser.cep" (ngModelChange)="onCepChange()" required />
+        <div class="flex flex-col justify-between">
+          <input placeholder="UF" name="uf" type="text" class="border rounded h-10 w-32 pl-2 focus:outline-none"
+            [(ngModel)]="newUser.uf" required (focusout)="validateField('uf')" />
+        </div>
+      </div>
+      <div *ngIf="errorMessages.uf" class="error-message text-red-500 flex justify-end">
+        {{ errorMessages.uf }}
       </div>
       <div class="flex justify-between gap-8">
-        <input
-          placeholder="Cidade"
-          name="cidade"
-          type="text"
-          class="border rounded h-10 w-48 pl-2 focus:outline-none"
-          [(ngModel)]="newUser.cidade"
-          required
-        />
-        <input
-          placeholder="Bairro"
-          name="bairro"
-          type="text"
-          class="border rounded h-10 w-48 pl-2 focus:outline-none"
-          [(ngModel)]="newUser.bairro"
-          required
-        />
+        <input placeholder="Cidade" name="cidade" type="text" class="border rounded h-10 w-48 pl-2 focus:outline-none"
+          [(ngModel)]="newUser.cidade" required />
+        <input placeholder="Bairro" name="bairro" type="text" class="border rounded h-10 w-48 pl-2 focus:outline-none"
+          [(ngModel)]="newUser.bairro" required />
       </div>
-      <input
-        placeholder="Rua"
-        name="rua"
-        type="text"
-        [(ngModel)]="newUser.rua"
-        class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
-        required
-      />
+      <input placeholder="Rua" name="rua" type="text" [(ngModel)]="newUser.rua"
+        class="border rounded h-10 w-[416px] pl-2 focus:outline-none" required />
       <div class="flex items-center justify-between gap-5 w-full">
         <app-button [success]="true" (click)="onSubmit()">
           Criar conta
@@ -117,7 +65,7 @@
         </a>
       </div>
       <div *ngIf="showErrorMessages" class="error-message text-red-500">
-        Preencha o formulário completo e/ou corrija os erros antes de enviar.
+        Por favor, preencha todos os campos
       </div>
     </div>
   </div>

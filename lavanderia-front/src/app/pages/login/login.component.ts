@@ -17,6 +17,7 @@ interface ILoginUser {
 })
 export class LoginComponent {
   apiUrl = environment.apiUrl;
+  errorMessage: string = '';
   user: ILoginUser[] = [];
   newUser: ILoginUser = {
     email: '',
@@ -30,18 +31,6 @@ export class LoginComponent {
     private router: Router,
     private authService: AuthService,
   ) {}
-
-  errorMessage: string = '';
-  // emailError: string = '';
-
-
-  // validateEmail() {
-  //   if (!this.newUser.email.includes('@')) {
-  //     this.emailError = 'O email digitado não é valido.';
-  //   } else {
-  //     this.emailError = '';
-  //   }
-  // }
 
   onSubmit() {
     if (this.areAllFieldsFilled()) {
@@ -75,11 +64,12 @@ export class LoginComponent {
             }
           },
           error: (error) => {
-            console.error('Erro ao logar:', error);
-            this.errorMessage = 'Ocorreu um erro ao fazer login. Por favor, tente novamente.';
-    },
-  });
-}
+            this.errorMessage = 'Email ou senha errados';
+          },
+        });
+    } else {
+      this.errorMessage = 'Por favor, preencha todos os campos';
+    }
   }
 
   areAllFieldsFilled(): boolean {

@@ -14,16 +14,14 @@
 
     <div class="flex flex-col gap-6">
       <div>
-      <input
-        class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
-        size="default"
-        icon="email"
-        type="text"
-        placeholder="Email"
-        [(ngModel)]="newUser.email"
-
+        <input
+          class="border rounded h-10 w-[416px] pl-2 focus:outline-none"
+          size="default"
+          icon="email"
+          type="text"
+          placeholder="Email"
+          [(ngModel)]="newUser.email"
         />
-        <!-- (focusout)="validateEmail()"<p *ngIf="emailError" class="text-red-500">{{ emailError }}</p> -->
       </div>
 
       <input
@@ -49,6 +47,8 @@
         ><app-button [success]="false">Cadastre-se</app-button></a
       >
     </div>
-    <p *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+    <div class="mt-4">
+      <p *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+    </div>
   </div>
 </div>

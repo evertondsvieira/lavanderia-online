@@ -55,9 +55,10 @@ export class RegisterComponent {
     email: '',
     cpf: '',
     telefone: '',
+    uf: '',
   };
 
-  showErrorMessages = false; 
+  showErrorMessages = false;
 
   constructor(
     private http: HttpClient,
@@ -98,7 +99,6 @@ export class RegisterComponent {
           },
         });
     } else {
-      console.error('Preencha o formulário completo e/ou corrija os erros antes de enviar.');
       this.showErrorMessages = true;
     }
   }
@@ -109,15 +109,15 @@ export class RegisterComponent {
         .get<CepData>(`https://viacep.com.br/ws/${this.newUser.cep}/json/`)
         .subscribe({
           next: (data) => {
-            this.newUser.uf = data.uf
-            this.newUser.cidade = data.localidade
-            this.newUser.bairro = data.bairro
-            this.newUser.rua = data.logradouro
+            this.newUser.uf = data.uf;
+            this.newUser.cidade = data.localidade;
+            this.newUser.bairro = data.bairro;
+            this.newUser.rua = data.logradouro;
           },
           error: (error) => {
-            console.error('Erro ao consultar o CEP:', error)
+            console.error('Erro ao consultar o CEP:', error);
           },
-        })
+        });
     }
   }
 
@@ -141,6 +141,7 @@ export class RegisterComponent {
       email: '',
       cpf: '',
       telefone: '',
+      uf: '',
     };
 
     return true;
@@ -160,6 +161,9 @@ export class RegisterComponent {
       case 'telefone':
         this.validateTelefone();
         break;
+      case 'uf':
+        this.validateUF();
+        break;
     }
   }
 
@@ -167,7 +171,7 @@ export class RegisterComponent {
     this.errorMessages.nome = '';
 
     if (this.newUser.nome.length < 5 || this.newUser.nome.length > 60) {
-      this.errorMessages.nome = 'O nome deve ter entre 5 e 60 caracteres.';
+      this.errorMessages.nome = 'O nome deve ter entre 5 e 60 caracteres';
     }
   }
 
@@ -175,7 +179,7 @@ export class RegisterComponent {
     this.errorMessages.email = '';
 
     if (!this.newUser.email.includes('@')) {
-      this.errorMessages.email = 'Email inválido.';
+      this.errorMessages.email = 'Email inválido';
     }
   }
 
@@ -185,17 +189,26 @@ export class RegisterComponent {
     const cpfString = this.newUser.cpf.toString();
 
     if (cpfString.length !== 10) {
-      this.errorMessages.cpf = 'CPF inválido.';
+      this.errorMessages.cpf = 'CPF inválido';
     }
   }
 
   validateTelefone(): void {
     this.errorMessages.telefone = '';
 
-    if (this.newUser.telefone.length < 8 || !/^\d+$/.test(this.newUser.telefone)) {
-      this.errorMessages.telefone = 'Telefone inválido.';
-
+    if (
+      this.newUser.telefone.length < 8 ||
+      !/^\d+$/.test(this.newUser.telefone)
+    ) {
+      this.errorMessages.telefone = 'Telefone inválido';
+    }
   }
-}
 
+  validateUF(): void {
+    this.errorMessages.uf = '';
+
+    if (this.newUser.uf.length !== 2) {
+      this.errorMessages.uf = 'Máximo dois caracteres';
+    }
+  }
 }
