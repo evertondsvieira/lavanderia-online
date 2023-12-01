@@ -33,7 +33,7 @@
           {{ status.status }}
         </button>
       </div>
-      <span>Data e Hora: {{ status.data | date: "dd/MM/yyyy - HH:mm" }}</span>
+      <span>Data: {{ status.data | date: "dd/MM/yyyy" }}</span>
       <div class="flex justify-between items-center">
         <button
           *ngIf="status.status === 'Em andamento'"
