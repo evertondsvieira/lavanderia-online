@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environment';
 import { PedidoCarrinho } from '../pages/order/order.component'
+import { AuthService } from '../utils/AuthService';
 
 @Component({
   selector: 'app-order-search',
@@ -17,14 +18,16 @@ export class OrderSearchComponent {
   erroAoBuscarPedido: string | null = null;
   @ViewChild('notFound', { read: TemplateRef }) notFound!: TemplateRef<any>;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  userId = this.authService.getUserId();  
 
   buscarPedido(): void {
     this.erroAoBuscarPedido = null;
-
+    
     if (this.pedidoId) {
       this.http
-        .get<PedidoCarrinho>(this.apiUrl + `order/${this.pedidoId}`)
+        .get<PedidoCarrinho>(this.apiUrl + `order/${this.pedidoId}/user/${this.userId}`)
         .subscribe({
           next: (data: PedidoCarrinho) => {
             if (data) {
