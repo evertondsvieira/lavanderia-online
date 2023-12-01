@@ -2,6 +2,7 @@ package com.lavanderia.lavanderiaback.database;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +13,6 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     LocalDate startDate, 
     LocalDate endDate
   );
+
+  Optional<Pedido> findByIdAndUsuarioId(Long orderId, Long usuarioId);
 }

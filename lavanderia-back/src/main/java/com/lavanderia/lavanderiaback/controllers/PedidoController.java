@@ -102,10 +102,27 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("/{orderId}/user/{usuarioId}")
+    public ResponseEntity<?> getOrderByUser(@PathVariable Long usuarioId, @PathVariable Long orderId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+
+        if (usuario != null) {
+            Pedido pedido = repository.findByIdAndUsuarioId(orderId, usuarioId).orElse(null);
+
+            if (pedido != null) {
+                return ResponseEntity.ok(pedido);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.badRequest().body("ID de usuário inválido: " + usuarioId);
+        }
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<Pedido>> getPedidosByDateRange(
-        @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 
         List<Pedido> pedidos = repository.findByDataBetween(startDate, endDate);
 
