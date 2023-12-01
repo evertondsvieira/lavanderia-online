@@ -13,6 +13,7 @@ export class HomeEmployeeComponent {
   selectedStatus: string = 'all';
   listaVazia: boolean = false
   pedidos: PedidoCarrinho[] = []
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -25,6 +26,11 @@ export class HomeEmployeeComponent {
       },
       error: (error: any) => {
         console.log('Erro ao buscar os dados', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     });
   }
@@ -45,10 +51,20 @@ export class HomeEmployeeComponent {
         },
         error: (error: any) => {
           console.error('Error in HTTP request:', error)
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         }
       })
     } else {
       console.error('Invalid order or user ID')
+      this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
     }
   }
 

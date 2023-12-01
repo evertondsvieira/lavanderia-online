@@ -66,3 +66,4 @@
   (confirm)="onConfirmPayment(selectedOrderToChangeStatus)"
   (cancel)="onCancelClick()"
 ></app-confirmation-modal>
+<app-error-alert *ngIf="showErrorAlert"></app-error-alert>

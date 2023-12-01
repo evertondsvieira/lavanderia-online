@@ -18,6 +18,7 @@ export class ReportCustomerDetailsComponent implements OnInit {
   selectedReport: IReport | null = null;
   order: PedidoCarrinho | null = null;
   reports: IReport[] = []
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
@@ -31,6 +32,11 @@ export class ReportCustomerDetailsComponent implements OnInit {
         },
         error: (error: any) => {
           console.error('Erro ao buscar os dados:', error);
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
     });

@@ -49,6 +49,7 @@ export class RegisterComponent {
     salt: '',
     pedidos: [],
   };
+  showErrorAlert: boolean = false;
 
   errorMessages = {
     nome: '',
@@ -96,10 +97,20 @@ export class RegisterComponent {
           },
           error: (error) => {
             console.error('Erro ao registrar o usuário:', error);
+            this.showErrorAlert = true;
+
+            setTimeout(() => {
+              this.showErrorAlert = false;
+            }, 5000);
           },
         });
     } else {
       this.showErrorMessages = true;
+      this.showErrorAlert = true;
+
+      setTimeout(() => {
+        this.showErrorAlert = false;
+      }, 5000);
     }
   }
 
@@ -115,7 +126,11 @@ export class RegisterComponent {
             this.newUser.rua = data.logradouro;
           },
           error: (error) => {
-            console.error('Erro ao consultar o CEP:', error);
+            this.showErrorAlert = true;
+
+            setTimeout(() => {
+              this.showErrorAlert = false;
+            }, 5000);
           },
         });
     }

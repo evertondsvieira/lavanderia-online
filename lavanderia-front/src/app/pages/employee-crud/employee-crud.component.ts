@@ -21,6 +21,7 @@ export class EmployeeCrudComponent implements OnInit {
   clothingItems: ClothingItem[] = []
   itemEmEdicao: ClothingItem | null = null
   RemovingItem: ClothingItem | null = null;
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -56,6 +57,11 @@ export class EmployeeCrudComponent implements OnInit {
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     });
   }
@@ -81,6 +87,11 @@ export class EmployeeCrudComponent implements OnInit {
           },
           error: (error: any) => {
             console.error('Erro ao adicionar o item:', error);
+            this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
           },
         });
     }
@@ -107,6 +118,11 @@ export class EmployeeCrudComponent implements OnInit {
             },
             error: (error: any) => {
               console.error('Erro ao atualizar o item:', error);
+              this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
             },
           });
       }
@@ -133,6 +149,11 @@ export class EmployeeCrudComponent implements OnInit {
         },
         error: (error: any) => {
           console.error('Erro ao excluir o item:', error);
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
     }

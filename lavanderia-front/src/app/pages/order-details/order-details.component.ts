@@ -15,6 +15,7 @@ export class OrderDetailsComponent {
   apiUrl = environment.apiUrl;
   pedidos: PedidoCarrinho[] = [];
   itemPedido: ItemPedido[] = [];
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private datePipe: DatePipe) {}
 
@@ -27,6 +28,11 @@ export class OrderDetailsComponent {
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     });
   }
@@ -51,10 +57,20 @@ export class OrderDetailsComponent {
         },
         error: (error: any) => {
           console.log('Error in HTTP response:', error);
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
     } else {
       console.error('Invalid order or user ID');
+      this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
     }
   }
 

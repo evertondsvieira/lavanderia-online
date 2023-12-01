@@ -44,6 +44,7 @@ export class OrderComponent implements OnInit {
   selectedStatus: string = 'all';
   selectedOrderToChangeStatus: PedidoCarrinho | null = null;
   statusOptions: string[] = ['EM ABERTO', 'CANCELADO', 'REJEITADO'];
+  showErrorAlert: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -62,6 +63,11 @@ export class OrderComponent implements OnInit {
         },
         error: (error: any) => {
           console.error('Erro ao buscar os dados:', error)
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
   }

@@ -20,6 +20,7 @@ export interface IProduct {
 export class ProductComponent implements OnInit {
   apiUrl = environment.apiUrl
   products: IProduct[] = []
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient, private cartService: CartService) {}
   
@@ -30,6 +31,11 @@ export class ProductComponent implements OnInit {
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     });
   }

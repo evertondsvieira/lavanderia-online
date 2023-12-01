@@ -21,6 +21,7 @@ export class EmployeeMaintenanceComponent {
   employees: EmployeeMaintenance[] = []
   itemEmEdicao: EmployeeMaintenance | null = null
   RemovingItem: EmployeeMaintenance | null = null
+  showErrorAlert: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -56,6 +57,11 @@ export class EmployeeMaintenanceComponent {
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error);
+        this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
       },
     });
   }
@@ -89,6 +95,11 @@ export class EmployeeMaintenanceComponent {
         },
         error: (error: any) => {
           console.error('Erro ao adicionar o item:', error);
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
     }
@@ -115,6 +126,11 @@ export class EmployeeMaintenanceComponent {
             },
             error: (error: any) => {
               console.error('Erro ao atualizar o item:', error);
+              this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
             },
           });
       }
@@ -141,6 +157,11 @@ export class EmployeeMaintenanceComponent {
         },
         error: (error: any) => {
           console.error('Erro ao excluir o item:', error);
+          this.showErrorAlert = true;
+
+        setTimeout(() => {
+        this.showErrorAlert = false;
+         }, 5000);
         },
       });
     }

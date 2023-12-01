@@ -50,6 +50,7 @@ import { DatePipe } from '@angular/common';
 import { NoDataFoundComponent } from './components/ui-components/no-data-found/no-data-found.component';
 import { DetailsModalComponent } from './components/ui-components/details-modal/details-modal.component';
 import { OrderSearchComponent } from './order-search/order-search.component';
+import { ErrorAlertComponent } from './components/ui-components/error-alert/error-alert.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { OrderSearchComponent } from './order-search/order-search.component';
     NoDataFoundComponent,
     DetailsModalComponent,
     OrderSearchComponent,
+    ErrorAlertComponent,
   ],
   imports: [
     BrowserModule,

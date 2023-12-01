@@ -25,6 +25,7 @@ export class LoginComponent {
     token: '',
     role: '',
   };
+  showErrorAlert: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -65,10 +66,20 @@ export class LoginComponent {
           },
           error: (error) => {
             this.errorMessage = 'Email ou senha errados';
+            this.showErrorAlert = true;
+
+            setTimeout(() => {
+              this.showErrorAlert = false;
+            }, 5000);
           },
         });
     } else {
       this.errorMessage = 'Por favor, preencha todos os campos';
+      this.showErrorAlert = true;
+
+      setTimeout(() => {
+        this.showErrorAlert = false;
+      }, 5000);
     }
   }
 
