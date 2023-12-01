@@ -5,9 +5,7 @@
         Lista de Funcionários
       </h2>
       <div class="table-container overflow-x-auto w-full">
-        <table
-          class="w-full text-center text-sm text-gray-500 dark:text-gray-400"
-        >
+        <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">E-mail</th>
             <th scope="col" class="px-6 py-3">Nome</th>
@@ -22,16 +20,10 @@
                 <td class="w-72 p-4">{{ employee.datanascimento }}</td>
                 <td class="w-80 p-4">
                   <div class="flex gap-2 items-center justify-center">
-                    <button
-                      class="bg-blue-600 text-white rounded p-2"
-                      (click)="editItem(employee)"
-                    >
+                    <button class="bg-blue-600 text-white rounded p-2" (click)="editItem(employee)">
                       Editar
                     </button>
-                    <button
-                      class="bg-red-600 text-white rounded p-2"
-                      (click)="openConfirmationModal(employee)"
-                    >
+                    <button class="bg-red-600 text-white rounded p-2" (click)="openConfirmationModal(employee)">
                       Remover
                     </button>
                   </div>
@@ -40,10 +32,7 @@
             </ng-container>
           </tbody>
         </table>
-        <div
-          *ngIf="listaVazia"
-          class="flex items-center justify-center w-full pt-40 font-medium text-xl"
-        >
+        <div *ngIf="listaVazia" class="flex items-center justify-center w-full pt-40 font-medium text-xl">
           A lista está vazia
         </div>
       </div>
@@ -56,44 +45,38 @@
 
       <div class="flex flex-col gap-2 p-4 bg-white rounded">
         <p class="font-medium">Nome:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="text"
-          [(ngModel)]="newEmployee.nome"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="text" [(ngModel)]="newEmployee.nome"
+          required (focusout)="validateField('nome')" />
+        <div *ngIf="errorMessages.nome" class="error-message text-red-500">
+          {{ errorMessages.nome }}
+        </div>
 
         <p class="font-medium">E-mail:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="text"
-          [(ngModel)]="newEmployee.email"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="text" [(ngModel)]="newEmployee.email"
+          required (focusout)="validateField('email')" />
+        <div *ngIf="errorMessages.email" class="error-message text-red-500">
+          {{ errorMessages.email }}
+        </div>
 
         <p class="font-medium">Data de nascimento:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="date"
-          [(ngModel)]="newEmployee.datanascimento"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="date"
+          [(ngModel)]="newEmployee.datanascimento" required (focusout)="validateField('datanascimento')" />
+        <div *ngIf="errorMessages.datanascimento" class="error-message text-red-500">
+          {{ errorMessages.datanascimento }}
+        </div>
 
         <p class="font-medium">Senha:</p>
-        <input
-          class="border rounded h-10 w-auto pl-2 focus:outline-none"
-          type="password"
-          [(ngModel)]="newEmployee.senha"
-        />
+        <input class="border rounded h-10 w-auto pl-2 focus:outline-none" type="password"
+          [(ngModel)]="newEmployee.senha" required (focusout)="validateField('senha')" />
+        <div *ngIf="errorMessages.senha" class="error-message text-red-500">
+          {{ errorMessages.senha }}
+        </div>
 
         <div class="flex justify-between gap-2">
-          <button
-            class="bg-red-600 w-full text-white rounded p-2"
-            (click)="cleanForm()"
-          >
+          <button class="bg-red-600 w-full text-white rounded p-2" (click)="cleanForm()">
             Cancelar
           </button>
-          <button
-            class="bg-green-600 w-full text-white rounded p-2"
-            (click)="updateItem()"
-          >
+          <button class="bg-green-600 w-full text-white rounded p-2" (click)="updateItem()">
             Salvar
           </button>
         </div>
@@ -101,9 +84,6 @@
     </div>
   </div>
 </app-box>
-<app-confirmation-modal
-  *ngIf="RemovingItem"
-  (confirm)="confirmRemoveItem(RemovingItem)"
-  (cancel)="cancelRemoveItem()"
-></app-confirmation-modal>
+<app-confirmation-modal *ngIf="RemovingItem" (confirm)="confirmRemoveItem(RemovingItem)"
+  (cancel)="cancelRemoveItem()"></app-confirmation-modal>
 <app-error-alert *ngIf="showErrorAlert"></app-error-alert>

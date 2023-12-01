@@ -33,6 +33,8 @@ export class EmployeeMaintenanceComponent {
     senha: '',
   };
 
+  errorMessages = { nome: '', email: '', datanascimento: '', senha: '' };
+
   editItem(item: EmployeeMaintenance) {
     this.itemEmEdicao = { ...item };
     this.newEmployee = { ...item };
@@ -67,7 +69,7 @@ export class EmployeeMaintenanceComponent {
   }
 
   addItem() {
-    if (this.newEmployee.nome && this.newEmployee.email && this.newEmployee.datanascimento && this.newEmployee.senha) {
+    if (this.newEmployee.nome && this.newEmployee.email && this.newEmployee.datanascimento && this.newEmployee.senha && this.validateForm()) {
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
    
       const formattedDate = moment(this.newEmployee.datanascimento).format('DD/MM/YYYY');
@@ -138,6 +140,11 @@ export class EmployeeMaintenanceComponent {
   }
 
   updateItem() {
+    if (!this.newEmployee.nome && !this.newEmployee.email && !this.newEmployee.datanascimento && !this.newEmployee.senha) {
+      this.validateForm();
+      return;
+    }
+    
     if (this.newEmployee.id === 0) {
       this.addItem();
     } else {
@@ -177,6 +184,72 @@ export class EmployeeMaintenanceComponent {
       senha: '',
     };
   }
+
+  validateForm(): boolean {
+    this.errorMessages = {
+      nome: '',
+      email: '',
+      datanascimento: '',
+      senha: '',
+    };
+  
+    this.validateName();
+    this.validateEmail();
+    this.validateDataNascimento();
+    this.validateSenha();
+  
+    return !Object.values(this.errorMessages).some(message => message !== '');
+  }
+
+  validateField(fieldName: string): void {
+    switch (fieldName) {
+      case 'nome':
+        this.validateName();
+        break;
+      case 'email':
+        this.validateEmail();
+        break;
+      case 'datanascimento':
+        this.validateDataNascimento();
+        break;
+      case 'senha':
+        this.validateSenha();
+        break;
+    }
+  }
+
+  validateName(): void {
+    this.errorMessages.nome = '';
+
+    if (!this.newEmployee.nome) {
+      this.errorMessages.nome = 'Nome é obrigatório';
+    }
+  }
+
+  validateDataNascimento(): void {
+    this.errorMessages.datanascimento = '';
+
+    if (!this.newEmployee.datanascimento) {
+      this.errorMessages.datanascimento = 'Data de nascimento é obrigatória';
+    }
+  }
+
+  validateEmail(): void {
+    this.errorMessages.email = '';
+
+    if (!this.newEmployee.email.includes('@')) {
+      this.errorMessages.email = 'Email inválido';
+    }
+  }
+
+  validateSenha(): void {
+    this.errorMessages.senha = '';
+
+    if (this.newEmployee.senha.length !== 4) {
+      this.errorMessages.senha = 'Máximo quatro caracteres';
+    }
+  }
+
   openConfirmationModal(employees: EmployeeMaintenance) {
     this.RemovingItem = employees;
   }
