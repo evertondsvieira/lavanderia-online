@@ -13,6 +13,7 @@ export class CartService {
   private cartItemsSubject = new BehaviorSubject<IProduct[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
   apiUrl = environment.apiUrl
+  
 
   constructor(
     private http: HttpClient, 
@@ -78,6 +79,48 @@ export class CartService {
     });
   }
 
+  RejectOrder(detalhesPedido: string): void {
+    const userId = this.authService.getUserId();
+    const deliveryDate = this.calculateDeliveryDate();
+    
+    const items = this.cartItemsSubject.value.map((product) => {
+      return {
+        item: {
+          id: product.id,
+          nome: product.nome,
+          quantidade: product.quantidade,
+          valor: product.valor,
+          imgUrl: product.imgUrl,
+          prazo: product.prazo,
+        },
+        quantidade: product.quantidade
+      };
+    });
+
+    const order = {
+      usuario: { id: userId },
+      nome: 'Pedido do Carrinho',
+      data: new Date().toISOString(),
+      descricao: detalhesPedido,
+      status: 'REJEITADO',
+      valor: this.calculateTotalValue().toString(),
+      prazo: deliveryDate, 
+      itemsPedido: items,
+      userId: this.authService.getUserId()
+    };
+
+    this.http.post(`${this.apiUrl}order`, order).subscribe({
+      next: () => {
+        this.clearCart()
+        this.router.navigate(['order'])
+      },
+      error: (error) => {
+        console.error('Erro ao criar o pedido:', error);
+      }
+    });
+    }
+
+
   calculateTotalValue(): number {
     return this.cartItemsSubject.value.reduce(
       (total, product) => total + product.valor * product.quantidade,
@@ -98,4 +141,5 @@ export class CartService {
   clearCart(): void {
     this.cartItemsSubject.next([]);
   }
+  
 }

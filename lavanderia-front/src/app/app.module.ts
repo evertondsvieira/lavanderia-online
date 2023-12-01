@@ -48,6 +48,7 @@ import { UserGuard } from './utils/user.guard';
 import { EmployeeGuard } from './utils/employee.guard';
 import { DatePipe } from '@angular/common';
 import { NoDataFoundComponent } from './components/ui-components/no-data-found/no-data-found.component';
+import { DetailsModalComponent } from './components/ui-components/details-modal/details-modal.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { NoDataFoundComponent } from './components/ui-components/no-data-found/n
     CancelationModalComponent,
     UnauthorizedComponent,
     NoDataFoundComponent,
+    DetailsModalComponent,
   ],
   imports: [
     BrowserModule,
