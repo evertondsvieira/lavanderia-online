@@ -43,7 +43,7 @@ export class OrderComponent implements OnInit {
   pedidos: PedidoCarrinho[] = [];
   selectedStatus: string = 'all';
   selectedOrderToChangeStatus: PedidoCarrinho | null = null;
-  statusOptions: string[] = ['EM ABERTO', 'CANCELADO', 'REJEITADO'];
+  statusOptions: string[] = ['EM ABERTO', 'CANCELADO', 'REJEITADO', 'PAGO', 'FINALIZADO'];
   showErrorAlert: boolean = false;
 
   constructor(

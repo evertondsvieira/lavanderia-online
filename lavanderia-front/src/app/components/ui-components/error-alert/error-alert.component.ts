@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./error-alert.component.css']
 })
 export class ErrorAlertComponent {
- showErrorAlert: boolean = true;
+  showErrorAlert: boolean = true;
 }

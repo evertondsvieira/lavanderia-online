@@ -203,7 +203,7 @@ export class RegisterComponent {
 
     const cpfString = this.newUser.cpf.toString();
 
-    if (cpfString.length !== 10) {
+    if (cpfString.length !== 11) {
       this.errorMessages.cpf = 'CPF inválido';
     }
   }

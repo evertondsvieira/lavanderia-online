@@ -3,7 +3,6 @@ import { ItemPedido, PedidoCarrinho } from '../order/order.component';
 import { environment } from 'src/app/environment';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 
 @Component({
@@ -17,7 +16,7 @@ export class OrderDetailsComponent {
   itemPedido: ItemPedido[] = [];
   showErrorAlert: boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private datePipe: DatePipe) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
@@ -96,6 +95,4 @@ export class OrderDetailsComponent {
 
     return new Date(+year, +month - 1, +day, +hours, +minutes, +seconds);
   }
-
-  
 }

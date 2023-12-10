@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environment';
 import { PedidoCarrinho } from '../order/order.component';
@@ -8,7 +8,7 @@ import { PedidoCarrinho } from '../order/order.component';
   selector: 'app-order',
   templateUrl: './home-employee.component.html',
 })
-export class HomeEmployeeComponent {
+export class HomeEmployeeComponent implements OnInit {
   apiUrl = environment.apiUrl;
   selectedStatus: string = 'all';
   listaVazia: boolean = false
@@ -47,7 +47,7 @@ export class HomeEmployeeComponent {
         next: (data: PedidoCarrinho) => {
           this.pedidos = [data]
           this.cancelStatusChange()
-          window.location.reload()
+          this.ngOnInit()
         },
         error: (error: any) => {
           console.error('Error in HTTP request:', error)

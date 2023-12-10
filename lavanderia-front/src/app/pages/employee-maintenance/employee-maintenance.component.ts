@@ -22,7 +22,7 @@ export class EmployeeMaintenanceComponent {
   itemEmEdicao: EmployeeMaintenance | null = null
   RemovingItem: EmployeeMaintenance | null = null
   showErrorAlert: boolean = false;
-
+  
   constructor(private http: HttpClient) {}
 
   newEmployee: EmployeeMaintenance = {

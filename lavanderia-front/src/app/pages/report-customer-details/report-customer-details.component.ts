@@ -20,14 +20,40 @@ export class ReportCustomerDetailsComponent implements OnInit {
   reports: IReport[] = []
   showErrorAlert: boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private http: HttpClient, 
+    private route: ActivatedRoute
+  ) {}
 
+  formatarCPF(cpf: string): string {
+    if (cpf === null) {
+      return ''
+    }
+
+    const cpfFormatado = `${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(6, 9)}-${cpf.substring(9)}`
+
+    return cpfFormatado;
+  }
+
+  formatarCep(cep: number): string {
+    let cepStr = cep.toString()
+  
+    while (cepStr.length < 8) {
+      cepStr = '0' + cepStr
+    }
+  
+    cepStr = cepStr.replace(/(\d{5})(\d{3})/, '$1-$2')
+  
+    return cepStr
+  }
+  
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const customerId = +params['id'];
   
       this.http.get<IReport>(`${this.apiUrl}user/${customerId}`).subscribe({
         next: (data: IReport) => {
+          data.pedidos = data.pedidos.sort((a, b) => a.id - b.id);
           this.selectedReport = data;
         },
         error: (error: any) => {

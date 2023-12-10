@@ -1,27 +1,28 @@
 <div class="flex gap-4 flex-wrap">
-  <div
-    *ngFor="let product of products"
-    class="border-light-blue-500 gap-2 flex flex-col w-56 h-auto p-4 justify-center rounded-md border-2 border-solid"
-  >
-    <p class="text-center font-medium">{{ product.nome }}</p>
-    <img [src]="product.imgUrl" alt="Product: {{ product.nome }}" class="w-48 h-48" />
-    <p class="text-justify">{{ product.descricao }}</p>
+  <ng-container *ngIf="products.length > 0; else empty">
+    <div *ngFor="let product of products"
+      class="border-light-blue-500 gap-2 flex flex-col w-56 h-auto p-4 justify-center rounded-md border-2 border-solid">
+      <p class="text-center font-medium">{{ product.nome }}</p>
+      <img [src]="product.imgUrl" alt="Product: {{ product.nome }}" class="w-48 h-48" />
+      <p class="text-justify">{{ product.descricao }}</p>
 
-    <span class="font-medium flex gap-2">
-      Valor unitário:
-      <p class="font-normal">{{ product.valor | currency:'BRL' }}</p>
-    </span>
+      <span class="font-medium flex gap-2">
+        Valor unitário:
+        <p class="font-normal">{{ product.valor | currency:'BRL' }}</p>
+      </span>
 
-    <div class="flex items-center justify-center">
-      <app-button
-        class="app-button"
-        [success]="true"
-        (buttonClick)="adicionarAoCarrinho(product)"
-      >
-        Adicionar ao carrinho
-      </app-button>
+      <div class="flex items-center justify-center">
+        <app-button class="app-button" [success]="true" (buttonClick)="adicionarAoCarrinho(product)">
+          Adicionar ao carrinho
+        </app-button>
+      </div>
     </div>
-  </div>
+  </ng-container>
+  <ng-template #empty>
+    <div class="w-full">
+      <app-no-data-found></app-no-data-found>
+    </div>
+  </ng-template>
 </div>
 
 <app-alert *ngIf="showAlert"></app-alert>

@@ -20,6 +20,16 @@ export class ReportLoyalCustomerComponent {
 
   constructor(private http: HttpClient) {}
 
+  formatarCPF(cpf: string): string {
+    if (cpf === null) {
+      return ''
+    }
+
+    const cpfFormatado = `${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(6, 9)}-${cpf.substring(9)}`
+
+    return cpfFormatado
+  }
+
   ngOnInit() {
     this.loadLoyalCustomers();
   }
@@ -34,8 +44,8 @@ export class ReportLoyalCustomerComponent {
         this.showErrorAlert = true;
 
         setTimeout(() => {
-        this.showErrorAlert = false;
-         }, 5000);
+          this.showErrorAlert = false;
+        }, 5000);
       },
     });
   }
@@ -67,8 +77,8 @@ export class ReportLoyalCustomerComponent {
         this.showErrorAlert = true;
 
         setTimeout(() => {
-        this.showErrorAlert = false;
-         }, 5000);
+          this.showErrorAlert = false;
+        }, 5000);
       });
   }
 }

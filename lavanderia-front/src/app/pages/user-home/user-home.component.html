@@ -3,9 +3,9 @@
     <h1 class="w-[403.85px] text-zinc-900 text-[1.5rem] font-bold p-4">
       BEM-VINDO(A), {{ nome?.toUpperCase() }}!
     </h1>
-    
-    <div class="flex items-center justify-center">
-      <p class="w-[521.09px] text-zinc-900 text-[1rem] font-light text-center">
+
+    <div class="flex items-center justify-center p-4">
+      <p class="w-[521.09px] text-zinc-900 text-[1rem] font-medium text-center">
         Com nosso toque mágico, cada peça <br />conta uma história de frescor e
         limpeza.
       </p>
@@ -14,33 +14,35 @@
   </div>
 </app-box>
 <app-box>
-  <div class="w-full bg-white bg-opacity-90">
-    <div class="flex justify-between items-center">
-      <h2 class="text-xl text-mainBlue font-bold mr-32 pl-4">Pedidos Abertos</h2>
+  <div class="w-full bg-white bg-opacity-90 p-4">
+    <div class="flex justify-between items-center flex-col md:flex-row">
+      <h2 class="text-xl text-mainBlue font-bold">Pedidos Abertos</h2>
       <div class="flex items-center">
-        <app-button routerLink="/order" class="m-4"> Histórico de Pedidos </app-button>
-        <app-button routerLink="/services" class="m-4" [success]="true">Novo Pedido</app-button>
+        <app-button routerLink="/order" class="m-2 md:m-4 text-sm md:text-base">Histórico de Pedidos</app-button>
+        <app-button routerLink="/services" [success]="true" class="text-sm md:text-base">Novo Pedido</app-button>
       </div>
     </div>
-    <ul *ngIf="pedidos.length > 0; else empty">
-      <li *ngFor="let pedido of pedidos" class="bg-white bg-opacity-90 flex items-center justify-between border-light-blue-500 w-auto h-auto p-4 rounded-md border-2 border-solid mb-4">
-        <p class="font-bold">{{ pedido.nome }} {{ pedido.id }}</p>
-        <button (click)="openConfirmationModal(pedido)" class="bg-rose-500 px-4 py-2 rounded text-white w-48">
-          Cancelar Pedido
-        </button>
-      </li>
-    </ul>
-
+    <ng-container *ngIf="pedidos.length > 0; else empty">
+      <ul class="w-full">
+        <li *ngFor="let pedido of pedidos"
+          class="bg-white bg-opacity-90 flex flex-col md:flex-row items-center justify-between border-light-blue-500 w-full p-2 md:p-4 rounded-md border-2 border-solid mb-4">
+          <p class="font-bold text-sm md:text-base mb-2 md:mb-0">{{ pedido.nome }} {{ pedido.id }}</p>
+          <button (click)="openConfirmationModal(pedido)"
+            class="bg-rose-500 px-4 py-2 rounded text-white w-full md:w-48">
+            Cancelar Pedido
+          </button>
+        </li>
+      </ul>
+    </ng-container>
     <ng-template #empty>
-      <app-no-data-found></app-no-data-found>
+      <div class="pt-4">
+        <app-no-data-found></app-no-data-found>
+      </div>
     </ng-template>
   </div>
 </app-box>
 
-<app-confirmation-modal
-  *ngIf="selectedOrderToChangeStatus"
-  (confirm)="onCancelOrder(selectedOrderToChangeStatus)"
-  (cancel)="cancelStatusChange()"
-></app-confirmation-modal>
+<app-confirmation-modal *ngIf="selectedOrderToChangeStatus" (confirm)="onCancelOrder(selectedOrderToChangeStatus)"
+  (cancel)="cancelStatusChange()"></app-confirmation-modal>
 
 <app-error-alert *ngIf="showErrorAlert"></app-error-alert>

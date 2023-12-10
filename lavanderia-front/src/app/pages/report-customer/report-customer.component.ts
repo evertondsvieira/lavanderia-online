@@ -32,12 +32,30 @@ export class ReportCustomerComponent {
   apiUrl = environment.apiUrl;
   showErrorAlert: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+  ) {}
+
+  formatarCPF(cpf: string): string {
+    if (cpf === null) {
+      return ''
+    }
+  
+    const cpfFormatado = `${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(6, 9)}-${cpf.substring(9)}`
+  
+    return cpfFormatado;
+  }
 
   ngOnInit(): void {
     this.http.get<IReport[]>(this.apiUrl + 'user').subscribe({
       next: (data: IReport[]) => {
-        this.reports = data
+        const formattedData = data.map(report => ({
+          ...report,
+          cpf: this.formatarCPF(report.cpf),
+        }));
+        const sortedData = formattedData.sort((a, b) => a.id - b.id);
+        this.reports = sortedData;
       },
       error: (error: any) => {
         console.error('Erro ao buscar os dados:', error)

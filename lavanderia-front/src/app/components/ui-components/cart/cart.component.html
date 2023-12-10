@@ -1,6 +1,6 @@
 <div class="h-auto">
   <ng-container *ngIf="products.length > 0; else emptyCart">
-    <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+    <table class="w-full mx-auto text-left text-sm text-gray-500 dark:text-gray-400">
       <thead
         class="bg-gray-50 text-xs uppercase text-gray-700 dark:text-gray-400"
       >
@@ -107,9 +107,9 @@
         </p>
         <p class="font-medium text-white">Prazo de entrega: {{ calculateDeliveryDate() }}</p>
       </div>
-      <app-button [success]="false" (click)="openConfirmationModal()"
-        >Finalizar orçamento</app-button
-      >
+      <app-button [success]="false" (click)="openConfirmationModal()">
+        Finalizar orçamento
+      </app-button>
     </div>
   </ng-container>
   <ng-template #emptyCart>

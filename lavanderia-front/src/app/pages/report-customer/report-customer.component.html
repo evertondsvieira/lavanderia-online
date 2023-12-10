@@ -1,20 +1,17 @@
 <app-box>
   <div class="w-full">
-    <h2 class="font-medium">Lista de clientes</h2>
-
-    <div class="p-2">
-      <div class="table-container overflow-x-auto">
-        <table
-          class="w-full text-center text-sm text-gray-500 dark:text-gray-400"
-        >
-          <tr>
-            <th scope="col" class="px-6 py-3">Id</th>
-            <th scope="col" class="px-6 py-3">Nome</th>
-            <th scope="col" class="px-6 py-3">CPF</th>
-            <th scope="col" class="px-6 py-3">Ação</th>
-          </tr>
-          <tbody>
-            <ng-container *ngFor="let report of reports">
+    <h2 class="text-xl text-mainBlue font-bold">Lista de clientes</h2>
+    <ng-container *ngIf="reports.length > 0; else empty">
+      <div class="p-2" *ngFor="let report of reports">
+        <div class="table-container overflow-x-auto">
+          <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">Id</th>
+              <th scope="col" class="px-6 py-3">Nome</th>
+              <th scope="col" class="px-6 py-3">CPF</th>
+              <th scope="col" class="px-6 py-3">Ação</th>
+            </tr>
+            <tbody>
               <tr class="border-b bg-white">
                 <td class="w-32 p-4">{{ report.id }}</td>
                 <td class="w-32 p-4">{{ report.nome }}</td>
@@ -23,11 +20,16 @@
                   <button (click)="showDetails(report)">Ver detalhes</button>
                 </td>
               </tr>
-            </ng-container>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #empty>
+      <div class="w-full">
+        <app-no-data-found></app-no-data-found>
+      </div>
+    </ng-template>
   </div>
 </app-box>
 <app-error-alert *ngIf="showErrorAlert"></app-error-alert>

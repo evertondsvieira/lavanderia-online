@@ -1,53 +1,49 @@
 <app-box>
   <div class="flex items-center justify-between w-full pb-3">
     <h1 class="text-xl text-mainBlue font-bold">Relatório de Receita</h1>
-    <app-date-filter
-      [startDate]="startDate"
-      [endDate]="endDate"
-      [reportIncomeComponent]="this"
+    <app-date-filter [startDate]="startDate" [endDate]="endDate" [reportIncomeComponent]="this"
       (filterApplied)="updateDateRange($event)">
     </app-date-filter>
   </div>
-  <div class="w-full">
-    <div #pdfContent class="p-2">
-      <div class="table-container overflow-x-auto">
-        <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">Data Início</th>
-            <th scope="col" class="px-6 py-3">Data Fim</th>
-            <th scope="col" class="px-6 py-3">Valor Total</th>
-          </tr>
-          <tbody *ngIf="reports && reports.length > 0; else noData">
-            <tr class="border-b bg-white" *ngFor="let report of reports">
-              <td class="w-32 p-4">{{ formatDateAndLog(report.inicio) }}</td>
-              <td class="w-32 p-4">{{ formatDateAndLog(report.fim) }}</td>                      
-              <td class="w-32 p-4">{{ report.receitaTotal | currency: 'BRL' }}</td>
-            </tr>                        
-          </tbody>
-          <ng-template #noData>
+  <ng-container *ngIf="reports && reports.length > 0; else empty">
+    <div class="w-full">
+      <div #pdfContent class="p-2">
+        <div class="table-container overflow-x-auto">
+          <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
             <tr>
-              <td colspan="3" class="mt-4 text-lg">Nenhum relatório disponível</td>
+              <th scope="col" class="px-6 py-3">Data Início</th>
+              <th scope="col" class="px-6 py-3">Data Fim</th>
+              <th scope="col" class="px-6 py-3">Valor Total</th>
             </tr>
-          </ng-template>
-        </table>
+            <tbody>
+              <tr class="border-b bg-white" *ngFor="let report of reports">
+                <td class="w-32 p-4">{{ formatDateAndLog(report.inicio) }}</td>
+                <td class="w-32 p-4">{{ formatDateAndLog(report.fim) }}</td>
+                <td class="w-32 p-4">{{ report.receitaTotal | currency: 'BRL' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="flex flex-col w-full items-end mb-2">
+        <ng-container *ngIf="!pdfConvertido; else pdfLink">
+          <app-button [success]="false" (click)="convertToPDF()">
+            Converter para PDF
+          </app-button>
+        </ng-container>
+
+        <ng-template #pdfLink>
+          <a *ngIf="pdfConvertido" [href]="pdfDataUri" download="Relatorio.pdf">
+            <app-button [success]="true">Baixar PDF</app-button>
+          </a>
+        </ng-template>
       </div>
     </div>
-    <div class="flex flex-col w-full items-end mb-2">
-      <ng-container *ngIf="!pdfConvertido; else pdfLink">
-        <app-button
-          [success]="false"
-          (click)="convertToPDF()"
-        >
-          Converter para PDF
-        </app-button>
-      </ng-container>
-
-      <ng-template #pdfLink>
-        <a *ngIf="pdfConvertido" [href]="pdfDataUri" download="Relatorio.pdf">
-          <app-button [success]="true">Baixar PDF</app-button>
-        </a>
-      </ng-template>
+  </ng-container>
+  <ng-template #empty>
+    <div class="w-full">
+      <app-no-data-found></app-no-data-found>
     </div>
-  </div>
+  </ng-template>
 </app-box>
 <app-error-alert *ngIf="showErrorAlert"></app-error-alert>

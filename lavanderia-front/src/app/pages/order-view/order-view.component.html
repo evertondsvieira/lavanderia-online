@@ -1,65 +1,50 @@
 <app-box>
   <div class="flex items-center justify-between w-full pb-3">
     <h1 class="text-xl text-mainBlue font-bold">Visualização de pedidos</h1>
-    <app-date-filter
-      [startDate]="startDate"
-      [endDate]="endDate"
-      (filterApplied)="updateDateRange($event)">
+    <app-date-filter [startDate]="startDate" [endDate]="endDate" (filterApplied)="updateDateRange($event)">
     </app-date-filter>
   </div>
-
-  <img src="assets/order-view.png" class="rounded-md w-full pb-4" />
-
-  <div
-    *ngFor="let pedido of pedidos"
-    [ngClass]="getColor(pedido.status)"
-    [style.background-color]="getColor(pedido.status)"
-    class="flex w-full h-18 rounded-lg mb-4"
-  >
-    <div class="flex flex-col w-full m-2 p-2 gap-2">
-      <div class="flex flex-col gap-1">
-        <p class="font-bold">{{ pedido.nome }} {{ pedido.id }}</p>
-        <span>Data: {{ pedido.data | date:'dd/MM/yyyy - HH:mm' }}</span>
+  <img src="assets/order-view.png" class="rounded-md w-full" />
+  <ng-container *ngIf="pedidos.length > 0; else empty">
+    <div class="w-full max-h-[480px] overflow-y-scroll">
+      <div *ngFor="let pedido of pedidos" [ngClass]="getColor(pedido.status)"
+        [style.background-color]="getColor(pedido.status)" class="flex w-full h-18 rounded-lg mb-4 ">
+        <div class="flex flex-col w-full m-2 p-2 gap-2">
+          <div class="flex flex-col gap-1">
+            <p class="font-bold">{{ pedido.nome }} {{ pedido.id }}</p>
+            <span>Data: {{ pedido.data | date:'dd/MM/yyyy - HH:mm' }}</span>
+          </div>
+        </div>
+        <div class="flex flex-col justify-center items-end p-4 w-[360px]">
+          <p class="w-auto text-end font-medium">{{ pedido.status }}</p>
+          <button *ngIf="pedido.status === 'EM ABERTO'" (click)="openConfirmationModal(pedido)"
+            class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer">
+            Confirmar Recolhimento
+          </button>
+          <button *ngIf="pedido.status === 'RECOLHIDO'" (click)="openConfirmationModal(pedido)"
+            class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer">
+            Confirmar Lavagem
+          </button>
+          <button *ngIf="pedido.status === 'AGUARDANDO PAGAMENTO'" (click)="openConfirmationModal(pedido)"
+            class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer">
+            Confirmar Pagamento
+          </button>
+          <button *ngIf="pedido.status === 'PAGO'" (click)="openConfirmationModal(pedido)"
+            class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer">
+            Finalizar Pedido
+          </button>
+        </div>
       </div>
     </div>
-
-    <div class="flex flex-col justify-center items-end p-4 w-[360px]">
-      <p class="w-auto text-end font-medium">{{ pedido.status }}</p>
-      <button
-        *ngIf="pedido.status === 'EM ABERTO'"
-        (click)="openConfirmationModal(pedido)"
-        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
-      >
-        Confirmar Recolhimento
-      </button>
-      <button
-        *ngIf="pedido.status === 'RECOLHIDO'"
-        (click)="openConfirmationModal(pedido)"
-        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
-      >
-        Confirmar Lavagem
-      </button>
-      <button
-        *ngIf="pedido.status === 'AGUARDANDO PAGAMENTO'"
-        (click)="openConfirmationModal(pedido)"
-        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
-      >
-        Confirmar Pagamento
-      </button>
-      <button
-        *ngIf="pedido.status === 'PAGO'"
-        (click)="openConfirmationModal(pedido)"
-        class="bg-mainBlue text-white font-medium uppercase text-xs p-2 rounded outline-none cursor-pointer"
-      >
-        Finalizar Pedido
-      </button>
+  </ng-container>
+  <ng-template #empty>
+    <div class="w-full pt-4">
+      <app-no-data-found></app-no-data-found>
     </div>
-  </div>
+  </ng-template>
 </app-box>
 
-<app-confirmation-modal
-  *ngIf="selectedOrderToChangeStatus"
-  (confirm)="confirmStatusChange(selectedOrderToChangeStatus)"
-  (cancel)="cancelStatusChange()"
-></app-confirmation-modal>
+<app-confirmation-modal *ngIf="selectedOrderToChangeStatus" (confirm)="confirmStatusChange(selectedOrderToChangeStatus)"
+  (cancel)="cancelStatusChange()">
+</app-confirmation-modal>
 <app-error-alert *ngIf="showErrorAlert"></app-error-alert>

@@ -1,20 +1,22 @@
 <app-box>
-  <div class="p-2 flex flex-col md:flex-row justify-between w-full gap-4">
-    <div class="w-full md:w-1/2 lg:w-3/4">
-      <h2 class="text-xl font-medium text-center mb-2">
+  <div class="flex flex-col md:flex-row justify-between w-full gap-4">
+    <div class="w-full md:w-1/2 lg:w-full">
+      <h2 class="text-xl text-mainBlue font-bold text-center mb-2">
         Lista de Funcionários
       </h2>
-      <div class="table-container overflow-x-auto w-full">
-        <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">E-mail</th>
-            <th scope="col" class="px-6 py-3">Nome</th>
-            <th scope="col" class="px-6 py-3">Data de nascimento</th>
-            <th scope="col" class="px-6 py-3">Ação</th>
-          </tr>
-          <tbody>
-            <ng-container *ngFor="let employee of employees">
-              <tr class="border-b bg-white">
+      <ng-container *ngIf="employees.length > 0; else empty">
+        <div class="table-container overflow-x-auto w-full">
+          <table class="w-full text-center text-sm text-gray-500 dark:text-gray-400">
+            <thead>
+              <tr>
+                <th scope="col" class="px-6 py-3">E-mail</th>
+                <th scope="col" class="px-6 py-3">Nome</th>
+                <th scope="col" class="px-6 py-3">Data de nascimento</th>
+                <th scope="col" class="px-6 py-3">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b bg-white" *ngFor="let employee of employees">
                 <td class="w-72 p-4">{{ employee.email }}</td>
                 <td class="w-72 p-4">{{ employee.nome }}</td>
                 <td class="w-72 p-4">{{ employee.datanascimento }}</td>
@@ -29,18 +31,20 @@
                   </div>
                 </td>
               </tr>
-            </ng-container>
-          </tbody>
-        </table>
-        <div *ngIf="listaVazia" class="flex items-center justify-center w-full pt-40 font-medium text-xl">
-          A lista está vazia
+            </tbody>
+          </table>
         </div>
-      </div>
+      </ng-container>
+      <ng-template #empty>
+        <div class="w-full p-4">
+          <app-no-data-found></app-no-data-found>
+        </div>
+      </ng-template>
     </div>
 
-    <div class="w-full items-center justify-center md:w-1/2 lg:w-96">
-      <h2 class="text-xl font-medium text-center mb-2">
-        Painel de Adição/Edição
+    <div class="w-full md:w-1/2 lg:w-96">
+      <h2 class="text-mainBlue text-xl font-bold text-center mb-2">
+        Painel de Manutenção
       </h2>
 
       <div class="flex flex-col gap-2 p-4 bg-white rounded">
