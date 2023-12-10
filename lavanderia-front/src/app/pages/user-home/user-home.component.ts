@@ -51,6 +51,7 @@ export class UserHomeComponent implements OnInit {
             this.pedidos[index] = data;
           }
           this.selectedOrderToChangeStatus = null;
+          this.ngOnInit()
         },
         error: (error: any) => {
           console.log('Error in HTTP response:', error);
