@@ -1,18 +1,15 @@
 <app-box>
 	<div>
-		<div class="pb-3">
-			<h1 class="font-medium text-mainBlue text-3xl m-2">Buscar pedido</h1>
-		</div>
+		<h1 class="text-mainBlue text-xl font-bold m-2">Buscar pedido</h1>
 		<div>
 			<input type="text" placeholder="Digite o número do pedido" [(ngModel)]="pedidoId"
 				class="p-2 border rounded-md min-w-[230px]" />
 			<button class="bg-mainBlue text-white p-2 rounded-md ml-2" (click)="buscarPedido()">Buscar</button>
 		</div>
 	</div>
-
 </app-box>
 
-<app-box *ngIf="pedidoEncontrado">
+<app-box *ngIf="pedidoEncontrado && !erroAoBuscarPedido">
 	<div>
 		<h2 class="flex font-medium text-2xl m-2">Detalhes do pedido encontrado:</h2>
 		<div
@@ -26,7 +23,7 @@
 			</section>
 
 			<div *ngIf="pedidoEncontrado.itemsPedido.length > 0" class="mt-4">
-				<p class="font-medium">Itens do pedido:</p>
+				<p class="text-mainBlue font-medium">Itens do pedido:</p>
 				<ul>
 					<li *ngFor="let item of pedidoEncontrado.itemsPedido">
 						<p>Nome do item: {{ item.item.nome }}</p>
@@ -40,9 +37,9 @@
 	</div>
 </app-box>
 
-
-<app-box *ngIf="!pedidoEncontrado">
-	<div *ngIf="erroAoBuscarPedido" class="text-red-500 mt-2">
-		{{ erroAoBuscarPedido }}
+<app-box *ngIf="erroAoBuscarPedido">
+	<div class="w-full">
+		<app-no-data-found></app-no-data-found>
 	</div>
 </app-box>
+

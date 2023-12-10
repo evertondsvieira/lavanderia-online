@@ -2,8 +2,8 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environment';
-import { PedidoCarrinho } from '../pages/order/order.component'
-import { AuthService } from '../utils/AuthService';
+import { PedidoCarrinho } from '../order/order.component'
+import { AuthService } from '../../utils/AuthService';
 
 @Component({
   selector: 'app-order-search',

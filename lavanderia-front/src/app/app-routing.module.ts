@@ -18,7 +18,7 @@ import { EmployeeMaintenanceComponent } from './pages/employee-maintenance/emplo
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { EmployeeGuard } from './utils/employee.guard';
 import { UserGuard } from './utils/user.guard';
-import { OrderSearchComponent } from './order-search/order-search.component';
+import { OrderSearchComponent } from './pages/order-search/order-search.component';
 
 export const userRoutes: Routes = [
   { path: 'services', component: LaundryServicesComponent, canActivate: [UserGuard] },

@@ -49,7 +49,7 @@ import { EmployeeGuard } from './utils/employee.guard';
 import { DatePipe } from '@angular/common';
 import { NoDataFoundComponent } from './components/ui-components/no-data-found/no-data-found.component';
 import { DetailsModalComponent } from './components/ui-components/details-modal/details-modal.component';
-import { OrderSearchComponent } from './order-search/order-search.component';
+import { OrderSearchComponent } from './pages/order-search/order-search.component';
 import { ErrorAlertComponent } from './components/ui-components/error-alert/error-alert.component';
 
 @NgModule({
